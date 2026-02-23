@@ -21,8 +21,9 @@
                   "pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
                   "var payload = pm.response.json();",
                   "var collections = (payload && payload.collections) || [];",
-                  "var targetName = pm.environment.get(\"mockSourceCollectionName\");",
-                  "var targetPostmanId = pm.environment.get(\"mockSourceCollectionPostmanId\");",
+                  "var targetName = pm.environment.get(\"mockSourceCollectionName\") || \"Board Third Party Library API (Generated)\";",
+                  "if (!pm.environment.get(\"mockSourceCollectionName\")) { pm.environment.set(\"mockSourceCollectionName\", targetName); }",
+                  "var targetPostmanId = pm.environment.get(\"mockSourceCollectionPostmanId\") || \"\";",
                   "var exactTarget = targetPostmanId ? collections.find(function (c) {",
                   "  return c && c.uid && c.uid.split(\"-\").slice(1).join(\"-\") === targetPostmanId;",
                   "}) : null;",
@@ -33,6 +34,10 @@
                   "  pm.expect(matchingByName.length, \"Found \" + matchingByName.length + \" collections named \" + targetName + \". Clean up duplicates or set mockSourceCollectionPostmanId.\").to.eql(1);",
                   "});",
                   "var target = exactTarget || fallbackTarget;",
+                  "pm.test(\"Mock source collection name is configured\", function () {",
+                  "  pm.expect(targetName).to.be.a(\"string\");",
+                  "  pm.expect(targetName.trim().length).to.be.above(0);",
+                  "});",
                   "pm.test(\"Mock source collection exists\", function () {",
                   "  pm.expect(target, \"Collection not found: \" + targetName).to.exist;",
                   "});",
@@ -621,4 +626,3 @@
     }
   ]
 }
-

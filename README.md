@@ -5,6 +5,7 @@ Design and tests for the API for the Board third party library.
 ## Table of Contents
 
 - [Postman Workflow](#postman-workflow)
+- [GitHub Actions Mock Contract Tests (CI)](#github-actions-mock-contract-tests-ci)
 - [Mock-First Flow](#mock-first-flow)
 - [Repository Files](#repository-files)
 - [Working Rules](#working-rules)
@@ -42,6 +43,34 @@ Typical workflow:
 4. Regenerate/update the API Builder generated collection if the spec changed.
 5. Run contract tests from `Board Third Party Library API (Contract Tests)`.
 6. Save/export updates to the same Git-tracked collection file when test scripts change.
+
+## GitHub Actions Mock Contract Tests (CI)
+
+The `api` repository includes a GitHub Actions workflow that runs the Git-tracked Postman contract tests with Newman on `push`, `pull_request`, and manual dispatch:
+
+- Workflow file: `.github/workflows/postman-mock-contract-tests.yml`
+
+### Required GitHub secret
+
+- `POSTMAN_API_KEY`
+
+Use a Postman API key for an account (or service account) that has access to the workspace referenced by the Mock Admin environment (`workspaceId` in `postman/environments/board-third-party-library_mock-admin.postman_environment.json`).
+
+No static mock URL secret is required.
+
+### CI mock lifecycle (per run)
+
+To avoid stale mock URLs and stale Postman collection snapshots, the workflow performs these steps during each run:
+
+1. Resolve the contract test collection in Postman using the Mock Admin environment metadata (name/ID).
+2. Update that Postman collection from the current repo file (`postman/collections/board-third-party-library-api.contract-tests.postman_collection.json`).
+3. Create a fresh Postman mock server for the run and capture its `mockUrl`.
+4. Run Newman against the repo-tracked collection using the generated `mockUrl` as `baseUrl`.
+5. Delete the CI-created mock server during cleanup (even if Newman tests fail).
+
+### Fork pull requests
+
+GitHub does not expose repository secrets to forked pull requests. The workflow detects this and skips the mock-based Newman run for fork PRs rather than failing on missing credentials.
 
 ## Mock-First Flow
 

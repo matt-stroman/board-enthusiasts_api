@@ -389,6 +389,163 @@ paths:
                     status: 409
                     detail: Verify this email address before setting it as primary.
                     code: email_not_verified
+  /identity/me/email-addresses/{emailAddressId}/send-verification:
+    post:
+      tags: [Identity]
+      summary: Send email verification challenge
+      description: >
+        Sends or re-sends an email verification challenge for the specified email address.
+        The target email address must belong to the current user and must not already be verified.
+      operationId: sendMyEmailAddressVerificationChallenge
+      parameters:
+        - name: emailAddressId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - $ref: '#/components/parameters/PostmanMockResponseCodeHeader'
+        - $ref: '#/components/parameters/PostmanMockResponseNameHeader'
+      responses:
+        '202':
+          description: Verification challenge accepted for delivery.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendUserEmailVerificationChallengeResponse'
+              examples:
+                accepted:
+                  summary: Verification email queued/sent
+                  value:
+                    verificationChallenge:
+                      emailAddressId: 489a1540-39f5-499f-a4fd-1874a0136d31
+                      deliveryChannel: email
+                      destinationHint: a***.r******@example.com
+                      status: sent
+                      expiresAt: '2026-02-23T12:15:00Z'
+                      resendAvailableAt: '2026-02-23T11:56:00Z'
+        '404':
+          description: Email address not found for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                not-found:
+                  summary: Email address ID does not exist for the user
+                  value:
+                    type: https://boardtpl.dev/problems/email-address-not-found
+                    title: Email address not found
+                    status: 404
+                    detail: The requested email address was not found for the current user.
+                    code: email_address_not_found
+        '409':
+          description: Email address is already verified and does not require a verification challenge.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                already-verified:
+                  summary: Email address already verified
+                  value:
+                    type: https://boardtpl.dev/problems/email-already-verified
+                    title: Email address is already verified
+                    status: 409
+                    detail: This email address is already verified.
+                    code: email_already_verified
+  /identity/me/email-addresses/{emailAddressId}/verify:
+    post:
+      tags: [Identity]
+      summary: Verify email address
+      description: >
+        Confirms ownership of the specified email address using a verification code previously sent
+        to that address.
+      operationId: verifyMyEmailAddress
+      parameters:
+        - name: emailAddressId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - $ref: '#/components/parameters/PostmanMockResponseCodeHeader'
+        - $ref: '#/components/parameters/PostmanMockResponseNameHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyUserEmailAddressRequest'
+            examples:
+              code-entry:
+                summary: User submits emailed verification code
+                value:
+                  code: '482913'
+      responses:
+        '200':
+          description: Email address verified successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyUserEmailAddressResponse'
+              examples:
+                verified:
+                  summary: Email address verified and activated
+                  value:
+                    emailAddress:
+                      id: 489a1540-39f5-499f-a4fd-1874a0136d31
+                      email: alex.rivers@example.com
+                      verified: true
+                      isPrimary: false
+                      status: active
+        '404':
+          description: Email address not found for the current user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                not-found:
+                  summary: Email address ID does not exist for the user
+                  value:
+                    type: https://boardtpl.dev/problems/email-address-not-found
+                    title: Email address not found
+                    status: 404
+                    detail: The requested email address was not found for the current user.
+                    code: email_address_not_found
+        '409':
+          description: Verification code is invalid, expired, or no longer applicable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                invalid-or-expired-code:
+                  summary: Verification code invalid or expired
+                  value:
+                    type: https://boardtpl.dev/problems/verification-code-invalid
+                    title: Verification code is invalid or expired
+                    status: 409
+                    detail: The verification code is invalid, expired, or has already been used.
+                    code: verification_code_invalid
+        '422':
+          description: Validation failed for the request payload.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+              examples:
+                invalid-code-format:
+                  summary: Verification code is missing or malformed
+                  value:
+                    type: https://boardtpl.dev/problems/validation-error
+                    title: Request validation failed
+                    status: 422
+                    code: validation_error
+                    errors:
+                      code:
+                        - A verification code is required.
 components:
   parameters:
     PostmanMockResponseCodeHeader:
@@ -535,6 +692,16 @@ components:
           type: string
           format: email
           example: alex.rivers@example.com
+    VerifyUserEmailAddressRequest:
+      type: object
+      required:
+        - code
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 32
+          example: '482913'
     RegisteredUserSummary:
       type: object
       required:
@@ -593,6 +760,52 @@ components:
         primaryEmail:
           $ref: '#/components/schemas/UserEmailAddressSummary'
     AddUserEmailAddressResponse:
+      type: object
+      required:
+        - emailAddress
+      properties:
+        emailAddress:
+          $ref: '#/components/schemas/UserEmailAddressSummary'
+    UserEmailVerificationChallengeSummary:
+      type: object
+      required:
+        - emailAddressId
+        - deliveryChannel
+        - destinationHint
+        - status
+        - expiresAt
+        - resendAvailableAt
+      properties:
+        emailAddressId:
+          type: string
+          format: uuid
+        deliveryChannel:
+          type: string
+          enum:
+            - email
+        destinationHint:
+          type: string
+          description: Masked delivery destination shown to the user.
+          example: a***@example.com
+        status:
+          type: string
+          enum:
+            - sent
+            - queued
+        expiresAt:
+          type: string
+          format: date-time
+        resendAvailableAt:
+          type: string
+          format: date-time
+    SendUserEmailVerificationChallengeResponse:
+      type: object
+      required:
+        - verificationChallenge
+      properties:
+        verificationChallenge:
+          $ref: '#/components/schemas/UserEmailVerificationChallengeSummary'
+    VerifyUserEmailAddressResponse:
       type: object
       required:
         - emailAddress

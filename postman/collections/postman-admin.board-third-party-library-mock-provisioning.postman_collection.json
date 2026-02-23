@@ -92,6 +92,58 @@
                   "    pm.environment.set(\"mockUrl\", mockUrl);",
                   "    pm.environment.set(\"baseUrl\", mockUrl);",
                   "  }",
+                  "}",
+                  "var runtimeEnvId = pm.environment.get(\"mockRuntimeEnvironmentId\");",
+                  "var runtimeEnvName = pm.environment.get(\"mockRuntimeEnvironmentName\") || \"Board Third Party Library - Mock\";",
+                  "var apiBase = pm.environment.get(\"postmanApiBaseUrl\") || \"https://api.getpostman.com\";",
+                  "var apiKey = pm.variables.replaceIn(\"{{vault:postman-api-key}}\");",
+                  "if (mockUrl && runtimeEnvId && apiKey && apiKey.indexOf(\"{{vault:\") !== 0) {",
+                  "  pm.sendRequest({",
+                  "    url: apiBase + \"/environments/\" + runtimeEnvId,",
+                  "    method: \"GET\",",
+                  "    header: { \"X-Api-Key\": apiKey, \"Accept\": \"application/json\" }",
+                  "  }, function (getErr, getRes) {",
+                  "    pm.test(\"Fetched runtime mock environment for baseUrl sync\", function () {",
+                  "      pm.expect(getErr).to.eql(null);",
+                  "      pm.expect(getRes).to.exist;",
+                  "      pm.expect(getRes.code).to.eql(200);",
+                  "    });",
+                  "    if (getErr || !getRes || getRes.code !== 200) { return; }",
+                  "    var getPayload = getRes.json();",
+                  "    var envObj = getPayload && getPayload.environment;",
+                  "    pm.test(\"Runtime mock environment payload returned\", function () {",
+                  "      pm.expect(envObj).to.exist;",
+                  "      pm.expect(Array.isArray(envObj.values)).to.eql(true);",
+                  "    });",
+                  "    if (!envObj || !Array.isArray(envObj.values)) { return; }",
+                  "    var values = envObj.values;",
+                  "    var baseVar = values.find(function (v) { return v && v.key === \"baseUrl\"; });",
+                  "    if (baseVar) {",
+                  "      baseVar.value = mockUrl;",
+                  "    } else {",
+                  "      values.push({ key: \"baseUrl\", value: mockUrl, type: \"default\", enabled: true });",
+                  "    }",
+                  "    var putBody = { environment: { name: envObj.name || runtimeEnvName, values: values } };",
+                  "    pm.sendRequest({",
+                  "      url: apiBase + \"/environments/\" + runtimeEnvId,",
+                  "      method: \"PUT\",",
+                  "      header: { \"X-Api-Key\": apiKey, \"Accept\": \"application/json\", \"Content-Type\": \"application/json\" },",
+                  "      body: { mode: \"raw\", raw: JSON.stringify(putBody) }",
+                  "    }, function (putErr, putRes) {",
+                  "      pm.test(\"Runtime mock environment baseUrl synced\", function () {",
+                  "        pm.expect(putErr).to.eql(null);",
+                  "        pm.expect(putRes).to.exist;",
+                  "        pm.expect([200]).to.include(putRes.code);",
+                  "      });",
+                  "      if (!putErr && putRes && putRes.code === 200) {",
+                  "        pm.environment.set(\"lastRuntimeMockEnvBaseUrlSyncAt\", new Date().toISOString());",
+                  "      }",
+                  "    });",
+                  "  });",
+                  "} else {",
+                  "  pm.test(\"Runtime mock environment baseUrl auto-sync skipped (missing mockUrl/runtime env id/vault secret)\", function () {",
+                  "    pm.expect(true).to.eql(true);",
+                  "  });",
                   "}"
                 ]
               }
@@ -207,6 +259,137 @@
         }
       ],
       "id": "746a5641-b60a-4dc1-9f3e-0183e93dae5f"
+    },
+    {
+      "name": "Environments",
+      "id": "a7fde8e9-951d-4e07-a1e4-8f4df2001a6d",
+      "item": [
+        {
+          "name": "List environments and resolve Mock runtime environment ID",
+          "id": "35f663f9-6ef3-41e3-84b6-7d04cfc68fef",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+                  "var payload = pm.response.json();",
+                  "var envs = (payload && payload.environments) || [];",
+                  "var targetName = pm.environment.get(\"mockRuntimeEnvironmentName\") || \"Board Third Party Library - Mock\";",
+                  "var target = envs.find(function (e) { return e && e.name === targetName; });",
+                  "pm.test(\"Mock runtime environment exists\", function () {",
+                  "  pm.expect(target, \"Environment not found: \" + targetName).to.exist;",
+                  "});",
+                  "if (target && target.id) { pm.environment.set(\"mockRuntimeEnvironmentId\", String(target.id)); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Api-Key",
+                "value": "{{vault:postman-api-key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{postmanApiBaseUrl}}/environments",
+              "host": [
+                "{{postmanApiBaseUrl}}"
+              ],
+              "path": [
+                "environments"
+              ]
+            },
+            "description": "Finds the Board Third Party Library - Mock environment and stores its Postman environment ID in mockRuntimeEnvironmentId."
+          },
+          "response": []
+        },
+        {
+          "name": "Sync Mock runtime environment baseUrl from mockUrl",
+          "id": "cab02629-b7e6-4bd2-bebb-af956f184b6e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+                  "var payload = pm.response.json();",
+                  "var envObj = payload && payload.environment;",
+                  "var mockUrl = pm.environment.get(\"mockUrl\");",
+                  "var apiBase = pm.environment.get(\"postmanApiBaseUrl\") || \"https://api.getpostman.com\";",
+                  "var runtimeEnvId = pm.environment.get(\"mockRuntimeEnvironmentId\");",
+                  "var apiKey = pm.variables.replaceIn(\"{{vault:postman-api-key}}\");",
+                  "pm.test(\"Mock URL exists for sync\", function () { pm.expect(mockUrl).to.be.a(\"string\").and.to.not.eql(\"\"); });",
+                  "pm.test(\"Runtime environment payload returned\", function () { pm.expect(envObj).to.exist; pm.expect(Array.isArray(envObj.values)).to.eql(true); });",
+                  "if (!envObj || !Array.isArray(envObj.values) || !mockUrl || !runtimeEnvId || !apiKey || apiKey.indexOf(\"{{vault:\") === 0) { return; }",
+                  "var values = envObj.values;",
+                  "var baseVar = values.find(function (v) { return v && v.key === \"baseUrl\"; });",
+                  "if (baseVar) { baseVar.value = mockUrl; } else { values.push({ key: \"baseUrl\", value: mockUrl, type: \"default\", enabled: true }); }",
+                  "pm.sendRequest({",
+                  "  url: apiBase + \"/environments/\" + runtimeEnvId,",
+                  "  method: \"PUT\",",
+                  "  header: { \"X-Api-Key\": apiKey, \"Accept\": \"application/json\", \"Content-Type\": \"application/json\" },",
+                  "  body: { mode: \"raw\", raw: JSON.stringify({ environment: { name: envObj.name, values: values } }) }",
+                  "}, function (err, res) {",
+                  "  pm.test(\"Mock runtime environment baseUrl synced\", function () {",
+                  "    pm.expect(err).to.eql(null);",
+                  "    pm.expect(res).to.exist;",
+                  "    pm.expect(res.code).to.eql(200);",
+                  "  });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Api-Key",
+                "value": "{{vault:postman-api-key}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{postmanApiBaseUrl}}/environments/{{mockRuntimeEnvironmentId}}",
+              "host": [
+                "{{postmanApiBaseUrl}}"
+              ],
+              "path": [
+                "environments",
+                "{{mockRuntimeEnvironmentId}}"
+              ]
+            },
+            "description": "Fallback/manual helper that updates the Board Third Party Library - Mock environment baseUrl to match mockUrl using the Postman API."
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

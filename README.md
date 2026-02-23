@@ -72,8 +72,19 @@ The contract test collection now includes:
    - `mockId`
    - `mockUrl`
    - `baseUrl` (set to the created mock URL)
-6. Copy the `mockUrl` value from `Board Third Party Library - Mock Admin` into `Board Third Party Library - Mock` `baseUrl`.
+6. The `Create mock server` admin request will also attempt to automatically sync `Board Third Party Library - Mock` `baseUrl` via the Postman API using `mockRuntimeEnvironmentId`.
 7. Run `Board Third Party Library API (Contract Tests)` against `Board Third Party Library - Mock`.
+
+### If runtime Mock environment auto-sync fails
+
+Use the `Environments` folder in the Postman admin collection:
+
+1. `Environments / List environments and resolve Mock runtime environment ID`
+2. `Mocks / Create mock server (Contract Tests collection)` (retry; it will auto-sync if `mockRuntimeEnvironmentId` is now resolved)
+
+Optional manual fallback:
+
+- `Environments / Sync Mock runtime environment baseUrl from mockUrl`
 
 ### Why some mock-admin environment variables start blank
 
@@ -87,11 +98,9 @@ These values are intentionally blank in the versioned **Mock Admin** environment
 
 ### Making the Mock environment "ready to go"
 
-After the first mock server is created, set the real Postman mock URL in:
+The admin collection now attempts to keep `Board Third Party Library - Mock` `baseUrl` in sync automatically whenever a new mock server is created.
 
-- `Board Third Party Library - Mock` -> `baseUrl`
-
-If the mock URL is intended to be stable for the team, update the versioned file and commit it:
+If your team decides to keep a stable mock URL for a while, you can also update the versioned runtime mock environment file:
 
 - `postman/environments/board-third-party-library_mock.postman_environment.json`
 

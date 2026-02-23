@@ -62,6 +62,7 @@ Prefer this layout as the API grows:
 - Prefer **OpenAPI 3.0** for smoother Postman sync/generation workflows.
 - Start with a **single-file** spec until the API surface justifies multi-file splitting.
 - Use domain-oriented tags (e.g., `Health`, `Catalog`, `DeveloperIntegrations`, `Payments`, `Entitlements`).
+- Use **one primary tag per endpoint** while the Postman generated collection is grouped by tags (to avoid duplicate generated requests). Revisit multi-tagging later if docs/discovery needs outweigh the duplication cost.
 - Include explicit examples for success and common error responses.
 - Define consistent error response schemas early.
 - Keep environment files non-secret; do not commit tokens/secrets.

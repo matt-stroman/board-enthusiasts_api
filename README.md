@@ -28,6 +28,7 @@ This project intentionally avoids Postman CLI automation in-repo for now to redu
   - `postman/specs/board-third-party-library-api.v1.openapi.yaml`
 - Do not export the API Builder generated collection into this repo.
 - Do not give the generated collection and the Git-tracked collection the same display name.
+- While the API Builder generated collection is grouped by `Tags`, use **one primary tag per endpoint** in the OpenAPI spec to avoid duplicate generated requests.
 
 ### Manual Sync (Postman UI)
 

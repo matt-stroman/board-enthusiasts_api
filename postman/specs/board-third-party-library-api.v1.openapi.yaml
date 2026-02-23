@@ -67,6 +67,9 @@ paths:
         Indicates whether the API is ready to serve requests, including downstream dependency checks
         (currently PostgreSQL connectivity).
       operationId: getReadinessHealth
+      parameters:
+        - $ref: '#/components/parameters/PostmanMockResponseCodeHeader'
+        - $ref: '#/components/parameters/PostmanMockResponseNameHeader'
       responses:
         '200':
           description: API is ready and dependencies are healthy.
@@ -105,7 +108,7 @@ paths:
                     durationMs: 12.551
   /identity/roles:
     get:
-      tags: [Identity, PlatformRoles]
+      tags: [PlatformRoles]
       summary: List platform roles
       description: >
         Returns the platform-level roles that can be assigned to users. These are global
@@ -143,6 +146,9 @@ paths:
         Creates a new user account using email and password authentication and assigns one or more
         requested platform roles (for example player/developer). Additional OAuth identities may be linked later.
       operationId: registerUserWithEmail
+      parameters:
+        - $ref: '#/components/parameters/PostmanMockResponseCodeHeader'
+        - $ref: '#/components/parameters/PostmanMockResponseNameHeader'
       requestBody:
         required: true
         content:
@@ -215,6 +221,25 @@ paths:
                       requestedRoleCodes:
                         - At least one platform role must be requested.
 components:
+  parameters:
+    PostmanMockResponseCodeHeader:
+      name: x-mock-response-code
+      in: header
+      required: false
+      schema:
+        type: string
+      description: >
+        Postman mock-only header used to force a specific saved example by HTTP status code during
+        mock validation runs. Production backends should ignore this header.
+    PostmanMockResponseNameHeader:
+      name: x-mock-response-name
+      in: header
+      required: false
+      schema:
+        type: string
+      description: >
+        Postman mock-only header used to force a specific saved example by example name during
+        mock validation runs. Production backends should ignore this header.
   schemas:
     ApiMetadataResponse:
       type: object

@@ -337,33 +337,35 @@
         {
           "name": "List platform roles",
           "id": "56030175-301e-4b23-87b9-705c2644d67a",
-          "event": {
-            "listen": "test",
-            "script": {
-              "type": "text/javascript",
-              "packages": {},
-              "requests": {},
-              "exec": [
-                "pm.test(\"Status code is 200\", function () {",
-                "  pm.response.to.have.status(200);",
-                "});",
-                "pm.test(\"Response is JSON\", function () {",
-                "  pm.response.to.be.json;",
-                "});",
-                "var json = pm.response.json();",
-                "var roles = Array.isArray(json.roles) ? json.roles : [];",
-                "var codes = roles.map(function (r) { return r.code; });",
-                "pm.test(\"Platform roles include core system roles\", function () {",
-                "  [\"player\", \"developer\", \"admin\", \"moderator\"].forEach(function (code) {",
-                "    pm.expect(codes).to.include(code);",
-                "  });",
-                "});",
-                "pm.test(\"All returned roles are platform scoped\", function () {",
-                "  roles.forEach(function (role) { pm.expect(role.scope).to.eql(\"platform\"); });",
-                "});"
-              ]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "  pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "var json = pm.response.json();",
+                  "var roles = Array.isArray(json.roles) ? json.roles : [];",
+                  "var codes = roles.map(function (r) { return r.code; });",
+                  "pm.test(\"Platform roles include core system roles\", function () {",
+                  "  [\"player\", \"developer\", \"admin\", \"moderator\"].forEach(function (code) {",
+                  "    pm.expect(codes).to.include(code);",
+                  "  });",
+                  "});",
+                  "pm.test(\"All returned roles are platform scoped\", function () {",
+                  "  roles.forEach(function (role) { pm.expect(role.scope).to.eql(\"platform\"); });",
+                  "});"
+                ]
+              }
             }
-          },
+          ],
           "request": {
             "method": "GET",
             "header": [
@@ -424,40 +426,42 @@
         {
           "name": "Register account (Email + Password)",
           "id": "d0d5555c-9602-47f3-9e68-add052c5d03a",
-          "event": {
-            "listen": "test",
-            "script": {
-              "type": "text/javascript",
-              "packages": {},
-              "requests": {},
-              "exec": [
-                "pm.test(\"Status code is 201\", function () {",
-                "  pm.response.to.have.status(201);",
-                "});",
-                "pm.test(\"Response is JSON\", function () {",
-                "  pm.response.to.be.json;",
-                "});",
-                "var json = pm.response.json();",
-                "var requestBody = JSON.parse(pm.request.body.raw);",
-                "pm.test(\"Registered user shape is returned\", function () {",
-                "  pm.expect(json.user).to.exist;",
-                "  pm.expect(json.user.id).to.be.a(\"string\");",
-                "  pm.expect(json.user.displayName).to.eql(requestBody.displayName);",
-                "  pm.expect(json.user.status).to.eql(\"active\");",
-                "  pm.expect(json.user.roles).to.be.an(\"array\");",
-                "});",
-                "pm.test(\"Primary email matches request\", function () {",
-                "  pm.expect(json.primaryEmail.email).to.eql(requestBody.email);",
-                "  pm.expect(json.primaryEmail.verified).to.eql(false);",
-                "});",
-                "pm.test(\"Requested platform roles are assigned\", function () {",
-                "  requestBody.requestedRoleCodes.forEach(function (roleCode) {",
-                "    pm.expect(json.user.roles).to.include(roleCode);",
-                "  });",
-                "});"
-              ]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "var json = pm.response.json();",
+                  "var requestBody = JSON.parse(pm.request.body.raw);",
+                  "pm.test(\"Registered user shape is returned\", function () {",
+                  "  pm.expect(json.user).to.exist;",
+                  "  pm.expect(json.user.id).to.be.a(\"string\");",
+                  "  pm.expect(json.user.displayName).to.eql(requestBody.displayName);",
+                  "  pm.expect(json.user.status).to.eql(\"active\");",
+                  "  pm.expect(json.user.roles).to.be.an(\"array\");",
+                  "});",
+                  "pm.test(\"Primary email matches request\", function () {",
+                  "  pm.expect(json.primaryEmail.email).to.eql(requestBody.email);",
+                  "  pm.expect(json.primaryEmail.verified).to.eql(false);",
+                  "});",
+                  "pm.test(\"Requested platform roles are assigned\", function () {",
+                  "  requestBody.requestedRoleCodes.forEach(function (roleCode) {",
+                  "    pm.expect(json.user.roles).to.include(roleCode);",
+                  "  });",
+                  "});"
+                ]
+              }
             }
-          },
+          ],
           "request": {
             "method": "POST",
             "header": [
@@ -733,28 +737,30 @@
         {
           "name": "Register account (Duplicate email 409 example)",
           "id": "e1983e51-e380-499f-ae91-3e9bac0201a5",
-          "event": {
-            "listen": "test",
-            "script": {
-              "type": "text/javascript",
-              "packages": {},
-              "requests": {},
-              "exec": [
-                "pm.test(\"Status code is 409\", function () {",
-                "  pm.response.to.have.status(409);",
-                "});",
-                "pm.test(\"Response is JSON\", function () {",
-                "  pm.response.to.be.json;",
-                "});",
-                "var json = pm.response.json();",
-                "pm.test(\"Duplicate email problem details are returned\", function () {",
-                "  pm.expect(json.title).to.eql(\"Duplicate email address\");",
-                "  pm.expect(json.status).to.eql(409);",
-                "  pm.expect(json.code).to.eql(\"duplicate_email\");",
-                "});"
-              ]
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "pm.test(\"Status code is 409\", function () {",
+                  "  pm.response.to.have.status(409);",
+                  "});",
+                  "pm.test(\"Response is JSON\", function () {",
+                  "  pm.response.to.be.json;",
+                  "});",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Duplicate email problem details are returned\", function () {",
+                  "  pm.expect(json.title).to.eql(\"Duplicate email address\");",
+                  "  pm.expect(json.status).to.eql(409);",
+                  "  pm.expect(json.code).to.eql(\"duplicate_email\");",
+                  "});"
+                ]
+              }
             }
-          },
+          ],
           "request": {
             "method": "POST",
             "header": [

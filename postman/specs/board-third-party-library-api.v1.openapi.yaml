@@ -226,8 +226,10 @@ paths:
       summary: List my email addresses
       description: >
         Returns the current user's email addresses, including primary/verification status.
-        The authenticated user context is implementation-defined and will be added when auth is implemented.
+        Requires an authenticated end-user bearer token.
       operationId: listMyEmailAddresses
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: User email addresses returned successfully.
@@ -257,6 +259,8 @@ paths:
         Adds a new email address to the current user's account in pending verification status.
         The email can become primary after verification.
       operationId: addMyEmailAddress
+      security:
+        - BearerAuth: []
       parameters:
         - $ref: '#/components/parameters/PostmanMockResponseCodeHeader'
         - $ref: '#/components/parameters/PostmanMockResponseNameHeader'
@@ -328,6 +332,8 @@ paths:
         Sets the specified email address as the current user's primary email address.
         The target email address must already be verified.
       operationId: makeMyEmailAddressPrimary
+      security:
+        - BearerAuth: []
       parameters:
         - name: emailAddressId
           in: path
@@ -397,6 +403,8 @@ paths:
         Sends or re-sends an email verification challenge for the specified email address.
         The target email address must belong to the current user and must not already be verified.
       operationId: sendMyEmailAddressVerificationChallenge
+      security:
+        - BearerAuth: []
       parameters:
         - name: emailAddressId
           in: path
@@ -454,6 +462,12 @@ paths:
                     status: 409
                     detail: This email address is already verified.
                     code: email_already_verified
+        '401':
+          $ref: '#/components/responses/UnauthorizedProblemResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenProblemResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsProblemResponse'
   /identity/me/email-addresses/{emailAddressId}/verify:
     post:
       tags: [Identity]
@@ -462,6 +476,8 @@ paths:
         Confirms ownership of the specified email address using a verification code previously sent
         to that address.
       operationId: verifyMyEmailAddress
+      security:
+        - BearerAuth: []
       parameters:
         - name: emailAddressId
           in: path
@@ -546,6 +562,12 @@ paths:
                     errors:
                       code:
                         - A verification code is required.
+        '401':
+          $ref: '#/components/responses/UnauthorizedProblemResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenProblemResponse'
+        '429':
+          $ref: '#/components/responses/TooManyRequestsProblemResponse'
 components:
   parameters:
     PostmanMockResponseCodeHeader:
@@ -566,6 +588,68 @@ components:
       description: >
         Postman mock-only header used to force a specific saved example by example name during
         mock validation runs. Production backends should ignore this header.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        End-user access token for authenticated identity operations (for example `/identity/me/*`).
+        Public/native UI applications should use an OAuth-style flow with PKCE; do not embed a
+        client secret in distributed clients.
+  responses:
+    UnauthorizedProblemResponse:
+      description: Missing, invalid, or expired bearer access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            unauthorized:
+              summary: Bearer token is missing or invalid
+              value:
+                type: https://boardtpl.dev/problems/unauthorized
+                title: Unauthorized
+                status: 401
+                detail: A valid bearer access token is required.
+                code: unauthorized
+    ForbiddenProblemResponse:
+      description: Authenticated caller is not allowed to perform this action.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            forbidden:
+              summary: Caller is authenticated but not permitted
+              value:
+                type: https://boardtpl.dev/problems/forbidden
+                title: Forbidden
+                status: 403
+                detail: You are not permitted to perform this action.
+                code: forbidden
+    TooManyRequestsProblemResponse:
+      description: Too many requests for this operation. Retry after the cooldown window.
+      headers:
+        Retry-After:
+          description: Number of seconds to wait before retrying.
+          schema:
+            type: integer
+            format: int32
+            example: 60
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            rate-limited:
+              summary: Email verification action rate limited
+              value:
+                type: https://boardtpl.dev/problems/rate-limit-exceeded
+                title: Too Many Requests
+                status: 429
+                detail: Too many verification attempts were made. Retry after the cooldown period.
+                code: rate_limit_exceeded
   schemas:
     ApiMetadataResponse:
       type: object

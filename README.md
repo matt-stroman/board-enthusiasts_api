@@ -44,6 +44,29 @@ Typical workflow:
 5. Run contract tests from `Board Third Party Library API (Contract Tests)`.
 6. Save/export updates to the same Git-tracked collection file when test scripts change.
 
+### Known Postman generated collection sync quirk (tag regrouping)
+
+Postman API Builder's generated collection does not always reliably regroup requests into tag folders after spec changes (especially when adding endpoints, changing tags, or moving endpoints between tags).
+
+Observed behavior:
+
+- The generated collection may show new requests at the collection root even when the OpenAPI operations are correctly tagged.
+- The `Update collection` action may appear inconsistently in the Postman UI.
+- Incremental updates may not fully reflect tag-folder regrouping changes.
+
+Practical workaround (current best known process):
+
+1. Pull/refresh the connected repository in Postman.
+2. Confirm the OpenAPI definition has the correct `tags` on the affected operations.
+3. Regenerate the `Board Third Party Library API (Generated)` collection.
+4. If grouping is still wrong, delete the generated collection and generate it again.
+
+Important:
+
+- Treat the generated collection as a disposable UI artifact for browsing/manual exploration.
+- Treat the OpenAPI spec and the Git-tracked contract test collection as the source of truth.
+- CI mock contract tests are not affected because CI runs the Git-tracked contract test collection, not the generated collection.
+
 ## GitHub Actions Mock Contract Tests (CI)
 
 The `api` repository includes a GitHub Actions workflow that runs the Git-tracked Postman contract tests with Newman on `push`, `pull_request`, and manual dispatch:

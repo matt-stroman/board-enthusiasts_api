@@ -31,7 +31,10 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ]
             }
           },
           "response": [
@@ -42,7 +45,10 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ]
                 }
               },
               "status": "OK",
@@ -82,7 +88,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/health/live",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "live"
+              ]
             }
           },
           "response": [
@@ -93,7 +106,14 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/health/live",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health",
+                    "live"
+                  ]
                 }
               },
               "status": "OK",
@@ -133,7 +153,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/health/ready",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "ready"
+              ]
             }
           },
           "response": [
@@ -144,7 +171,14 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/health/ready",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health",
+                    "ready"
+                  ]
                 }
               },
               "status": "OK",
@@ -166,7 +200,14 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/health/ready",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health",
+                    "ready"
+                  ]
                 }
               },
               "status": "Service Unavailable",
@@ -212,7 +253,14 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/roles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "roles"
+              ]
             }
           },
           "response": [
@@ -223,7 +271,14 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/roles",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "roles"
+                  ]
                 }
               },
               "status": "OK",
@@ -263,7 +318,15 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/auth/config",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "auth",
+                "config"
+              ]
             }
           },
           "response": [
@@ -274,7 +337,15 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/auth/config",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "auth",
+                    "config"
+                  ]
                 }
               },
               "status": "OK",
@@ -312,7 +383,21 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/auth/login?provider=github",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "auth",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "provider",
+                  "value": "github"
+                }
+              ]
             }
           },
           "response": [
@@ -323,7 +408,21 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/auth/login?provider=github",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "auth",
+                    "login"
+                  ],
+                  "query": [
+                    {
+                      "key": "provider",
+                      "value": "github"
+                    }
+                  ]
                 }
               },
               "status": "Found",
@@ -363,7 +462,25 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/auth/callback?code=mock-auth-code&state=st_mock_123",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "auth",
+                "callback"
+              ],
+              "query": [
+                {
+                  "key": "code",
+                  "value": "mock-auth-code"
+                },
+                {
+                  "key": "state",
+                  "value": "st_mock_123"
+                }
+              ]
             }
           },
           "response": [
@@ -374,7 +491,25 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/auth/callback?code=mock-auth-code&state=st_mock_123",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "auth",
+                    "callback"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "mock-auth-code"
+                    },
+                    {
+                      "key": "state",
+                      "value": "st_mock_123"
+                    }
+                  ]
                 }
               },
               "status": "OK",
@@ -396,7 +531,25 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/auth/callback?code=mock-auth-code&state=st_mock_123",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "auth",
+                    "callback"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "mock-auth-code"
+                    },
+                    {
+                      "key": "state",
+                      "value": "st_mock_123"
+                    }
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -418,7 +571,25 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/auth/callback?code=mock-auth-code&state=st_mock_123",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "auth",
+                    "callback"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "mock-auth-code"
+                    },
+                    {
+                      "key": "state",
+                      "value": "st_mock_123"
+                    }
+                  ]
                 }
               },
               "status": "Bad Gateway",
@@ -464,7 +635,14 @@
               }
             ],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me"
+              ]
             }
           },
           "response": [
@@ -481,7 +659,14 @@
                   }
                 ],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me"
+                  ]
                 }
               },
               "status": "OK",
@@ -503,7 +688,14 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -547,7 +739,15 @@
               }
             ],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/me/board-profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me",
+                "board-profile"
+              ]
             }
           },
           "response": [
@@ -564,7 +764,15 @@
                   }
                 ],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/me/board-profile",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me",
+                    "board-profile"
+                  ]
                 }
               },
               "status": "OK",
@@ -586,7 +794,15 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/me/board-profile",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me",
+                    "board-profile"
+                  ]
                 }
               },
               "status": "Unauthorized",
@@ -614,7 +830,15 @@
                   }
                 ],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/me/board-profile",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me",
+                    "board-profile"
+                  ]
                 }
               },
               "status": "Not Found",
@@ -672,7 +896,15 @@
               }
             },
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/me/board-profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me",
+                "board-profile"
+              ]
             }
           },
           "response": [
@@ -694,7 +926,15 @@
                   }
                 ],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/me/board-profile",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me",
+                    "board-profile"
+                  ]
                 }
               },
               "status": "OK",
@@ -738,7 +978,15 @@
               }
             ],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/me/board-profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me",
+                "board-profile"
+              ]
             }
           },
           "response": [
@@ -755,7 +1003,15 @@
                   }
                 ],
                 "url": {
-                  "raw": ""
+                  "raw": "{{baseUrl}}/identity/me/board-profile",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me",
+                    "board-profile"
+                  ]
                 }
               },
               "status": "No Content",
@@ -805,7 +1061,14 @@
               }
             ],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/health/ready",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "ready"
+              ]
             }
           },
           "response": []
@@ -844,7 +1107,21 @@
               }
             ],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/auth/callback?state=invalid-state",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "auth",
+                "callback"
+              ],
+              "query": [
+                {
+                  "key": "state",
+                  "value": "invalid-state"
+                }
+              ]
             }
           },
           "response": []
@@ -883,7 +1160,25 @@
               }
             ],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/auth/callback?code=invalid-code&state=st_mock_123",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "auth",
+                "callback"
+              ],
+              "query": [
+                {
+                  "key": "code",
+                  "value": "invalid-code"
+                },
+                {
+                  "key": "state",
+                  "value": "st_mock_123"
+                }
+              ]
             }
           },
           "response": []
@@ -927,7 +1222,14 @@
               }
             ],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me"
+              ]
             }
           },
           "response": []
@@ -971,7 +1273,15 @@
               }
             ],
             "url": {
-              "raw": ""
+              "raw": "{{baseUrl}}/identity/me/board-profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me",
+                "board-profile"
+              ]
             }
           },
           "response": []

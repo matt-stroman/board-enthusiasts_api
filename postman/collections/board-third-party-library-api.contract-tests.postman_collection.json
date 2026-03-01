@@ -1055,6 +1055,16 @@
                 "key": "Authorization",
                 "value": "Bearer {{accessToken}}",
                 "type": "text"
+              },
+              {
+                "key": "x-mock-response-code",
+                "value": "204",
+                "type": "text"
+              },
+              {
+                "key": "x-mock-response-name",
+                "value": "default",
+                "type": "text"
               }
             ],
             "url": {

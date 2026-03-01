@@ -346,7 +346,7 @@
                 "collections"
               ]
             },
-            "description": "One-step admin request that resolves the mock source collection UID (default: API Builder generated collection), validates the resolved collection snapshot contains expected routes/examples, creates a new mock server from it, stores mockId/mockUrl, and attempts to auto-sync the Board Third Party Library - Mock environment baseUrl. Use the Board Third Party Library - Mock Admin environment."
+            "description": "One-step admin request that resolves the mock source collection UID (default: Contract Tests collection), validates the resolved collection snapshot contains expected routes/examples, creates a new mock server from it, stores mockId/mockUrl, and attempts to auto-sync the Board Third Party Library - Mock environment baseUrl. Use the Board Third Party Library - Mock Admin environment."
           },
           "response": []
         }
@@ -680,5 +680,6 @@
     }
   ]
 }
+
 
 

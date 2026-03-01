@@ -7,7 +7,7 @@ This submodule is the API-first design workspace for the Board Third Party Libra
 It is intended to be the versioned home for:
 
 - API definitions/specifications (OpenAPI)
-- Postman collections generated from and/or aligned to the API definitions
+- Git-tracked Postman collections aligned to the API definitions
 - Postman environments (non-secret templates)
 - Mock-ready examples and request tests for API contract validation
 
@@ -18,20 +18,20 @@ It is intended to be the versioned home for:
 - Use Postman collections and environments as executable contract checks and workflow tests.
 - Use mock servers/examples to unblock frontend/client work before backend endpoints are implemented.
 - Do not keep future-only endpoints in the maintained contract collection once it becomes clear the backend implementation is deferred to a later wave.
+- Prefer Postman CLI plus GitHub Actions for automated contract execution and workspace sync.
 
 ## Source of Truth Rule
 
 - **Primary source of truth:** OpenAPI definition(s) in this repo / API Builder.
 - Collections should be generated from or kept explicitly aligned to the spec.
 - Avoid editing spec and collection independently in ways that cause drift.
-- Treat Postman artifacts as two distinct roles:
-  - API Builder generated collection (Postman Cloud, not Git-tracked)
-  - Git-tracked contract/smoke test collection in `postman/collections/`
+- Treat the Git-tracked contract/smoke test collection in `postman/collections/` as the supported executable collection artifact.
+- Do not make CI, mock provisioning, or workspace sync depend on an API Builder generated collection.
 - If Postman Cloud admin/provisioning requests are needed (for example mock server provisioning via Postman API), keep them in a separate Git-tracked admin collection with a distinct name and purpose.
 - Split Postman environments by role when helpful:
   - runtime test environments (for day-to-day contract test execution)
   - admin/provisioning environments (for Postman Cloud resource setup/maintenance)
-- Do not export the API Builder generated collection into the repo, and do not reuse the same display name for generated and Git-tracked collections.
+- Use `.postman/config.json` in the current CLI-compatible format so `postman workspace push --yes` works in local dev and CI.
 
 When endpoint behavior changes, update all applicable artifacts:
 
@@ -39,7 +39,8 @@ When endpoint behavior changes, update all applicable artifacts:
 2. Examples
 3. Postman collection request/tests
 4. Environments (if expectations/variables change)
-5. Backend implementation (in `backend/`)
+5. CLI/workflow automation (if the change affects sync or contract execution)
+6. Backend implementation (in `backend/`)
 
 For new endpoint delivery, the expected order is:
 
@@ -54,24 +55,25 @@ For new endpoint delivery, the expected order is:
 - Backend implementation code, database, and backend-only scripts belong in `backend/`.
 - Frontend implementation code belongs in `frontend/`.
 - Root repo remains focused on orchestration across submodules.
+- For routine developer workflows in the full solution repo, prefer the root `python ./scripts/dev.py ...` commands instead of calling `api/scripts/*` directly.
 
 ## Structure Guidance
 
 Prefer this layout as the API grows:
 
 - `postman/specs/` for OpenAPI definitions
-- `postman/collections/` for Git-tracked workflow/contract test collections (not API Builder generated duplicates)
+- `postman/collections/` for Git-tracked workflow/contract test collections
 - `postman/environments/` for non-secret environment templates
 - `postman/globals/` only when truly needed
 - `planning/` for historical planning/context artifacts that are not the current contract source of truth
 - `.postman/config.json` for Postman workspace/repo metadata
+- `scripts/` for API-specific automation helpers such as Postman CLI wrappers or mock-provisioning utilities
 
 ## Postman Standards (for this project)
 
 - Prefer **OpenAPI 3.0** for smoother Postman sync/generation workflows.
 - Start with a **single-file** spec until the API surface justifies multi-file splitting.
 - Use domain-oriented tags (e.g., `Health`, `Catalog`, `DeveloperIntegrations`, `Payments`, `Entitlements`).
-- Use **one primary tag per endpoint** while the Postman generated collection is grouped by tags (to avoid duplicate generated requests). Revisit multi-tagging later if docs/discovery needs outweigh the duplication cost.
 - Include explicit examples for success and common error responses.
 - Define consistent error response schemas early.
 - Keep environment files non-secret; do not commit tokens/secrets.

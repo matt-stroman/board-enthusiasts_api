@@ -15,65 +15,105 @@ Design and tests for the API for the Board third party library.
 
 This repository is connected to a Postman project workspace using Postman Native Git.
 
-Local development updates the files in this repo (`postman/`, `.postman/`), and Postman Cloud provides the API Builder, mock servers, monitors, and linked generated collections.
+Local development updates the files in this repo (`postman/`, `.postman/`), and Postman Cloud provides the workspace, mock servers, and synced Native Git artifacts.
 
-This project intentionally avoids Postman CLI automation in-repo for now to reduce duplicate collection creation and sync ambiguity. Sync to Postman Cloud using the Postman UI (Files/Source Control in the connected workspace).
+This project now uses a CLI-first workflow:
 
-### Recommended Model (Avoid Duplicates)
+- use the Git-tracked OpenAPI spec and Git-tracked contract/admin collections as the source of truth
+- use Postman CLI in CI and for recommended local execution
+- use `postman workspace push --yes` to sync the connected Postman workspace after `main` changes
+- treat any API Builder generated collection as optional disposable UI output only, not as a required test or sync artifact
 
-- Keep the **API Builder generated collection** in Postman Cloud only.
+### Supported Model
+
 - Keep exactly one **Git-tracked test collection** in this repo:
   - `postman/collections/board-third-party-library-api.contract-tests.postman_collection.json`
 - Keep one separate **Git-tracked Postman admin collection** for Postman Cloud provisioning tasks (mock server setup, inspection):
   - `postman/collections/postman-admin.board-third-party-library-mock-provisioning.postman_collection.json`
 - Keep the OpenAPI spec as the contract source of truth:
   - `postman/specs/board-third-party-library-api.v1.openapi.yaml`
-- Do not export the API Builder generated collection into this repo.
-- Do not give the generated collection and the Git-tracked collection the same display name.
-- While the API Builder generated collection is grouped by `Tags`, use **one primary tag per endpoint** in the OpenAPI spec to avoid duplicate generated requests.
+- Do not make contract validation, mock provisioning, or workspace sync depend on a generated collection.
 
-### Manual Sync (Postman UI)
+### GitHub Automation
 
-Use Postman's connected repository UI to pull/push file changes.
+The maintained GitHub Actions workflow now automates the important Postman checks and sync points:
 
-Typical workflow:
+- `postman-mock-contract-tests.yml`
+  - lints the local OpenAPI spec with Postman CLI
+  - provisions a fresh Postman mock from the Git-tracked contract test collection snapshot
+  - runs the Git-tracked contract test collection with Postman CLI
+  - deletes the CI-created mock after the run
+- `postman-workspace-sync.yml`
+  - runs on `main`
+  - pushes Native Git artifacts from this repo to the connected Postman workspace with `postman workspace push --yes`
+  - reprovisions the shared mock and syncs the `Board Third Party Library - Mock` environment `baseUrl`
+  - validates the synced workspace assets against that shared mock with Postman CLI
 
-1. Update the OpenAPI spec and/or Git-tracked contract test collection in this repo.
-2. Commit changes in the `api` repo.
-3. In Postman, refresh/pull the connected repository.
-4. Regenerate/update the API Builder generated collection if the spec changed.
-5. If you run against the Postman mock, reprovision the mock server after the refresh/pull so `Board Third Party Library - Mock` picks up a fresh active mock URL.
-6. Run contract tests from `Board Third Party Library API (Contract Tests)`.
-7. Save/export updates to the same Git-tracked collection file when test scripts change.
+This means normal team workflow no longer requires:
 
-### Known Postman generated collection sync quirk (tag regrouping)
+- manually regenerating a linked generated collection
+- manually running the admin provisioning collection after every merge
+- manually running contract checks in Postman UI just to validate repo changes
 
-Postman API Builder's generated collection does not always reliably regroup requests into tag folders after spec changes (especially when adding endpoints, changing tags, or moving endpoints between tags).
+### Local Development
 
-Observed behavior:
+Recommended local setup:
 
-- The generated collection may show new requests at the collection root even when the OpenAPI operations are correctly tagged.
-- The `Update collection` action may appear inconsistently in the Postman UI.
-- Incremental updates may not fully reflect tag-folder regrouping changes.
+1. Install Postman CLI.
+2. From the solution root, authenticate once with an API key if you need workspace sync operations:
 
-Practical workaround (current best known process):
+```bash
+python ./scripts/dev.py api-login --postman-api-key <your-postman-api-key>
+```
 
-1. Pull/refresh the connected repository in Postman.
-2. Confirm the OpenAPI definition has the correct `tags` on the affected operations.
-3. Regenerate the `Board Third Party Library API (Generated)` collection.
-4. If grouping is still wrong, delete the generated collection and generate it again.
+If you prefer one-off authenticated commands, the root CLI also accepts `--postman-api-key` directly on `api-lint`, `api-mock`, and `api-sync`.
 
-Important:
+3. Run local contract tests against the backend from the solution root:
 
-- Treat the generated collection as a disposable UI artifact for browsing/manual exploration.
-- Treat the OpenAPI spec and the Git-tracked contract test collection as the source of truth.
-- CI mock contract tests are not affected because CI runs the Git-tracked contract test collection, not the generated collection.
+```bash
+python ./scripts/dev.py api-test
+```
+
+That root command runs:
+
+- the Git-tracked contract test collection
+- against the Git-tracked local environment template
+- with `baseUrl=http://localhost:5085`
+- with `contractExecutionMode=live`
+
+If the backend is not already running in another terminal, the root CLI can start it for the run:
+
+```bash
+python ./scripts/dev.py api-test --start-backend --skip-lint
+```
+
+If you want to run spec lint locally through the root CLI, authenticate first and then run:
+
+```bash
+python ./scripts/dev.py api-lint --postman-api-key <your-postman-api-key>
+```
+
+If you need an immediate manual workspace sync before `main` automation runs:
+
+```bash
+python ./scripts/dev.py api-sync --postman-api-key <your-postman-api-key>
+```
+
+That root command runs:
+
+- `postman workspace prepare`
+- `postman workspace push --yes`
+- shared mock reprovisioning unless `--skip-mock` is supplied
+
+Normal feature work does not require Postman UI pull/push or generated collection regeneration.
+The supported developer entry point for this project is the root `python ./scripts/dev.py ...` CLI. Scripts under `api/scripts/` remain as implementation details for CI and the root automation layer.
 
 ## GitHub Actions Mock Contract Tests (CI)
 
-The `api` repository includes a GitHub Actions workflow that runs the Git-tracked Postman contract tests with Newman on `push`, `pull_request`, and manual dispatch:
+The `api` repository includes a GitHub Actions workflow that runs the Git-tracked Postman contract tests with Postman CLI on `push`, `pull_request`, and manual dispatch:
 
 - Workflow file: `.github/workflows/postman-mock-contract-tests.yml`
+- Workspace sync workflow: `.github/workflows/postman-workspace-sync.yml`
 
 ### Required GitHub secret
 
@@ -90,12 +130,12 @@ To avoid stale mock URLs and stale Postman collection snapshots, the workflow pe
 1. Resolve the contract test collection in Postman using the Mock Admin environment metadata (name/ID).
 2. Update that Postman collection from the current repo file (`postman/collections/board-third-party-library-api.contract-tests.postman_collection.json`).
 3. Create a fresh Postman mock server for the run and capture its `mockUrl`.
-4. Run Newman against the repo-tracked collection using the generated `mockUrl` as `baseUrl`.
-5. Delete the CI-created mock server during cleanup (even if Newman tests fail).
+4. Run Postman CLI against the repo-tracked collection using the generated `mockUrl` as `baseUrl`.
+5. Delete the CI-created mock server during cleanup (even if the contract run fails).
 
 ### Fork pull requests
 
-GitHub does not expose repository secrets to forked pull requests. The workflow detects this and skips the mock-based Newman run for fork PRs rather than failing on missing credentials.
+GitHub does not expose repository secrets to forked pull requests. The workflow detects this and skips the mock-based contract run for fork PRs rather than failing on missing credentials.
 
 ## Mock-First Flow
 
@@ -151,12 +191,12 @@ The current implemented authentication surface is modeled as a Keycloak-hosted b
 
 The mock server is provisioned from a Postman **workspace collection object** selected by the Mock Admin environment.
 
-Default (recommended for reliability):
+Default:
 - `Board Third Party Library API (Contract Tests)`
 
 Why:
-- Postman's API Builder generated collection is sometimes visible in the UI but not reliably discoverable via the Postman Collections API (`GET /collections`) used by the admin automation.
-- The one-step admin request now preflights the resolved source collection snapshot (route/example checks) to catch stale workspace objects before they cause false mock test failures.
+- this is the Git-tracked contract source used by CI and local CLI runs
+- it avoids any dependency on API Builder generated collection state
 
 The Mock Admin environment controls which workspace collection is used as the mock source:
 
@@ -165,7 +205,7 @@ The Mock Admin environment controls which workspace collection is used as the mo
 
 Leave the collection ID overrides blank by default. Postman collection IDs can change when workspace artifacts are regenerated or recreated, while name-based resolution remains stable for normal day-to-day mock provisioning.
 
-If `mockSourceCollectionName` points to a collection that is not discoverable via the Postman API (for example, some API Builder generated collection objects), the one-step admin request will try to fall back to `contractTestsCollectionName` automatically and will set a warning variable.
+The supported stable setting is `Board Third Party Library API (Contract Tests)`.
 
 1. In Postman, import/sync both environments:
    - `Board Third Party Library - Mock` (day-to-day contract test runs)
@@ -173,7 +213,6 @@ If `mockSourceCollectionName` points to a collection that is not discoverable vi
 2. Select `Board Third Party Library - Mock Admin`.
 3. Add your Postman API key to **Postman Vault** as `postman-api-key` (local secret), so the admin collection can use `{{vault:postman-api-key}}`.
 4. Enable Vault access for scripts (one-time Postman setup) and grant this collection/workspace access when prompted.
-5. If the OpenAPI spec changed and you use the Generated collection as your mock source, regenerate the API Builder generated collection first.
 6. Run `Postman Admin - Board Third Party Library Mock Provisioning`:
    - `Collections / Provision/refresh mock server (one-step)`
 7. The collection test scripts will populate in the **Mock Admin** environment:
@@ -243,7 +282,7 @@ Then most day-to-day work only needs the `Board Third Party Library - Mock` envi
 
 ## Working Rules
 
-- API Builder generated collections are for spec sync and reference, not for long-lived hand-authored tests.
+- Generated collections are optional UI artifacts only and are not part of the required automation path.
 - Git-tracked collections are for executable tests and workflow assertions.
 - Keep Postman Cloud admin/provisioning requests in a separate collection from API contract tests.
 - Keep filenames stable once Postman Native Git is tracking them to avoid duplicate workspace artifacts.

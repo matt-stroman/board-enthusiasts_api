@@ -1,0 +1,66 @@
+name: Postman Workspace Sync
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postman-workspace-sync-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  COLLECTION_PATH: postman/collections/board-third-party-library-api.contract-tests.postman_collection.json
+  ADMIN_ENVIRONMENT_PATH: postman/environments/board-third-party-library_mock-admin.postman_environment.json
+
+jobs:
+  sync-workspace:
+    name: Push workspace and reprovision shared mock
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Push Native Git workspace artifacts
+        uses: postmanlabs/postman-cli-action@v1
+        with:
+          api-key: ${{ secrets.POSTMAN_API_KEY }}
+          working-directory: .
+          command: workspace push --yes
+
+      - name: Reprovision shared mock server
+        id: provision_shared_mock
+        env:
+          POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+        run: |
+          node ./scripts/postman-provision-mock.mjs \
+            --admin-env "$ADMIN_ENVIRONMENT_PATH" \
+            --collection "$COLLECTION_PATH" \
+            --mode shared
+
+      - name: Validate synced mock with Postman CLI
+        uses: postmanlabs/postman-cli-action@v1
+        with:
+          working-directory: .
+          command: >-
+            collection run postman/collections/board-third-party-library-api.contract-tests.postman_collection.json
+            --environment postman/environments/board-third-party-library_mock.postman_environment.json
+            --env-var baseUrl=${{ steps.provision_shared_mock.outputs.base_url }}
+            --env-var contractExecutionMode=mock
+            --bail failure
+            --reporters cli,junit
+            --reporter-junit-export postman-cli-reports/workspace-sync-results.xml
+
+      - name: Upload Postman CLI sync report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postman-workspace-sync-report
+          path: postman-cli-reports/workspace-sync-results.xml
+          if-no-files-found: ignore

@@ -1,27 +1,28 @@
 {
+  "schemaVersion": "1",
   "workspace": {
     "id": "8fb6b19c-4c4a-41ff-9a87-d50a88bcf816"
   },
   "entities": {
     "environments": [
-      "postman/environments/board-third-party-library_local.postman_environment.json",
-      "postman/environments/board-third-party-library_mock.postman_environment.json",
-      "postman/environments/board-third-party-library_mock-admin.postman_environment.json"
+      "../postman/environments/board-third-party-library_local.postman_environment.json",
+      "../postman/environments/board-third-party-library_mock.postman_environment.json",
+      "../postman/environments/board-third-party-library_mock-admin.postman_environment.json"
     ],
     "flows": [],
     "globals": [
-      "postman/globals/workspace.postman_globals.json"
+      "../postman/globals/workspace.postman_globals.json"
     ],
     "mocks": [],
     "specs": [
       {
         "id": "board-third-party-library-api-v1",
-        "path": "postman/specs/board-third-party-library-api.v1.openapi.yaml"
+        "path": "../postman/specs/board-third-party-library-api.v1.openapi.yaml"
       }
     ],
     "collections": [
-      "postman/collections/board-third-party-library-api.contract-tests.postman_collection.json",
-      "postman/collections/postman-admin.board-third-party-library-mock-provisioning.postman_collection.json"
+      "../postman/collections/board-third-party-library-api.contract-tests.postman_collection.json",
+      "../postman/collections/postman-admin.board-third-party-library-mock-provisioning.postman_collection.json"
     ]
   }
 }

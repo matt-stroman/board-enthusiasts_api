@@ -111,9 +111,9 @@ The contract test collection now includes:
 - `postman/collections/postman-admin.board-third-party-library-mock-provisioning.postman_collection.json`
 - `postman/collections/board-third-party-library-api.contract-tests.postman_collection.json`
 
-### Auth note for `/identity/me/*` contract tests
+### Auth note for authenticated identity contract tests
 
-The Git-tracked contract test collection sends `Authorization: Bearer {{accessToken}}` for authenticated `/identity/me/*` requests.
+The Git-tracked contract test collection sends `Authorization: Bearer {{accessToken}}` for authenticated identity requests such as `GET /identity/me`.
 
 The collection now supports two execution modes:
 
@@ -137,14 +137,15 @@ Important:
 - Live auth-success requests are skipped automatically unless you provide a real bearer token and, for callback-success verification, a real authorization `code` and `state`.
 - If a live environment still fails after those prerequisites are provided, that is a real backend contract gap rather than a Postman-environment issue.
 
-### Wave 1 auth semantics (contract guidance)
+### Current auth semantics (contract guidance)
 
-Wave 1 authentication is now modeled as a Keycloak-hosted browser flow. The contract documents these expectations so backend implementation and client behavior stay aligned:
+The current implemented authentication surface is modeled as a Keycloak-hosted browser flow. The contract documents these expectations so backend implementation and client behavior stay aligned:
 
 - **Hosted registration/login**: `GET /identity/auth/login` redirects callers to Keycloak using authorization code + PKCE. When self-registration is enabled in the realm, users can register from the hosted Keycloak page.
 - **Callback exchange**: `GET /identity/auth/callback` completes the code exchange and returns tokens plus the resolved current-user summary.
 - **Provider brokering**: optional `provider` query input on `GET /identity/auth/login` maps to Keycloak identity-provider hints for future social-login scenarios.
 - **Account lifecycle ownership**: password reset, email verification, and external identity linking are Keycloak concerns and are no longer modeled as first-party API endpoints in this contract.
+- **Persistence boundary**: Board profile persistence endpoints are intentionally deferred until the application-owned persistence wave exists with matching backend tests and implementation.
 
 ### Provision the mock server (code-driven in Postman)
 

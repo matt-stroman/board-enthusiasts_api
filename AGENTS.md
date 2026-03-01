@@ -17,6 +17,7 @@ It is intended to be the versioned home for:
 - Treat the API contract as the primary source of truth for endpoint shapes and semantics.
 - Use Postman collections and environments as executable contract checks and workflow tests.
 - Use mock servers/examples to unblock frontend/client work before backend endpoints are implemented.
+- Do not keep future-only endpoints in the maintained contract collection once it becomes clear the backend implementation is deferred to a later wave.
 
 ## Source of Truth Rule
 
@@ -39,6 +40,13 @@ When endpoint behavior changes, update all applicable artifacts:
 3. Postman collection request/tests
 4. Environments (if expectations/variables change)
 5. Backend implementation (in `backend/`)
+
+For new endpoint delivery, the expected order is:
+
+1. OpenAPI shape and examples
+2. Git-tracked Postman mock/contract coverage
+3. Backend failing tests
+4. Backend implementation
 
 ## Scope Boundaries
 
@@ -73,6 +81,7 @@ Prefer this layout as the API grows:
 - Postman tests in this repo validate the API contract and workflow behavior from a client perspective.
 - Backend unit/integration tests in `backend/` still validate implementation correctness and persistence behavior.
 - These are complementary, not replacements for each other.
+- The maintained contract should describe the current implemented surface plus the wave actively under delivery, not a backlog of speculative endpoints.
 
 ## Collaboration Guidance
 

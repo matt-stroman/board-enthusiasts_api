@@ -148,6 +148,8 @@ The Mock Admin environment controls which workspace collection is used as the mo
 - `mockSourceCollectionName` (default: `Board Third Party Library API (Contract Tests)`)
 - `mockSourceCollectionPostmanId` (optional exact Postman collection ID override if duplicate collections exist)
 
+Leave the collection ID overrides blank by default. Postman collection IDs can change when workspace artifacts are regenerated or recreated, while name-based resolution remains stable for normal day-to-day mock provisioning.
+
 If `mockSourceCollectionName` points to a collection that is not discoverable via the Postman API (for example, some API Builder generated collection objects), the one-step admin request will try to fall back to `contractTestsCollectionName` automatically and will set a warning variable.
 
 1. In Postman, import/sync both environments:

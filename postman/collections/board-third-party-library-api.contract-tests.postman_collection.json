@@ -1,35 +1,15 @@
 {
   "info": {
     "_postman_id": "f50dd41b-3551-4df0-bd49-7f943f5a4fc1",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "name": "Board Third Party Library API (Contract Tests)"
+    "name": "Board Third Party Library API (Contract Tests)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
       "name": "Health",
       "item": [
         {
-          "response": [
-            {
-              "name": "default",
-              "body": "{\"service\":\"board-third-party-lib-backend\",\"endpoints\":[\"/health/live\",\"/health/ready\"]}",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "code": 200,
-              "status": "OK",
-              "originalRequest": {
-                "header": [],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/"
-                }
-              }
-            }
-          ],
+          "name": "Get API metadata",
           "event": [
             {
               "listen": "test",
@@ -43,38 +23,44 @@
               }
             }
           ],
+          "id": "2bd9cdf5-27ad-4da0-b9c1-e9ca16063e8b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
-            "header": [],
             "method": "GET",
+            "header": [],
             "url": {
-              "raw": "{{baseUrl}}/"
+              "raw": ""
             }
           },
-          "name": "Get API metadata"
-        },
-        {
           "response": [
             {
-              "name": "healthy",
-              "body": "{\"status\":\"Healthy\",\"checks\":[],\"durationMs\":0.2149}",
+              "id": "f06a22b1-793a-432c-bbbe-54fda906040c",
+              "name": "default",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "code": 200,
-              "status": "OK",
-              "originalRequest": {
-                "header": [],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/health/live"
-                }
-              }
+              "cookie": [],
+              "body": "{\"service\":\"board-third-party-lib-backend\",\"endpoints\":[\"/health/live\",\"/health/ready\"]}"
             }
-          ],
+          ]
+        },
+        {
+          "name": "Liveness health check",
           "event": [
             {
               "listen": "test",
@@ -88,57 +74,44 @@
               }
             }
           ],
+          "id": "62abf587-11a0-41a1-a6ab-3ab00064f8ca",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
-            "header": [],
             "method": "GET",
+            "header": [],
             "url": {
-              "raw": "{{baseUrl}}/health/live"
+              "raw": ""
             }
           },
-          "name": "Liveness health check"
-        },
-        {
           "response": [
             {
+              "id": "c039affa-e118-403f-93cd-b77f2dddba78",
               "name": "healthy",
-              "body": "{\"status\":\"Healthy\",\"checks\":[{\"name\":\"postgres\",\"status\":\"Healthy\",\"description\":\"PostgreSQL connection succeeded.\",\"data\":{\"database\":\"board_tpl\",\"user\":\"board_tpl_user\"}}],\"durationMs\":6.1373}",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
                 }
-              ],
-              "code": 200,
+              },
               "status": "OK",
-              "originalRequest": {
-                "header": [],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/health/ready"
-                }
-              }
-            },
-            {
-              "name": "postgres-unhealthy",
-              "body": "{\"status\":\"Unhealthy\",\"checks\":[{\"name\":\"postgres\",\"status\":\"Unhealthy\",\"description\":\"PostgreSQL connection failed.\"}],\"durationMs\":12.551}",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "code": 503,
-              "status": "Service Unavailable",
-              "originalRequest": {
-                "header": [],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/health/ready"
-                }
-              }
+              "cookie": [],
+              "body": "{\"status\":\"Healthy\",\"checks\":[],\"durationMs\":0.2149}"
             }
-          ],
+          ]
+        },
+        {
+          "name": "Readiness health check",
           "event": [
             {
               "listen": "test",
@@ -152,43 +125,72 @@
               }
             }
           ],
+          "id": "b9edc034-be52-4f20-bba3-03cbd45b02ad",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
-            "header": [],
             "method": "GET",
+            "header": [],
             "url": {
-              "raw": "{{baseUrl}}/health/ready"
+              "raw": ""
             }
           },
-          "name": "Readiness health check"
-        }
-      ]
-    },
-    {
-      "name": "Identity & Roles",
-      "item": [
-        {
           "response": [
             {
-              "name": "default",
-              "body": "{\"roles\":[{\"code\":\"player\",\"displayName\":\"Player\",\"scope\":\"platform\"},{\"code\":\"developer\",\"displayName\":\"Developer\",\"scope\":\"platform\"},{\"code\":\"admin\",\"displayName\":\"Admin\",\"scope\":\"platform\"},{\"code\":\"moderator\",\"displayName\":\"Moderator\",\"scope\":\"platform\"}]}",
+              "id": "43d026cb-e13e-4d98-8168-90b2e2d1e2f7",
+              "name": "healthy",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "code": 200,
-              "status": "OK",
+              "cookie": [],
+              "body": "{\"status\":\"Healthy\",\"checks\":[{\"name\":\"postgres\",\"status\":\"Healthy\",\"description\":\"PostgreSQL connection succeeded.\",\"data\":{\"database\":\"board_tpl\",\"user\":\"board_tpl_user\"}}],\"durationMs\":6.1373}"
+            },
+            {
+              "id": "13deed2b-324e-429a-af50-11230b3c692f",
+              "name": "postgres-unhealthy",
               "originalRequest": {
-                "header": [],
                 "method": "GET",
+                "header": [],
                 "url": {
-                  "raw": "{{baseUrl}}/identity/roles"
+                  "raw": ""
                 }
-              }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"status\":\"Unhealthy\",\"checks\":[{\"name\":\"postgres\",\"status\":\"Unhealthy\",\"description\":\"PostgreSQL connection failed.\"}],\"durationMs\":12.551}"
             }
-          ],
+          ]
+        }
+      ],
+      "id": "268eabdd-7d9a-4e69-aca9-8effa344a942"
+    },
+    {
+      "name": "Identity & Roles",
+      "item": [
+        {
+          "name": "List platform roles",
           "event": [
             {
               "listen": "test",
@@ -202,38 +204,44 @@
               }
             }
           ],
+          "id": "606e7da5-7054-4787-b686-f01879a200b7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
-            "header": [],
             "method": "GET",
+            "header": [],
             "url": {
-              "raw": "{{baseUrl}}/identity/roles"
+              "raw": ""
             }
           },
-          "name": "List platform roles"
-        },
-        {
           "response": [
             {
-              "name": "local",
-              "body": "{\"issuer\":\"http://localhost:8080/realms/board-third-party-library/\",\"authorizationEndpoint\":\"http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/auth\",\"tokenEndpoint\":\"http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/token\",\"logoutEndpoint\":\"http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/logout\",\"jwksUri\":\"http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/certs\",\"accountManagementUrl\":\"http://localhost:8080/realms/board-third-party-library/account\",\"clientId\":\"board-third-party-library-backend\",\"callbackUrl\":\"http://localhost:5085/identity/auth/callback\",\"scopes\":[\"openid\",\"profile\",\"email\",\"offline_access\"],\"registrationEnabled\":true,\"externalIdentityProviders\":[]}",
+              "id": "075ac6ca-4cc3-4011-9dd6-39a623913a39",
+              "name": "default",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "code": 200,
-              "status": "OK",
-              "originalRequest": {
-                "header": [],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/identity/auth/config"
-                }
-              }
+              "cookie": [],
+              "body": "{\"roles\":[{\"code\":\"player\",\"displayName\":\"Player\",\"scope\":\"platform\"},{\"code\":\"developer\",\"displayName\":\"Developer\",\"scope\":\"platform\"},{\"code\":\"admin\",\"displayName\":\"Admin\",\"scope\":\"platform\"},{\"code\":\"moderator\",\"displayName\":\"Moderator\",\"scope\":\"platform\"}]}"
             }
-          ],
+          ]
+        },
+        {
+          "name": "Get authentication configuration",
           "event": [
             {
               "listen": "test",
@@ -247,38 +255,44 @@
               }
             }
           ],
+          "id": "cc7efd7e-a80a-48de-be65-70c31e2f345d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
-            "header": [],
             "method": "GET",
+            "header": [],
             "url": {
-              "raw": "{{baseUrl}}/identity/auth/config"
+              "raw": ""
             }
           },
-          "name": "Get authentication configuration"
-        },
-        {
           "response": [
             {
-              "name": "redirect",
-              "body": "",
+              "id": "7b1f7280-c45e-47c0-871d-aabc9dc03050",
+              "name": "local",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
-                  "key": "Location",
-                  "value": "http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/auth?client_id=board-third-party-library-backend&redirect_uri=http%3A%2F%2Flocalhost%3A5085%2Fidentity%2Fauth%2Fcallback&response_type=code&scope=openid%20profile%20email%20offline_access&state=st_mock_123&code_challenge=pkce_mock_123&code_challenge_method=S256&kc_idp_hint=github"
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
               ],
-              "code": 302,
-              "status": "Found",
-              "originalRequest": {
-                "header": [],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/identity/auth/login?provider=github"
-                }
-              }
+              "cookie": [],
+              "body": "{\"issuer\":\"http://localhost:8080/realms/board-third-party-library/\",\"authorizationEndpoint\":\"http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/auth\",\"tokenEndpoint\":\"http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/token\",\"logoutEndpoint\":\"http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/logout\",\"jwksUri\":\"http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/certs\",\"accountManagementUrl\":\"http://localhost:8080/realms/board-third-party-library/account\",\"clientId\":\"board-third-party-library-backend\",\"callbackUrl\":\"http://localhost:5085/identity/auth/callback\",\"scopes\":[\"openid\",\"profile\",\"email\",\"offline_access\"],\"registrationEnabled\":true,\"externalIdentityProviders\":[]}"
             }
-          ],
+          ]
+        },
+        {
+          "name": "Start browser login with Keycloak",
           "event": [
             {
               "listen": "test",
@@ -290,76 +304,44 @@
               }
             }
           ],
+          "id": "27ae2248-2b58-445d-b397-729963a0f5fa",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
-            "header": [],
             "method": "GET",
+            "header": [],
             "url": {
-              "raw": "{{baseUrl}}/identity/auth/login?provider=github"
+              "raw": ""
             }
           },
-          "name": "Start browser login with Keycloak"
-        },
-        {
           "response": [
             {
-              "name": "success",
-              "body": "{\"accessToken\":\"eyJhbGciOi...mock-access-token\",\"refreshToken\":\"eyJhbGciOi...mock-refresh-token\",\"idToken\":\"eyJhbGciOi...mock-id-token\",\"tokenType\":\"Bearer\",\"expiresInSeconds\":300,\"scope\":\"openid profile email offline_access\",\"user\":{\"subject\":\"5cfdbb44-2cf9-4aa2-b411-6c25b6690c4c\",\"displayName\":\"Local Admin\",\"email\":\"admin@boardtpl.local\",\"emailVerified\":true,\"identityProvider\":null,\"roles\":[\"admin\",\"developer\",\"player\"]}}",
+              "id": "434e9748-c8f1-4b1e-bd4f-524e20dc8b00",
+              "name": "redirect",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Found",
+              "code": 302,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "key": "Location",
+                  "value": "http://localhost:8080/realms/board-third-party-library/protocol/openid-connect/auth?client_id=board-third-party-library-backend&redirect_uri=http%3A%2F%2Flocalhost%3A5085%2Fidentity%2Fauth%2Fcallback&response_type=code&scope=openid%20profile%20email%20offline_access&state=st_mock_123&code_challenge=pkce_mock_123&code_challenge_method=S256&kc_idp_hint=github"
                 }
               ],
-              "code": 200,
-              "status": "OK",
-              "originalRequest": {
-                "header": [],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/identity/auth/callback?code=abc123&state=st_mock_123"
-                }
-              }
-            },
-            {
-              "name": "invalid-callback",
-              "body": "{\"type\":\"https://boardtpl.dev/problems/invalid-auth-callback\",\"title\":\"Authentication callback is invalid.\",\"status\":400,\"detail\":\"The authorization state was missing, expired, or already used.\",\"code\":\"invalid_auth_callback\"}",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "code": 400,
-              "status": "Bad Request",
-              "originalRequest": {
-                "header": [],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/identity/auth/callback?code=abc123&state=st_mock_123"
-                }
-              }
-            },
-            {
-              "name": "keycloak-failure",
-              "body": "{\"type\":\"https://boardtpl.dev/problems/keycloak-token-exchange-failed\",\"title\":\"Keycloak token exchange failed.\",\"status\":502,\"detail\":\"The authorization code is invalid.\",\"code\":\"keycloak_token_exchange_failed\"}",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "code": 502,
-              "status": "Bad Gateway",
-              "originalRequest": {
-                "header": [],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/identity/auth/callback?code=abc123&state=st_mock_123"
-                }
-              }
+              "cookie": [],
+              "body": ""
             }
-          ],
+          ]
+        },
+        {
+          "name": "Complete browser login callback",
           "event": [
             {
               "listen": "test",
@@ -373,63 +355,88 @@
               }
             }
           ],
+          "id": "712d1027-6770-445e-987a-576447bf5b48",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
-            "header": [],
             "method": "GET",
+            "header": [],
             "url": {
-              "raw": "{{baseUrl}}/identity/auth/callback?code=abc123&state=st_mock_123"
+              "raw": ""
             }
           },
-          "name": "Complete browser login callback"
-        },
-        {
           "response": [
             {
-              "name": "default",
-              "body": "{\"subject\":\"5cfdbb44-2cf9-4aa2-b411-6c25b6690c4c\",\"displayName\":\"Local Admin\",\"email\":\"admin@boardtpl.local\",\"emailVerified\":true,\"identityProvider\":null,\"roles\":[\"admin\",\"developer\",\"player\"]}",
+              "id": "1fb4224a-9450-4ee0-ab58-bc4fbbb858b7",
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "code": 200,
-              "status": "OK",
-              "originalRequest": {
-                "header": [
-                  {
-                    "value": "Bearer {{accessToken}}",
-                    "type": "text",
-                    "key": "Authorization"
-                  }
-                ],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/identity/me"
-                }
-              }
+              "cookie": [],
+              "body": "{\"accessToken\":\"eyJhbGciOi...mock-access-token\",\"refreshToken\":\"eyJhbGciOi...mock-refresh-token\",\"idToken\":\"eyJhbGciOi...mock-id-token\",\"tokenType\":\"Bearer\",\"expiresInSeconds\":300,\"scope\":\"openid profile email offline_access\",\"user\":{\"subject\":\"5cfdbb44-2cf9-4aa2-b411-6c25b6690c4c\",\"displayName\":\"Local Admin\",\"email\":\"admin@boardtpl.local\",\"emailVerified\":true,\"identityProvider\":null,\"roles\":[\"admin\",\"developer\",\"player\"]}}"
             },
             {
-              "name": "unauthorized",
-              "body": "{\"type\":\"https://boardtpl.dev/problems/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"A valid bearer token is required.\",\"code\":\"unauthorized\"}",
+              "id": "8a32551c-9201-48e6-a174-81d48dc3a39e",
+              "name": "invalid-callback",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "code": 401,
-              "status": "Unauthorized",
+              "cookie": [],
+              "body": "{\"type\":\"https://boardtpl.dev/problems/invalid-auth-callback\",\"title\":\"Authentication callback is invalid.\",\"status\":400,\"detail\":\"The authorization state was missing, expired, or already used.\",\"code\":\"invalid_auth_callback\"}"
+            },
+            {
+              "id": "85185329-67c9-4bc8-8f2b-c047d5998609",
+              "name": "keycloak-failure",
               "originalRequest": {
-                "header": [],
                 "method": "GET",
+                "header": [],
                 "url": {
-                  "raw": "{{baseUrl}}/identity/me"
+                  "raw": ""
                 }
-              }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"type\":\"https://boardtpl.dev/problems/keycloak-token-exchange-failed\",\"title\":\"Keycloak token exchange failed.\",\"status\":502,\"detail\":\"The authorization code is invalid.\",\"code\":\"keycloak_token_exchange_failed\"}"
             }
-          ],
+          ]
+        },
+        {
+          "name": "Get current user profile",
           "event": [
             {
               "listen": "test",
@@ -443,94 +450,78 @@
               }
             }
           ],
+          "id": "9b4e858c-939c-46aa-9677-a4d836c63943",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
+            "method": "GET",
             "header": [
               {
+                "key": "Authorization",
                 "value": "Bearer {{accessToken}}",
-                "type": "text",
-                "key": "Authorization"
+                "type": "text"
               }
             ],
-            "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/identity/me"
+              "raw": ""
             }
           },
-          "name": "Get current user profile"
-        },
-        {
           "response": [
             {
+              "id": "a09cdc90-09df-452f-a02b-8b6c25dfe69d",
               "name": "default",
-              "body": "{\"boardProfile\":{\"boardUserId\":\"board_user_12345\",\"displayName\":\"BoardKiddo\",\"avatarUrl\":\"https://cdn.board.fun/users/board_user_12345/avatar.png\",\"linkedAt\":\"2026-02-23T08:15:00Z\",\"lastSyncedAt\":\"2026-02-23T08:15:00Z\"}}",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text",
+                    "key": "Authorization"
+                  }
+                ],
+                "url": {
+                  "raw": ""
                 }
-              ],
-              "code": 200,
+              },
               "status": "OK",
-              "originalRequest": {
-                "header": [
-                  {
-                    "value": "Bearer {{accessToken}}",
-                    "type": "text",
-                    "key": "Authorization"
-                  }
-                ],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/identity/me/board-profile"
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
                 }
-              }
+              ],
+              "cookie": [],
+              "body": "{\"subject\":\"5cfdbb44-2cf9-4aa2-b411-6c25b6690c4c\",\"displayName\":\"Local Admin\",\"email\":\"admin@boardtpl.local\",\"emailVerified\":true,\"identityProvider\":null,\"roles\":[\"admin\",\"developer\",\"player\"]}"
             },
             {
+              "id": "638dfdf9-57bd-4902-ab24-b6bd0cf83aad",
               "name": "unauthorized",
-              "body": "{\"type\":\"https://boardtpl.dev/problems/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"A valid bearer token is required.\",\"code\":\"unauthorized\"}",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "code": 401,
-              "status": "Unauthorized",
               "originalRequest": {
+                "method": "GET",
                 "header": [],
-                "method": "GET",
                 "url": {
-                  "raw": "{{baseUrl}}/identity/me/board-profile"
+                  "raw": ""
                 }
-              }
-            },
-            {
-              "name": "not-linked",
-              "body": "{\"type\":\"https://boardtpl.dev/problems/board-profile-not-linked\",\"title\":\"Board profile not linked\",\"status\":404,\"detail\":\"No linked Board profile exists for the current user.\",\"code\":\"board_profile_not_linked\"}",
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "code": 404,
-              "status": "Not Found",
-              "originalRequest": {
-                "header": [
-                  {
-                    "value": "Bearer {{accessToken}}",
-                    "type": "text",
-                    "key": "Authorization"
-                  }
-                ],
-                "method": "GET",
-                "url": {
-                  "raw": "{{baseUrl}}/identity/me/board-profile"
-                }
-              }
+              "cookie": [],
+              "body": "{\"type\":\"https://boardtpl.dev/problems/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"A valid bearer token is required.\",\"code\":\"unauthorized\"}"
             }
-          ],
+          ]
+        },
+        {
+          "name": "Get linked Board profile",
           "event": [
             {
               "listen": "test",
@@ -542,36 +533,154 @@
               }
             }
           ],
+          "id": "be0ed52d-ec38-4b35-a075-25f1a2f97518",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
+            "method": "GET",
             "header": [
               {
+                "key": "Authorization",
                 "value": "Bearer {{accessToken}}",
-                "type": "text",
-                "key": "Authorization"
+                "type": "text"
               }
             ],
-            "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/identity/me/board-profile"
+              "raw": ""
             }
           },
-          "name": "Get linked Board profile"
-        },
-        {
           "response": [
             {
+              "id": "986be6a1-94f7-4a2e-a339-d27f242e9014",
               "name": "default",
-              "body": "{\"boardProfile\":{\"boardUserId\":\"board_user_12345\",\"displayName\":\"BoardKiddo\",\"avatarUrl\":\"https://cdn.board.fun/users/board_user_12345/avatar.png\",\"linkedAt\":\"2026-02-23T08:15:00Z\",\"lastSyncedAt\":\"2026-02-23T08:17:00Z\"}}",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text",
+                    "key": "Authorization"
+                  }
+                ],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "code": 200,
-              "status": "OK",
+              "cookie": [],
+              "body": "{\"boardProfile\":{\"boardUserId\":\"board_user_12345\",\"displayName\":\"BoardKiddo\",\"avatarUrl\":\"https://cdn.board.fun/users/board_user_12345/avatar.png\",\"linkedAt\":\"2026-02-23T08:15:00Z\",\"lastSyncedAt\":\"2026-02-23T08:15:00Z\"}}"
+            },
+            {
+              "id": "22f3eecd-4d75-477e-991f-8630e6971d7c",
+              "name": "unauthorized",
               "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"type\":\"https://boardtpl.dev/problems/unauthorized\",\"title\":\"Unauthorized\",\"status\":401,\"detail\":\"A valid bearer token is required.\",\"code\":\"unauthorized\"}"
+            },
+            {
+              "id": "f4e58395-63b7-43c8-a6ba-a365aa4748b5",
+              "name": "not-linked",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text",
+                    "key": "Authorization"
+                  }
+                ],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"type\":\"https://boardtpl.dev/problems/board-profile-not-linked\",\"title\":\"Board profile not linked\",\"status\":404,\"detail\":\"No linked Board profile exists for the current user.\",\"code\":\"board_profile_not_linked\"}"
+            }
+          ]
+        },
+        {
+          "name": "Link or update Board profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ],
+          "id": "81ae05c5-dfca-4b16-8ff5-5ced13b2b56f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"boardUserId\":\"board_user_12345\",\"displayName\":\"BoardKiddo\",\"avatarUrl\":\"https://cdn.board.fun/users/board_user_12345/avatar.png\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": [
+            {
+              "id": "9ff862b9-1cfa-43d1-8134-c5bcb946c765",
+              "name": "default",
+              "originalRequest": {
+                "method": "PUT",
                 "header": [
                   {
                     "value": "Bearer {{accessToken}}",
@@ -584,77 +693,26 @@
                     "key": "Content-Type"
                   }
                 ],
-                "method": "PUT",
                 "url": {
-                  "raw": "{{baseUrl}}/identity/me/board-profile"
+                  "raw": ""
                 }
-              }
-            }
-          ],
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "body": {
-              "raw": "{\"boardUserId\":\"board_user_12345\",\"displayName\":\"BoardKiddo\",\"avatarUrl\":\"https://cdn.board.fun/users/board_user_12345/avatar.png\"}",
-              "mode": "raw",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "description": null,
-            "header": [
-              {
-                "value": "Bearer {{accessToken}}",
-                "type": "text",
-                "key": "Authorization"
               },
-              {
-                "value": "application/json",
-                "type": "text",
-                "key": "Content-Type"
-              }
-            ],
-            "method": "PUT",
-            "url": {
-              "raw": "{{baseUrl}}/identity/me/board-profile"
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"boardProfile\":{\"boardUserId\":\"board_user_12345\",\"displayName\":\"BoardKiddo\",\"avatarUrl\":\"https://cdn.board.fun/users/board_user_12345/avatar.png\",\"linkedAt\":\"2026-02-23T08:15:00Z\",\"lastSyncedAt\":\"2026-02-23T08:17:00Z\"}}"
             }
-          },
-          "name": "Link or update Board profile"
+          ]
         },
         {
-          "response": [
-            {
-              "name": "default",
-              "body": "",
-              "header": [],
-              "code": 204,
-              "status": "No Content",
-              "originalRequest": {
-                "header": [
-                  {
-                    "value": "Bearer {{accessToken}}",
-                    "type": "text",
-                    "key": "Authorization"
-                  }
-                ],
-                "method": "DELETE",
-                "url": {
-                  "raw": "{{baseUrl}}/identity/me/board-profile"
-                }
-              }
-            }
-          ],
+          "name": "Unlink Board profile",
           "event": [
             {
               "listen": "test",
@@ -666,29 +724,57 @@
               }
             }
           ],
+          "id": "41984fe6-9770-411a-b50e-b4023654784f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
+            "method": "DELETE",
             "header": [
               {
+                "key": "Authorization",
                 "value": "Bearer {{accessToken}}",
-                "type": "text",
-                "key": "Authorization"
+                "type": "text"
               }
             ],
-            "method": "DELETE",
             "url": {
-              "raw": "{{baseUrl}}/identity/me/board-profile"
+              "raw": ""
             }
           },
-          "name": "Unlink Board profile"
+          "response": [
+            {
+              "id": "3d201831-766c-4825-bdaa-6fedf645c7c7",
+              "name": "default",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text",
+                    "key": "Authorization"
+                  }
+                ],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "Text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
         }
-      ]
+      ],
+      "id": "c5599e89-7bd0-4818-8258-3a98f1722ae1"
     },
     {
       "name": "Mock Validation",
       "item": [
         {
-          "response": [],
+          "name": "Readiness health check (Mock 503 example)",
           "event": [
             {
               "listen": "test",
@@ -700,29 +786,32 @@
               }
             }
           ],
+          "id": "596805eb-1365-4123-8ae3-5ed1b9e0f8d6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
+            "method": "GET",
             "header": [
               {
+                "key": "x-mock-response-code",
                 "value": "503",
-                "type": "text",
-                "key": "x-mock-response-code"
+                "type": "text"
               },
               {
+                "key": "x-mock-response-name",
                 "value": "postgres-unhealthy",
-                "type": "text",
-                "key": "x-mock-response-name"
+                "type": "text"
               }
             ],
-            "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/health/ready"
+              "raw": ""
             }
           },
-          "name": "Readiness health check (Mock 503 example)"
+          "response": []
         },
         {
-          "response": [],
+          "name": "Complete browser login callback (Bad request 400 example)",
           "event": [
             {
               "listen": "test",
@@ -736,29 +825,32 @@
               }
             }
           ],
+          "id": "24552487-e4c9-4f75-b95c-c792c1b9aac8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
+            "method": "GET",
             "header": [
               {
+                "key": "x-mock-response-code",
                 "value": "400",
-                "type": "text",
-                "key": "x-mock-response-code"
+                "type": "text"
               },
               {
+                "key": "x-mock-response-name",
                 "value": "invalid-callback",
-                "type": "text",
-                "key": "x-mock-response-name"
+                "type": "text"
               }
             ],
-            "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/identity/auth/callback?code=abc123&state=st_mock_123"
+              "raw": ""
             }
           },
-          "name": "Complete browser login callback (Bad request 400 example)"
+          "response": []
         },
         {
-          "response": [],
+          "name": "Complete browser login callback (Bad gateway 502 example)",
           "event": [
             {
               "listen": "test",
@@ -772,29 +864,32 @@
               }
             }
           ],
+          "id": "9c269a43-e1a6-4f96-803e-2c7c7fd2660b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
+            "method": "GET",
             "header": [
               {
+                "key": "x-mock-response-code",
                 "value": "502",
-                "type": "text",
-                "key": "x-mock-response-code"
+                "type": "text"
               },
               {
+                "key": "x-mock-response-name",
                 "value": "keycloak-failure",
-                "type": "text",
-                "key": "x-mock-response-name"
+                "type": "text"
               }
             ],
-            "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/identity/auth/callback?code=abc123&state=st_mock_123"
+              "raw": ""
             }
           },
-          "name": "Complete browser login callback (Bad gateway 502 example)"
+          "response": []
         },
         {
-          "response": [],
+          "name": "Get current user profile (Unauthorized 401 example)",
           "event": [
             {
               "listen": "test",
@@ -808,34 +903,37 @@
               }
             }
           ],
+          "id": "7c551f7d-f963-4bdf-959c-7cde53c31557",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
+            "method": "GET",
             "header": [
               {
+                "key": "Authorization",
                 "value": "Bearer {{accessToken}}",
-                "type": "text",
-                "key": "Authorization"
+                "type": "text"
               },
               {
+                "key": "x-mock-response-code",
                 "value": "401",
-                "type": "text",
-                "key": "x-mock-response-code"
+                "type": "text"
               },
               {
+                "key": "x-mock-response-name",
                 "value": "unauthorized",
-                "type": "text",
-                "key": "x-mock-response-name"
+                "type": "text"
               }
             ],
-            "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/identity/me"
+              "raw": ""
             }
           },
-          "name": "Get current user profile (Unauthorized 401 example)"
+          "response": []
         },
         {
-          "response": [],
+          "name": "Get linked Board profile (Not linked 404 example)",
           "event": [
             {
               "listen": "test",
@@ -849,33 +947,37 @@
               }
             }
           ],
+          "id": "9f9c0f39-13b4-4a71-bac4-281cb4ef8185",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "description": null,
+            "method": "GET",
             "header": [
               {
+                "key": "Authorization",
                 "value": "Bearer {{accessToken}}",
-                "type": "text",
-                "key": "Authorization"
+                "type": "text"
               },
               {
+                "key": "x-mock-response-code",
                 "value": "404",
-                "type": "text",
-                "key": "x-mock-response-code"
+                "type": "text"
               },
               {
+                "key": "x-mock-response-name",
                 "value": "not-linked",
-                "type": "text",
-                "key": "x-mock-response-name"
+                "type": "text"
               }
             ],
-            "method": "GET",
             "url": {
-              "raw": "{{baseUrl}}/identity/me/board-profile"
+              "raw": ""
             }
           },
-          "name": "Get linked Board profile (Not linked 404 example)"
+          "response": []
         }
-      ]
+      ],
+      "id": "86360e86-eb37-46c0-893b-84239d654090"
     }
   ]
 }

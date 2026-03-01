@@ -18,7 +18,7 @@ It is intended to be the versioned home for:
 - Use Postman collections and environments as executable contract checks and workflow tests.
 - Use mock servers/examples to unblock frontend/client work before backend endpoints are implemented.
 - Do not keep future-only endpoints in the maintained contract collection once it becomes clear the backend implementation is deferred to a later wave.
-- Prefer Postman CLI plus GitHub Actions for automated contract execution and workspace sync.
+- Prefer Redocly CLI for OpenAPI linting and Postman CLI plus GitHub Actions for contract execution and workspace sync.
 
 ## Source of Truth Rule
 
@@ -91,4 +91,7 @@ Prefer this layout as the API grows:
 - Keep Postman Native Git tracked filenames stable once established to avoid duplicate workspace artifacts.
 - Favor small, reviewable contract increments (one domain slice at a time).
 - Start with mock-friendly examples so frontend/client development can proceed in parallel.
+- Work from a branch, commit the finished change set, push it, and open or update a PR.
+- Wait for the relevant GitHub workflow runs, inspect failures, and push fixes until the branch is green.
+- Merge to `main` only after the required checks pass.
 - Update this `AGENTS.md` as the API-first workflow evolves (tooling conventions, sync rules, versioning rules).

@@ -17,10 +17,10 @@ This repository is connected to a Postman project workspace using Postman Native
 
 Local development updates the files in this repo (`postman/`, `.postman/`), and Postman Cloud provides the workspace, mock servers, and synced Native Git artifacts.
 
-This project now uses a CLI-first workflow:
+This project uses a CLI-first workflow:
 
 - use the Git-tracked OpenAPI spec and Git-tracked contract/admin collections as the source of truth
-- use Postman CLI in CI and for recommended local execution
+- use Redocly CLI for OpenAPI linting and Postman CLI for contract execution/workspace sync
 - use `postman workspace push --yes` to sync the connected Postman workspace after `main` changes
 - treat any API Builder generated collection as optional disposable UI output only, not as a required test or sync artifact
 
@@ -36,10 +36,10 @@ This project now uses a CLI-first workflow:
 
 ### GitHub Automation
 
-The maintained GitHub Actions workflow now automates the important Postman checks and sync points:
+The maintained GitHub Actions workflow automates the important Postman checks and sync points:
 
 - `postman-mock-contract-tests.yml`
-  - lints the local OpenAPI spec with Postman CLI
+  - lints the local OpenAPI spec with Redocly CLI
   - provisions a fresh Postman mock from the Git-tracked contract test collection snapshot
   - runs the Git-tracked contract test collection with Postman CLI
   - deletes the CI-created mock after the run
@@ -49,7 +49,7 @@ The maintained GitHub Actions workflow now automates the important Postman check
   - reprovisions the shared mock and syncs the `Board Third Party Library - Mock` environment `baseUrl`
   - validates the synced workspace assets against that shared mock with Postman CLI
 
-This means normal team workflow no longer requires:
+This means normal team workflow does not require:
 
 - manually regenerating a linked generated collection
 - manually running the admin provisioning collection after every merge
@@ -59,14 +59,14 @@ This means normal team workflow no longer requires:
 
 Recommended local setup:
 
-1. Install Postman CLI.
-2. From the solution root, authenticate once with an API key if you need workspace sync operations:
+1. Install Node.js and Postman CLI.
+2. From the solution root, authenticate once with an API key if you need workspace sync or mock provisioning operations:
 
 ```bash
 python ./scripts/dev.py api-login --postman-api-key <your-postman-api-key>
 ```
 
-If you prefer one-off authenticated commands, the root CLI also accepts `--postman-api-key` directly on `api-lint`, `api-mock`, and `api-sync`.
+If you prefer one-off authenticated commands, the root CLI also accepts `--postman-api-key` directly on `api-mock` and `api-sync`.
 
 3. Run local contract tests against the backend from the solution root:
 
@@ -87,10 +87,10 @@ If the backend is not already running in another terminal, the root CLI can star
 python ./scripts/dev.py api-test --start-backend --skip-lint
 ```
 
-If you want to run spec lint locally through the root CLI, authenticate first and then run:
+If you want to run spec lint locally through the root CLI, run:
 
 ```bash
-python ./scripts/dev.py api-lint --postman-api-key <your-postman-api-key>
+python ./scripts/dev.py api-lint
 ```
 
 If you need an immediate manual workspace sync before `main` automation runs:
@@ -139,7 +139,7 @@ GitHub does not expose repository secrets to forked pull requests. The workflow 
 
 ## Mock-First Flow
 
-The contract test collection now includes:
+The contract test collection includes:
 
 - saved examples for the health endpoints (including `/health/ready` `200` and `503`)
 - a `Mock Validation` folder with a mock-only request that forces the saved `503` readiness example using Postman mock headers
@@ -155,7 +155,7 @@ The contract test collection now includes:
 
 The Git-tracked contract test collection sends `Authorization: Bearer {{accessToken}}` for authenticated identity requests such as `GET /identity/me`.
 
-The collection now supports two execution modes:
+The collection supports two execution modes:
 
 - `mock`: assert saved example responses and run the `Mock Validation` folder
 - `live`: run portable smoke assertions by default, and only run auth-success assertions when you provide real auth artifacts in the environment
@@ -184,8 +184,8 @@ The current implemented authentication surface is modeled as a Keycloak-hosted b
 - **Hosted registration/login**: `GET /identity/auth/login` redirects callers to Keycloak using authorization code + PKCE. When self-registration is enabled in the realm, users can register from the hosted Keycloak page.
 - **Callback exchange**: `GET /identity/auth/callback` completes the code exchange and returns tokens plus the resolved current-user summary.
 - **Provider brokering**: optional `provider` query input on `GET /identity/auth/login` maps to Keycloak identity-provider hints for future social-login scenarios.
-- **Account lifecycle ownership**: password reset, email verification, and external identity linking are Keycloak concerns and are no longer modeled as first-party API endpoints in this contract.
-- **Wave 1 persistence**: `GET|PUT|DELETE /identity/me/board-profile` is now part of the maintained contract and maps to the application-owned Board profile linkage/cache persisted in PostgreSQL.
+- **Account lifecycle ownership**: password reset, email verification, and external identity linking are Keycloak concerns and are not modeled as first-party API endpoints in this contract.
+- **Wave 1 persistence**: `GET|PUT|DELETE /identity/me/board-profile` is part of the maintained contract and maps to the application-owned Board profile linkage/cache persisted in PostgreSQL.
 
 ### Provision the mock server (code-driven in Postman)
 
@@ -253,7 +253,7 @@ These values are intentionally blank in the versioned **Mock Admin** environment
 
 ### Making the Mock environment "ready to go"
 
-The admin collection now attempts to keep `Board Third Party Library - Mock` `baseUrl` in sync automatically whenever a new mock server is created.
+The admin collection attempts to keep `Board Third Party Library - Mock` `baseUrl` in sync automatically whenever a new mock server is created.
 
 If your team decides to keep a stable mock URL for a while, you can also update the versioned runtime mock environment file:
 

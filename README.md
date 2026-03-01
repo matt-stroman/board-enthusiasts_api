@@ -174,6 +174,8 @@ The one-step provisioning request performs a preflight validation of the resolve
 
 If the contract test run fails immediately with a `400` response whose body contains `inactiveMockError`, the environment is pointing at a deleted or replaced Postman mock. Refresh/pull the connected repository if needed, rerun `Provision/refresh mock server (one-step)`, and then rerun the contract tests.
 
+Important for local/manual runs: Postman uses your local environment variable value when you send requests in your own instance. The provisioning collection updates the Mock environment through the Postman API, which updates the shared environment value in the workspace. If you manually cleared `Board Third Party Library - Mock.baseUrl` locally, that blank local override will continue to win until you reset it back to the shared value. In that case, use `Reset value` on `baseUrl` (or `Reset all`) in the `Board Third Party Library - Mock` environment after provisioning.
+
 ### If runtime Mock environment auto-sync fails
 
 Use the `Environments` folder in the Postman admin collection:

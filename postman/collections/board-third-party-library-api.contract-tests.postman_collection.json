@@ -377,7 +377,8 @@
           ],
           "id": "27ae2248-2b58-445d-b397-729963a0f5fa",
           "protocolProfileBehavior": {
-            "disableBodyPruning": true
+            "disableBodyPruning": true,
+            "followRedirects": false
           },
           "request": {
             "method": "GET",
@@ -1298,7 +1299,7 @@
         "exec": [
           "var inactiveMockPayload = null;",
           "try { inactiveMockPayload = pm.response.json(); } catch (e) { inactiveMockPayload = null; }",
-          "var inactiveMockError = inactiveMockPayload && inactiveMockPayload.error && inactiveMockPayload.error.name === \"inactiveMockError\";",
+          "var inactiveMockError = Boolean(inactiveMockPayload && inactiveMockPayload.error && inactiveMockPayload.error.name === \"inactiveMockError\");",
           "pm.test(\"Configured mock URL is active\", function () {",
           "  pm.expect(inactiveMockError, \"The configured baseUrl points to an inactive Postman mock. Re-run Postman Admin > Collections > Provision/refresh mock server (one-step) after refreshing the connected repository and then retry the contract tests.\").to.eql(false);",
           "});",

@@ -35,6 +35,7 @@ jobs:
       - name: Lint OpenAPI specification
         uses: postmanlabs/postman-cli-action@v1
         with:
+          postman-cli-version: 1.29.5
           working-directory: .
           command: "spec lint postman/specs/board-third-party-library-api.v1.openapi.yaml --fail-severity error"
 
@@ -64,6 +65,7 @@ jobs:
         if: steps.provision_mock.outputs.should_run == 'true'
         uses: postmanlabs/postman-cli-action@v1
         with:
+          postman-cli-version: 1.29.5
           working-directory: .
           command: >-
             collection run postman/collections/board-third-party-library-api.contract-tests.postman_collection.json

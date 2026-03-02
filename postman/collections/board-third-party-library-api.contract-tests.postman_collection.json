@@ -2872,7 +2872,7 @@
               },
               {
                 "key": "x-mock-response-name",
-                "value": "duplicate-slug",
+                "value": "organization-duplicate-slug",
                 "type": "text"
               }
             ],
@@ -2893,7 +2893,7 @@
           "response": [
             {
               "id": "1536342f-b424-49c5-ab74-68050601bf66",
-              "name": "duplicate-slug",
+              "name": "organization-duplicate-slug",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -3096,7 +3096,7 @@
               },
               {
                 "key": "x-mock-response-name",
-                "value": "validation-error",
+                "value": "title-create-validation-error",
                 "type": "text"
               }
             ],
@@ -3120,7 +3120,7 @@
           "response": [
             {
               "id": "c9fd6cd1-4dd9-4e6f-9c14-95ee411f918f",
-              "name": "validation-error",
+              "name": "title-create-validation-error",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -3210,7 +3210,7 @@
               },
               {
                 "key": "x-mock-response-name",
-                "value": "duplicate-slug",
+                "value": "title-duplicate-slug",
                 "type": "text"
               }
             ],
@@ -3234,7 +3234,7 @@
           "response": [
             {
               "id": "07c87afe-af00-400f-931d-9ab690d5fe2b",
-              "name": "duplicate-slug",
+              "name": "title-duplicate-slug",
               "originalRequest": {
                 "method": "POST",
                 "header": [
@@ -3324,7 +3324,7 @@
               },
               {
                 "key": "x-mock-response-name",
-                "value": "validation-error",
+                "value": "title-metadata-validation-error",
                 "type": "text"
               }
             ],
@@ -3349,7 +3349,7 @@
           "response": [
             {
               "id": "5d58bf91-7f81-4c96-8c8d-cc90fd4b0684",
-              "name": "validation-error",
+              "name": "title-metadata-validation-error",
               "originalRequest": {
                 "method": "PUT",
                 "header": [

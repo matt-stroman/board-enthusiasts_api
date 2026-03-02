@@ -985,6 +985,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidationProblemDetails'
+              examples:
+                mixed-publisher-selection:
+                  value:
+                    title: One or more validation errors occurred.
+                    status: 422
+                    errors:
+                      publisher:
+                        - Choose either a supported publisher or custom publisher details, but not both.
   /developer/organizations/{organizationId}/integration-connections/{connectionId}:
     get:
       tags: [Acquisition]
@@ -1284,6 +1292,13 @@ paths:
                     status: 409
                     detail: Titles with enabled acquisition bindings must keep exactly one enabled primary binding.
                     code: title_integration_primary_required
+                disabled-connection:
+                  value:
+                    type: https://boardtpl.dev/problems/title-integration-connection-disabled
+                    title: Integration connection disabled
+                    status: 409
+                    detail: Enabled title acquisition bindings cannot point at disabled integration connections.
+                    code: title_integration_connection_disabled
         '422':
           description: Validation failed for the request payload.
           content:
@@ -1369,6 +1384,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                disabled-connection:
+                  value:
+                    type: https://boardtpl.dev/problems/title-integration-connection-disabled
+                    title: Integration connection disabled
+                    status: 409
+                    detail: Enabled title acquisition bindings cannot point at disabled integration connections.
+                    code: title_integration_connection_disabled
         '422':
           description: Validation failed for the request payload.
           content:
@@ -1937,6 +1960,20 @@ paths:
           description: Caller does not have permission to manage this title.
         '404':
           description: Title or media asset not found.
+        '422':
+          description: Validation failed for the route parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+              examples:
+                invalid-media-role:
+                  value:
+                    title: One or more validation errors occurred.
+                    status: 422
+                    errors:
+                      mediaRole:
+                        - Media role must be one of: card, hero, logo.
   /developer/titles/{titleId}/releases:
     get:
       tags: [Catalog]

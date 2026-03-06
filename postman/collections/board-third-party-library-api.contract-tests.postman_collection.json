@@ -1270,6 +1270,174 @@
       "name": "Moderation",
       "item": [
         {
+          "name": "List moderation developers",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var m=(pm.environment.get(\"contractExecutionMode\")||\"live\").toLowerCase();",
+                  "var t=pm.environment.get(\"moderatorAccessToken\")||\"\";",
+                  "var ok=Boolean(t&&t.indexOf(\"{{\")!==0&&t.indexOf(\"replace-with-\")!==0&&(m===\"mock\"||t!==\"mock-access-token\"));",
+                  "if(m!==\"mock\"&&!ok){pm.test(\"List moderation developers skipped without moderator token\",function(){pm.expect(true).to.eql(true);});return;}",
+                  "pm.test(\"Status is 200\",function(){pm.response.to.have.status(200);});",
+                  "var j=pm.response.json();",
+                  "pm.test(\"Developers array is present\",function(){pm.expect(j.developers).to.be.an(\"array\");});"
+                ]
+              }
+            }
+          ],
+          "id": "9f83ff17-f06d-4b81-bfdf-d1e4de89b159",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{moderatorAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/moderation/developers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "moderation",
+                "developers"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e2657fe0-9d36-42cf-afb5-3d68c3225f16",
+              "name": "default",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{moderatorAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/moderation/developers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "moderation",
+                    "developers"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"developers\":[{\"developerSubject\":\"2c54f9bb-1fdf-48e5-8cf0-a8b77f6174af\",\"userName\":\"bluefairydev\",\"displayName\":\"Blue Fairy Dev\",\"email\":\"bluefairydev@example.com\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "Get developer verification state",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var m=(pm.environment.get(\"contractExecutionMode\")||\"live\").toLowerCase();",
+                  "var t=pm.environment.get(\"moderatorAccessToken\")||\"\";",
+                  "var d=pm.environment.get(\"developerSubject\")||\"\";",
+                  "var ok=Boolean(t&&t.indexOf(\"{{\")!==0&&t.indexOf(\"replace-with-\")!==0&&(m===\"mock\"||t!==\"mock-access-token\"));",
+                  "var hasDeveloper=Boolean(d&&d.indexOf(\"{{\")!==0&&d.indexOf(\"replace-with-\")!==0);",
+                  "if(m!==\"mock\"&&(!ok||!hasDeveloper)){pm.test(\"Get developer verification state skipped without moderator token or developer identifier\",function(){pm.expect(true).to.eql(true);});return;}",
+                  "pm.test(\"Status is 200\",function(){pm.response.to.have.status(200);});",
+                  "var j=pm.response.json();",
+                  "pm.test(\"Verification envelope returned\",function(){pm.expect(j.verifiedDeveloperRoleState).to.be.an(\"object\");});"
+                ]
+              }
+            }
+          ],
+          "id": "f6bf4d0a-f244-406d-8e0b-720c10d19b4d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{moderatorAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/moderation/developers/{{developerSubject}}/verification",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "moderation",
+                "developers",
+                "{{developerSubject}}",
+                "verification"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7bfbf2eb-42f8-4648-a4a4-3f59c9fc651b",
+              "name": "default",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{moderatorAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/moderation/developers/{{developerSubject}}/verification",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "moderation",
+                    "developers",
+                    "{{developerSubject}}",
+                    "verification"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"verifiedDeveloperRoleState\":{\"developerSubject\":\"2c54f9bb-1fdf-48e5-8cf0-a8b77f6174af\",\"verifiedDeveloper\":true,\"alreadyInRequestedState\":false}}"
+            }
+          ]
+        },
+        {
           "name": "Grant verified developer role",
           "event": [
             {
@@ -1352,6 +1520,91 @@
                 "cookie": [],
                 "body": "{\"verifiedDeveloperRoleState\":{\"developerSubject\":\"2c54f9bb-1fdf-48e5-8cf0-a8b77f6174af\",\"verifiedDeveloper\":true,\"alreadyInRequestedState\":false}}"
               }
+          ]
+        },
+        {
+          "name": "Revoke verified developer role",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var m=(pm.environment.get(\"contractExecutionMode\")||\"live\").toLowerCase();",
+                  "var t=pm.environment.get(\"moderatorAccessToken\")||\"\";",
+                  "var ok=Boolean(t&&t.indexOf(\"{{\")!==0&&t.indexOf(\"replace-with-\")!==0&&(m===\"mock\"||t!==\"mock-access-token\"));",
+                  "if(m!==\"mock\"&&!ok){pm.test(\"Revoke verified developer role skipped without moderator token\",function(){pm.expect(true).to.eql(true);});return;}",
+                  "pm.test(\"Status is 200\",function(){pm.response.to.have.status(200);});",
+                  "var j=pm.response.json();",
+                  "pm.test(\"Verified role revoked\",function(){pm.expect(j.verifiedDeveloperRoleState.verifiedDeveloper).to.eql(false);});"
+                ]
+              }
+            }
+          ],
+          "id": "d8447373-3d8d-47bb-97c4-a478646f416d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{moderatorAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/moderation/developers/{{developerSubject}}/verified-developer",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "moderation",
+                "developers",
+                "{{developerSubject}}",
+                "verified-developer"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "605615ac-4585-4e56-8f6a-dddb15a9a5cf",
+              "name": "default",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{moderatorAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/moderation/developers/{{developerSubject}}/verified-developer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "moderation",
+                    "developers",
+                    "{{developerSubject}}",
+                    "verified-developer"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"verifiedDeveloperRoleState\":{\"developerSubject\":\"2c54f9bb-1fdf-48e5-8cf0-a8b77f6174af\",\"verifiedDeveloper\":false,\"alreadyInRequestedState\":false}}"
+            }
           ]
         }
       ]

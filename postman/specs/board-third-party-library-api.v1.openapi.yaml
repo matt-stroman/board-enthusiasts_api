@@ -530,6 +530,119 @@ paths:
                     status: 502
                     detail: Keycloak role assignment failed for the authenticated user.
                     code: keycloak_developer_enrollment_failed
+  /moderation/developers:
+    get:
+      tags: [Moderation]
+      summary: List developer accounts for moderation workflows
+      operationId: listModerationDevelopers
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PostmanMockResponseCodeHeader'
+        - $ref: '#/components/parameters/PostmanMockResponseNameHeader'
+      responses:
+        '200':
+          description: Developer list returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModerationDeveloperListResponse'
+              examples:
+                default:
+                  value:
+                    developers:
+                      - developerSubject: 2c54f9bb-1fdf-48e5-8cf0-a8b77f6174af
+                        userName: bluefairydev
+                        displayName: Blue Fairy Dev
+                        email: bluefairydev@example.com
+                      - developerSubject: 6a563332-90af-4d25-a30d-aeab9731a5c5
+                        userName: stellarforge
+                        displayName: Stellar Forge
+                        email: stellarforge@example.com
+        '401':
+          $ref: '#/components/responses/UnauthorizedProblemResponse'
+        '403':
+          description: Caller does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                forbidden:
+                  value:
+                    type: https://boardtpl.dev/problems/moderator-access-required
+                    title: Moderator access is required.
+                    status: 403
+                    detail: Only moderators and above can view developer moderation tools.
+                    code: moderator_access_required
+  /moderation/developers/{developerIdentifier}/verification:
+    get:
+      tags: [Moderation]
+      summary: Get verification state for a developer account
+      operationId: getDeveloperVerificationState
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: developerIdentifier
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Username when available, otherwise a Keycloak subject.
+        - $ref: '#/components/parameters/PostmanMockResponseCodeHeader'
+        - $ref: '#/components/parameters/PostmanMockResponseNameHeader'
+      responses:
+        '200':
+          description: Verification state returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifiedDeveloperRoleStateResponse'
+              examples:
+                verified:
+                  value:
+                    verifiedDeveloperRoleState:
+                      developerSubject: 2c54f9bb-1fdf-48e5-8cf0-a8b77f6174af
+                      verifiedDeveloper: true
+                      alreadyInRequestedState: false
+                not-verified:
+                  value:
+                    verifiedDeveloperRoleState:
+                      developerSubject: 2c54f9bb-1fdf-48e5-8cf0-a8b77f6174af
+                      verifiedDeveloper: false
+                      alreadyInRequestedState: false
+        '401':
+          $ref: '#/components/responses/UnauthorizedProblemResponse'
+        '403':
+          description: Caller does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                forbidden:
+                  value:
+                    type: https://boardtpl.dev/problems/moderator-access-required
+                    title: Moderator access is required.
+                    status: 403
+                    detail: Only moderators and above can manage verification state.
+                    code: moderator_access_required
+        '404':
+          description: Target developer was not found.
+        '502':
+          description: Verification lookup failed upstream.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+              examples:
+                keycloak-failure:
+                  value:
+                    type: https://boardtpl.dev/problems/keycloak-verified-developer-role-failed
+                    title: Verification lookup failed.
+                    status: 502
+                    detail: Keycloak role lookup failed for the target user.
+                    code: keycloak_verified_developer_role_failed
   /moderation/developers/{developerSubject}/verified-developer:
     put:
       tags: [Moderation]
@@ -543,7 +656,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Keycloak subject of the target developer.
+          description: Username when available, otherwise a Keycloak subject.
         - $ref: '#/components/parameters/PostmanMockResponseCodeHeader'
         - $ref: '#/components/parameters/PostmanMockResponseNameHeader'
       responses:
@@ -604,7 +717,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Keycloak subject of the target developer.
+          description: Username when available, otherwise a Keycloak subject.
       responses:
         '200':
           description: Verified developer role state returned successfully.
@@ -3319,6 +3432,29 @@ components:
       properties:
         developerEnrollment:
           $ref: '#/components/schemas/DeveloperEnrollment'
+    ModerationDeveloperSummary:
+      type: object
+      required: [developerSubject]
+      properties:
+        developerSubject:
+          type: string
+        userName:
+          type: string
+          nullable: true
+        displayName:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+    ModerationDeveloperListResponse:
+      type: object
+      required: [developers]
+      properties:
+        developers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModerationDeveloperSummary'
     VerifiedDeveloperRoleState:
       type: object
       required: [developerSubject, verifiedDeveloper, alreadyInRequestedState]

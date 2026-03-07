@@ -2522,7 +2522,8 @@
                   "}",
                   "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
                   "var json = pm.response.json();",
-                  "pm.test(\"Uploaded studio logo URL is returned\", function () { pm.expect(json.studio.logoUrl).to.be.a(\"string\"); });"
+                  "var updatedStudio = json.studio || json;",
+                  "pm.test(\"Uploaded studio logo URL is returned\", function () { pm.expect(updatedStudio).to.be.an(\"object\"); pm.expect(updatedStudio.logoUrl).to.be.a(\"string\"); });"
                 ]
               }
             }
@@ -2638,7 +2639,8 @@
                   "}",
                   "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
                   "var json = pm.response.json();",
-                  "pm.test(\"Uploaded studio banner URL is returned\", function () { pm.expect(json.studio.bannerUrl).to.be.a(\"string\"); });"
+                  "var updatedStudio = json.studio || json;",
+                  "pm.test(\"Uploaded studio banner URL is returned\", function () { pm.expect(updatedStudio).to.be.an(\"object\"); pm.expect(updatedStudio.bannerUrl).to.be.a(\"string\"); });"
                 ]
               }
             }

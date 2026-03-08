@@ -1,6 +1,6 @@
 # board-enthusiasts_api
 
-API-first contract artifacts for the maintained Board Enthusiasts Wave 2 surface.
+API-first contract artifacts for the maintained Board Enthusiasts surface.
 
 ## Scope
 
@@ -12,15 +12,8 @@ Maintained areas:
 - public catalog browse and public studio/title detail
 - current-user bootstrap and profile
 - developer self-enrollment
-- developer managed-studio list
-- moderation developer search
-
-Removed from the maintained contract collection and environment templates:
-
-- Keycloak browser-login and callback routes
-- legacy auth/config variables and callback placeholders
-- player library, wishlist, notifications, and title-report routes
-- other legacy backend-only endpoints that are not part of the maintained Wave 2 surface
+- developer studio CRUD, studio link CRUD, and studio media upload
+- moderation developer search and verified-developer review
 
 Historical planning notes may remain under [`planning/`](./planning/), but the maintained executable contract lives only under [`postman/`](./postman/).
 
@@ -68,13 +61,13 @@ The committed local and mock environments intentionally keep only the maintained
 - `expectedServiceName`
 - readiness expectation variables
 
-Anything tied to the removed Keycloak or legacy backend contract surface has been stripped from the maintained environment templates.
+The committed environment templates keep only the variables needed by the maintained contract surface.
 
 ## Mock Workflow
 
 The Postman admin collection still provisions mocks from the tracked contract collection and syncs the runtime mock environment `baseUrl`.
 
-The provisioning validation now checks for maintained Wave 2 routes and saved examples rather than the removed Keycloak routes.
+The provisioning validation checks for the maintained routes and saved examples in the current contract collection.
 
 Normal mock validation path:
 
@@ -85,7 +78,7 @@ Normal mock validation path:
 ## Working Rules
 
 - Keep exactly one maintained Git-tracked contract collection.
-- Keep the tracked OpenAPI spec aligned to the maintained Wave 2 Workers surface.
-- Do not reintroduce legacy-only endpoints or variables into the maintained collection/environment templates.
+- Keep the tracked OpenAPI spec aligned to the maintained Workers surface.
+- Do not reintroduce endpoints or variables that are not part of the maintained collection/environment templates.
 - Keep Postman Cloud provisioning requests in the separate admin collection.
 - Keep the supported developer entrypoint rooted at `python ./scripts/dev.py ...`.

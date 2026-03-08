@@ -20,7 +20,7 @@
                   "var json = pm.response.json();",
                   "pm.test(\"Service name matches\", function () { pm.expect(json.service).to.eql(pm.environment.get(\"expectedServiceName\")); });",
                   "pm.test(\"Environment matches\", function () { pm.expect(json.environment).to.eql(pm.environment.get(\"expectedEnvironment\")); });",
-                  "pm.test(\"Phase matches\", function () { pm.expect(json.phase).to.eql(pm.environment.get(\"expectedPhase\")); });"
+                  "pm.test(\"Stack matches\", function () { pm.expect(json.stack).to.eql(pm.environment.get(\"expectedStack\")); });"
                 ]
               }
             }
@@ -42,7 +42,7 @@
               "code": 200,
               "_postman_previewlanguage": "json",
               "header": [{ "key": "Content-Type", "value": "application/json" }],
-              "body": "{\"service\":\"board-enthusiasts-workers-api\",\"phase\":\"wave-2-platform-api\",\"environment\":\"mock\"}"
+              "body": "{\"service\":\"board-enthusiasts-workers-api\",\"stack\":\"workers-supabase\",\"environment\":\"mock\"}"
             }
           ]
         },
@@ -93,8 +93,7 @@
                   "pm.test(\"Status matches environment\", function () { pm.expect(pm.response.code).to.eql(Number(pm.environment.get(\"expectedReadyHttpStatus\"))); });",
                   "var json = pm.response.json();",
                   "pm.test(\"Readiness status matches environment\", function () { pm.expect(json.status).to.eql(pm.environment.get(\"expectedReadyStatus\")); });",
-                  "pm.test(\"Wave matches environment\", function () { pm.expect(json.wave).to.eql(pm.environment.get(\"expectedReadyWave\")); });",
-                  "pm.test(\"Phase status matches environment\", function () { pm.expect(json.phaseStatus).to.eql(pm.environment.get(\"expectedReadyPhaseStatus\")); });",
+                  "pm.test(\"Stack status matches environment\", function () { pm.expect(json.stackStatus).to.eql(pm.environment.get(\"expectedReadyStackStatus\")); });",
                   "pm.test(\"Media bucket matches environment\", function () { pm.expect(json.mediaBucket).to.eql(pm.environment.get(\"expectedMediaBucket\")); });"
                 ]
               }
@@ -117,7 +116,7 @@
               "code": 200,
               "_postman_previewlanguage": "json",
               "header": [{ "key": "Content-Type", "value": "application/json" }],
-              "body": "{\"status\":\"ready\",\"environment\":\"mock\",\"wave\":\"wave-2\",\"phaseStatus\":\"platform-api-ready\",\"supabaseUrlConfigured\":true,\"mediaBucket\":\"catalog-media\"}"
+              "body": "{\"status\":\"ready\",\"environment\":\"mock\",\"stackStatus\":\"configured\",\"supabaseUrlConfigured\":true,\"mediaBucket\":\"catalog-media\"}"
             },
             {
               "name": "supabase-unavailable",
@@ -130,7 +129,7 @@
               "code": 503,
               "_postman_previewlanguage": "json",
               "header": [{ "key": "Content-Type", "value": "application/json" }],
-              "body": "{\"type\":\"https://boardtpl.dev/problems/migration_supabase_unavailable\",\"title\":\"Supabase is not ready.\",\"status\":503,\"detail\":\"Temporary startup or dependency failure.\",\"code\":\"migration_supabase_unavailable\"}"
+              "body": "{\"type\":\"https://boardtpl.dev/problems/supabase_unavailable\",\"title\":\"Supabase is not ready.\",\"status\":503,\"detail\":\"Temporary startup or dependency failure.\",\"code\":\"supabase_unavailable\"}"
             }
           ]
         }
@@ -417,7 +416,7 @@
               "code": 503,
               "_postman_previewlanguage": "json",
               "header": [{ "key": "Content-Type", "value": "application/json" }],
-              "body": "{\"type\":\"https://boardtpl.dev/problems/migration_supabase_unavailable\",\"title\":\"Supabase is not ready.\",\"status\":503,\"detail\":\"Temporary startup or dependency failure.\",\"code\":\"migration_supabase_unavailable\"}"
+              "body": "{\"type\":\"https://boardtpl.dev/problems/supabase_unavailable\",\"title\":\"Supabase is not ready.\",\"status\":503,\"detail\":\"Temporary startup or dependency failure.\",\"code\":\"supabase_unavailable\"}"
             }
           ]
         }

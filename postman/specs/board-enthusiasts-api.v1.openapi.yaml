@@ -1,9 +1,9 @@
 openapi: 3.1.0
 info:
   title: Board Enthusiasts API
-  version: 1.0.0-wave-2
+  version: 1.0.0
   description: >
-    Maintained Wave 2 API surface served by Cloudflare Workers with Supabase Auth,
+    Maintained API surface served by Cloudflare Workers with Supabase Auth,
     Postgres, and Storage.
 servers:
   - url: http://127.0.0.1:8787
@@ -140,6 +140,49 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/StudioListResponse"
+    post:
+      tags: [Developer]
+      summary: Create a studio for the current developer
+      operationId: createStudio
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudioMutationRequest"
+      responses:
+        "201":
+          description: Studio created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudioResponse"
+        "400":
+          description: Studio create request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have developer access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "409":
+          description: Studio slug is already in use.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
   /studios/{studioSlug}:
     get:
       tags: [Catalog]
@@ -284,7 +327,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/StudioListResponse"
+                $ref: "#/components/schemas/DeveloperStudioListResponse"
         "401":
           description: Bearer token was missing or invalid.
           content:
@@ -293,6 +336,345 @@ paths:
                 $ref: "#/components/schemas/Problem"
         "403":
           description: Current user does not have developer access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/studios/{studioId}:
+    put:
+      tags: [Developer]
+      summary: Update a managed studio
+      operationId: updateStudio
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudioMutationRequest"
+      responses:
+        "200":
+          description: Studio updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudioResponse"
+        "400":
+          description: Studio update request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "409":
+          description: Studio slug is already in use.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    delete:
+      tags: [Developer]
+      summary: Delete a managed studio
+      operationId: deleteStudio
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+      responses:
+        "204":
+          description: Studio deleted successfully.
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio owner access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/studios/{studioId}/links:
+    get:
+      tags: [Developer]
+      summary: List links for a managed studio
+      operationId: listStudioLinks
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+      responses:
+        "200":
+          description: Studio links returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudioLinkListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    post:
+      tags: [Developer]
+      summary: Create a link for a managed studio
+      operationId: createStudioLink
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudioLinkMutationRequest"
+      responses:
+        "201":
+          description: Studio link created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudioLinkResponse"
+        "400":
+          description: Studio link create request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/studios/{studioId}/links/{linkId}:
+    put:
+      tags: [Developer]
+      summary: Update a managed studio link
+      operationId: updateStudioLink
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+        - $ref: "#/components/parameters/LinkId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StudioLinkMutationRequest"
+      responses:
+        "200":
+          description: Studio link updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudioLinkResponse"
+        "400":
+          description: Studio link update request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio or link was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    delete:
+      tags: [Developer]
+      summary: Delete a managed studio link
+      operationId: deleteStudioLink
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+        - $ref: "#/components/parameters/LinkId"
+      responses:
+        "204":
+          description: Studio link deleted successfully.
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio or link was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/studios/{studioId}/logo-upload:
+    post:
+      tags: [Developer]
+      summary: Upload a logo for a managed studio
+      operationId: uploadStudioLogo
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [media]
+              properties:
+                media:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Studio logo uploaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudioResponse"
+        "400":
+          description: Studio upload request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/studios/{studioId}/banner-upload:
+    post:
+      tags: [Developer]
+      summary: Upload a banner for a managed studio
+      operationId: uploadStudioBanner
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [media]
+              properties:
+                media:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Studio banner uploaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StudioResponse"
+        "400":
+          description: Studio upload request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio was not found.
           content:
             application/json:
               schema:
@@ -325,6 +707,107 @@ paths:
                 $ref: "#/components/schemas/Problem"
         "403":
           description: Current user does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /moderation/developers/{developerSubject}/verification:
+    get:
+      tags: [Moderation]
+      summary: Get verified-developer state for a developer
+      operationId: getVerifiedDeveloperState
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DeveloperSubject"
+      responses:
+        "200":
+          description: Verified-developer state returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifiedDeveloperRoleStateResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Developer was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /moderation/developers/{developerSubject}/verified-developer:
+    put:
+      tags: [Moderation]
+      summary: Grant verified-developer access
+      operationId: grantVerifiedDeveloper
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DeveloperSubject"
+      responses:
+        "200":
+          description: Verified-developer access granted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifiedDeveloperRoleStateResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Developer was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    delete:
+      tags: [Moderation]
+      summary: Revoke verified-developer access
+      operationId: revokeVerifiedDeveloper
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/DeveloperSubject"
+      responses:
+        "200":
+          description: Verified-developer access revoked successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifiedDeveloperRoleStateResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Developer was not found.
           content:
             application/json:
               schema:
@@ -364,14 +847,34 @@ components:
       required: true
       schema:
         type: string
+    StudioId:
+      name: studioId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    LinkId:
+      name: linkId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    DeveloperSubject:
+      name: developerSubject
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
     ApiMetadata:
       type: object
-      required: [service, phase, environment]
+      required: [service, stack, environment]
       properties:
         service:
           type: string
-        phase:
+        stack:
           type: string
         environment:
           type: string
@@ -385,15 +888,13 @@ components:
           type: string
     ReadinessResponse:
       type: object
-      required: [status, environment, wave, phaseStatus, supabaseUrlConfigured, mediaBucket]
+      required: [status, environment, stackStatus, supabaseUrlConfigured, mediaBucket]
       properties:
         status:
           type: string
         environment:
           type: string
-        wave:
-          type: string
-        phaseStatus:
+        stackStatus:
           type: string
         supabaseUrlConfigured:
           type: boolean
@@ -557,6 +1058,53 @@ components:
       properties:
         studio:
           $ref: "#/components/schemas/Studio"
+    StudioLinkListResponse:
+      type: object
+      required: [links]
+      properties:
+        links:
+          type: array
+          items:
+            $ref: "#/components/schemas/StudioLink"
+    StudioLinkResponse:
+      type: object
+      required: [link]
+      properties:
+        link:
+          $ref: "#/components/schemas/StudioLink"
+    StudioMutationRequest:
+      type: object
+      required: [slug, displayName]
+      properties:
+        slug:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: [string, "null"]
+        logoUrl:
+          type: [string, "null"]
+          format: uri
+        bannerUrl:
+          type: [string, "null"]
+          format: uri
+    DeveloperStudioSummary:
+      allOf:
+        - $ref: "#/components/schemas/Studio"
+        - type: object
+          required: [role]
+          properties:
+            role:
+              type: string
+              enum: [owner, admin, editor]
+    DeveloperStudioListResponse:
+      type: object
+      required: [studios]
+      properties:
+        studios:
+          type: array
+          items:
+            $ref: "#/components/schemas/DeveloperStudioSummary"
     CatalogTitleSummary:
       type: object
       required:
@@ -649,27 +1197,94 @@ components:
       required: [title]
       properties:
         title:
-          $ref: "#/components/schemas/CatalogTitleSummary"
+          $ref: "#/components/schemas/CatalogTitle"
+    TitleMediaAsset:
+      type: object
+      required: [id, mediaRole, sourceUrl, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+        mediaRole:
+          type: string
+          enum: [card, hero, logo]
+        sourceUrl:
+          type: string
+          format: uri
+        altText:
+          type: [string, "null"]
+        mimeType:
+          type: [string, "null"]
+        width:
+          type: [integer, "null"]
+        height:
+          type: [integer, "null"]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CurrentTitleRelease:
+      type: object
+      required: [id, version, metadataRevisionNumber, publishedAt]
+      properties:
+        id:
+          type: string
+        version:
+          type: string
+        metadataRevisionNumber:
+          type: integer
+        publishedAt:
+          type: string
+          format: date-time
+    PublicTitleAcquisition:
+      type: object
+      required: [url, providerDisplayName]
+      properties:
+        url:
+          type: string
+          format: uri
+        label:
+          type: [string, "null"]
+        providerDisplayName:
+          type: string
+        providerHomepageUrl:
+          type: [string, "null"]
+          format: uri
+    CatalogTitle:
+      allOf:
+        - $ref: "#/components/schemas/CatalogTitleSummary"
+        - type: object
+          required: [description, mediaAssets, createdAt, updatedAt]
+          properties:
+            description:
+              type: string
+            mediaAssets:
+              type: array
+              items:
+                $ref: "#/components/schemas/TitleMediaAsset"
+            currentRelease:
+              $ref: "#/components/schemas/CurrentTitleRelease"
+            acquisition:
+              $ref: "#/components/schemas/PublicTitleAcquisition"
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
     ModerationDeveloperSummary:
       type: object
-      required: [developerSubject, userName, displayName, developerAccessEnabled, verifiedDeveloper, roles]
+      required: [developerSubject]
       properties:
         developerSubject:
           type: string
         userName:
-          type: string
+          type: [string, "null"]
         displayName:
-          type: string
+          type: [string, "null"]
         email:
           type: [string, "null"]
-        developerAccessEnabled:
-          type: boolean
-        verifiedDeveloper:
-          type: boolean
-        roles:
-          type: array
-          items:
-            type: string
     ModerationDeveloperListResponse:
       type: object
       required: [developers]
@@ -678,3 +1293,28 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ModerationDeveloperSummary"
+    VerifiedDeveloperRoleState:
+      type: object
+      required: [developerSubject, verifiedDeveloper, alreadyInRequestedState]
+      properties:
+        developerSubject:
+          type: string
+        verifiedDeveloper:
+          type: boolean
+        alreadyInRequestedState:
+          type: boolean
+    VerifiedDeveloperRoleStateResponse:
+      type: object
+      required: [verifiedDeveloperRoleState]
+      properties:
+        verifiedDeveloperRoleState:
+          $ref: "#/components/schemas/VerifiedDeveloperRoleState"
+    StudioLinkMutationRequest:
+      type: object
+      required: [label, url]
+      properties:
+        label:
+          type: string
+        url:
+          type: string
+          format: uri

@@ -28,7 +28,15 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{baseUrl}}/", "host": ["{{baseUrl}}"], "path": [""] }
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
           },
           "response": [
             {
@@ -36,12 +44,25 @@
               "originalRequest": {
                 "method": "GET",
                 "header": [],
-                "url": { "raw": "{{baseUrl}}/", "host": ["{{baseUrl}}"], "path": [""] }
+                "url": {
+                  "raw": "{{baseUrl}}/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
               "body": "{\"service\":\"board-enthusiasts-workers-api\",\"stack\":\"workers-supabase\",\"environment\":\"mock\"}"
             }
           ]
@@ -64,7 +85,16 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{baseUrl}}/health/live", "host": ["{{baseUrl}}"], "path": ["health", "live"] }
+            "url": {
+              "raw": "{{baseUrl}}/health/live",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "live"
+              ]
+            }
           },
           "response": [
             {
@@ -72,12 +102,26 @@
               "originalRequest": {
                 "method": "GET",
                 "header": [],
-                "url": { "raw": "{{baseUrl}}/health/live", "host": ["{{baseUrl}}"], "path": ["health", "live"] }
+                "url": {
+                  "raw": "{{baseUrl}}/health/live",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health",
+                    "live"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
               "body": "{\"status\":\"healthy\",\"environment\":\"mock\"}"
             }
           ]
@@ -102,7 +146,16 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{baseUrl}}/health/ready", "host": ["{{baseUrl}}"], "path": ["health", "ready"] }
+            "url": {
+              "raw": "{{baseUrl}}/health/ready",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "ready"
+              ]
+            }
           },
           "response": [
             {
@@ -110,12 +163,26 @@
               "originalRequest": {
                 "method": "GET",
                 "header": [],
-                "url": { "raw": "{{baseUrl}}/health/ready", "host": ["{{baseUrl}}"], "path": ["health", "ready"] }
+                "url": {
+                  "raw": "{{baseUrl}}/health/ready",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health",
+                    "ready"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
               "body": "{\"status\":\"ready\",\"environment\":\"mock\",\"stackStatus\":\"configured\",\"supabaseUrlConfigured\":true,\"mediaBucket\":\"catalog-media\"}"
             },
             {
@@ -123,12 +190,26 @@
               "originalRequest": {
                 "method": "GET",
                 "header": [],
-                "url": { "raw": "{{baseUrl}}/health/ready", "host": ["{{baseUrl}}"], "path": ["health", "ready"] }
+                "url": {
+                  "raw": "{{baseUrl}}/health/ready",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health",
+                    "ready"
+                  ]
+                }
               },
               "status": "Service Unavailable",
               "code": 503,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
               "body": "{\"type\":\"https://boardtpl.dev/problems/supabase_unavailable\",\"title\":\"Supabase is not ready.\",\"status\":503,\"detail\":\"Temporary startup or dependency failure.\",\"code\":\"supabase_unavailable\"}"
             }
           ]
@@ -159,9 +240,22 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/catalog?pageNumber=1&pageSize=2",
-              "host": ["{{baseUrl}}"],
-              "path": ["catalog"],
-              "query": [{ "key": "pageNumber", "value": "1" }, { "key": "pageSize", "value": "2" }]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "catalog"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
             }
           },
           "response": [
@@ -172,15 +266,33 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/catalog?pageNumber=1&pageSize=2",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["catalog"],
-                  "query": [{ "key": "pageNumber", "value": "1" }, { "key": "pageSize", "value": "2" }]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "2"
+                    }
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
               "body": "{\"titles\":[{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://mock.storage.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\"}],\"paging\":{\"pageNumber\":1,\"pageSize\":2,\"totalCount\":1,\"totalPages\":1}}"
             }
           ]
@@ -203,7 +315,16 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": { "raw": "{{baseUrl}}/studios/blue-harbor-games", "host": ["{{baseUrl}}"], "path": ["studios", "blue-harbor-games"] }
+            "url": {
+              "raw": "{{baseUrl}}/studios/blue-harbor-games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "studios",
+                "blue-harbor-games"
+              ]
+            }
           },
           "response": [
             {
@@ -211,12 +332,26 @@
               "originalRequest": {
                 "method": "GET",
                 "header": [],
-                "url": { "raw": "{{baseUrl}}/studios/blue-harbor-games", "host": ["{{baseUrl}}"], "path": ["studios", "blue-harbor-games"] }
+                "url": {
+                  "raw": "{{baseUrl}}/studios/blue-harbor-games",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "studios",
+                    "blue-harbor-games"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
               "body": "{\"studio\":{\"id\":\"aaaa1111-1111-1111-1111-111111111111\",\"slug\":\"blue-harbor-games\",\"displayName\":\"Blue Harbor Games\",\"description\":\"Independent Board-focused studio.\",\"logoUrl\":\"https://mock.storage.example/studios/blue-harbor-games/logo.svg\",\"bannerUrl\":\"https://mock.storage.example/studios/blue-harbor-games/banner.png\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\",\"links\":[{\"id\":\"bbbb1111-1111-1111-1111-111111111111\",\"label\":\"Website\",\"url\":\"https://blueharbor.example\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}}"
             }
           ]
@@ -250,25 +385,65 @@
           ],
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{developerAccessToken}}", "type": "text" }],
-            "url": { "raw": "{{baseUrl}}/identity/me", "host": ["{{baseUrl}}"], "path": ["identity", "me"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/identity/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me"
+              ]
+            }
           },
           "response": [
             {
               "name": "success",
               "originalRequest": {
                 "method": "GET",
-                "header": [{ "key": "Authorization", "value": "Bearer {{developerAccessToken}}", "type": "text" }],
-                "url": { "raw": "{{baseUrl}}/identity/me", "host": ["{{baseUrl}}"], "path": ["identity", "me"] }
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/identity/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
               "body": "{\"subject\":\"188045ee-6ce1-4322-90a4-9bbec6efeb40\",\"displayName\":\"Emma Torres\",\"email\":\"emma.torres@boardtpl.local\",\"emailVerified\":true,\"identityProvider\":\"email\",\"roles\":[\"player\",\"developer\",\"verified_developer\"]}"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "Developer",
+      "item": [
         {
           "name": "List managed studios",
           "event": [
@@ -286,29 +461,1147 @@
                   "}",
                   "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
                   "var json = pm.response.json();",
-                  "pm.test(\"Managed studios array returned\", function () { pm.expect(Array.isArray(json.studios)).to.eql(true); });"
+                  "pm.test(\"Managed studios array returned\", function () { pm.expect(Array.isArray(json.studios)).to.eql(true); });",
+                  "var managedStudio = json.studios.find(function (studio) { return studio.slug === \"blue-harbor-games\"; }) || json.studios[0] || null;",
+                  "pm.environment.set(\"managedStudioId\", managedStudio && managedStudio.id ? managedStudio.id : \"\");",
+                  "pm.environment.set(\"managedStudioSlug\", managedStudio && managedStudio.slug ? managedStudio.slug : \"\");",
+                  "pm.test(\"Managed studio id captured\", function () { pm.expect(pm.environment.get(\"managedStudioId\")).to.not.eql(\"\"); });"
                 ]
               }
             }
           ],
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{developerAccessToken}}", "type": "text" }],
-            "url": { "raw": "{{baseUrl}}/developer/studios", "host": ["{{baseUrl}}"], "path": ["developer", "studios"] }
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/studios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "studios"
+              ]
+            }
           },
           "response": [
             {
               "name": "success",
               "originalRequest": {
                 "method": "GET",
-                "header": [{ "key": "Authorization", "value": "Bearer {{developerAccessToken}}", "type": "text" }],
-                "url": { "raw": "{{baseUrl}}/developer/studios", "host": ["{{baseUrl}}"], "path": ["developer", "studios"] }
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/studios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "studios"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
-              "body": "{\"studios\":[{\"id\":\"aaaa1111-1111-1111-1111-111111111111\",\"slug\":\"blue-harbor-games\",\"displayName\":\"Blue Harbor Games\",\"description\":\"Independent Board-focused studio.\",\"logoUrl\":\"https://mock.storage.example/studios/blue-harbor-games/logo.svg\",\"bannerUrl\":\"https://mock.storage.example/studios/blue-harbor-games/banner.png\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\",\"links\":[{\"id\":\"bbbb1111-1111-1111-1111-111111111111\",\"label\":\"Website\",\"url\":\"https://blueharbor.example\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}]}"
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"studios\":[{\"id\":\"aaaa1111-1111-1111-1111-111111111111\",\"slug\":\"blue-harbor-games\",\"displayName\":\"Blue Harbor Games\",\"description\":\"Independent Board-focused studio.\",\"logoUrl\":\"https://mock.storage.example/studios/blue-harbor-games/logo.svg\",\"bannerUrl\":\"https://mock.storage.example/studios/blue-harbor-games/banner.png\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\",\"links\":[{\"id\":\"bbbb1111-1111-1111-1111-111111111111\",\"label\":\"Website\",\"url\":\"https://blueharbor.example\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"role\":\"owner\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "List studio titles",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Studio titles request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Managed titles array returned\", function () { pm.expect(Array.isArray(json.titles)).to.eql(true); });",
+                  "var managedTitle = json.titles.find(function (title) { return title.slug === \"compass-echo\"; }) || json.titles[0] || null;",
+                  "pm.environment.set(\"managedTitleId\", managedTitle && managedTitle.id ? managedTitle.id : \"\");",
+                  "pm.environment.set(\"managedTitleSlug\", managedTitle && managedTitle.slug ? managedTitle.slug : \"\");",
+                  "pm.test(\"Managed title id captured\", function () { pm.expect(pm.environment.get(\"managedTitleId\")).to.not.eql(\"\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/studios/{{managedStudioId}}/titles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "studios",
+                "{{managedStudioId}}",
+                "titles"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/studios/{{managedStudioId}}/titles",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "studios",
+                    "{{managedStudioId}}",
+                    "titles"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titles\":[{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://mock.storage.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "Get managed title",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Managed title request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Managed title slug matches selected title\", function () { pm.expect(json.title.slug).to.eql(pm.environment.get(\"managedTitleSlug\")); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{managedTitleId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{managedTitleId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"title\":{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://mock.storage.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"mediaAssets\":[{\"id\":\"8a2f9c4e-74bc-4ab8-9050-0fb550c7b8e1\",\"mediaRole\":\"card\",\"sourceUrl\":\"https://mock.storage.example/catalog/lantern-drift-card.png\",\"altText\":\"Lantern Drift key art\",\"mimeType\":\"image/png\",\"width\":1280,\"height\":720,\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"currentRelease\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"metadataRevisionNumber\":3,\"publishedAt\":\"2026-03-08T00:00:00.000Z\"},\"acquisition\":{\"url\":\"https://store.example/lantern-drift\"},\"currentReleaseId\":\"66666666-6666-6666-6666-666666666666\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "List title metadata versions",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Title metadata versions request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Metadata versions array returned\", function () { pm.expect(Array.isArray(json.metadataVersions)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/metadata-versions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{managedTitleId}}",
+                "metadata-versions"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/metadata-versions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{managedTitleId}}",
+                    "metadata-versions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"metadataVersions\":[{\"revisionNumber\":3,\"isCurrent\":true,\"isFrozen\":true,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "List title media assets",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Title media request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Title media array returned\", function () { pm.expect(Array.isArray(json.mediaAssets)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/media",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{managedTitleId}}",
+                "media"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/media",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{managedTitleId}}",
+                    "media"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"mediaAssets\":[{\"id\":\"8a2f9c4e-74bc-4ab8-9050-0fb550c7b8e1\",\"mediaRole\":\"card\",\"sourceUrl\":\"https://mock.storage.example/catalog/lantern-drift-card.png\",\"altText\":\"Lantern Drift key art\",\"mimeType\":\"image/png\",\"width\":1280,\"height\":720,\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "List managed title reports",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Developer title reports request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Developer report summaries returned\", function () { pm.expect(Array.isArray(json.reports)).to.eql(true); });",
+                  "pm.environment.set(\"managedReportId\", json.reports[0]?.id || \"\");",
+                  "pm.test(\"Managed report id captured\", function () { pm.expect(pm.environment.get(\"managedReportId\")).to.not.eql(\"\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{managedTitleId}}",
+                "reports"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{managedTitleId}}",
+                    "reports"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"reports\":[{\"id\":\"33333333-3333-3333-3333-333333333333\",\"titleId\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"studioDisplayName\":\"Blue Harbor Games\",\"titleSlug\":\"lantern-drift\",\"titleDisplayName\":\"Lantern Drift\",\"titleShortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"currentMetadataRevision\":3,\"reporterSubject\":\"player-123\",\"reporterUserName\":\"boardfan\",\"reporterDisplayName\":\"Board Fan\",\"reporterEmail\":\"boardfan@example.com\",\"status\":\"needs_developer_response\",\"reason\":\"The release notes mention a feature that is not in the current build.\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T02:00:00.000Z\",\"resolvedAt\":null,\"messageCount\":2}]}"
+            }
+          ]
+        },
+        {
+          "name": "Get managed title report detail",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Developer title report detail request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Developer report detail includes messages\", function () { pm.expect(Array.isArray(json.report.messages)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/reports/{{managedReportId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{managedTitleId}}",
+                "reports",
+                "{{managedReportId}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/reports/{{managedReportId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{managedTitleId}}",
+                    "reports",
+                    "{{managedReportId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"report\":{\"report\":{\"id\":\"33333333-3333-3333-3333-333333333333\",\"titleId\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"studioDisplayName\":\"Blue Harbor Games\",\"titleSlug\":\"lantern-drift\",\"titleDisplayName\":\"Lantern Drift\",\"titleShortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"currentMetadataRevision\":3,\"reporterSubject\":\"player-123\",\"reporterUserName\":\"boardfan\",\"reporterDisplayName\":\"Board Fan\",\"reporterEmail\":\"boardfan@example.com\",\"status\":\"needs_developer_response\",\"reason\":\"The release notes mention a feature that is not in the current build.\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T02:00:00.000Z\",\"resolvedAt\":null,\"messageCount\":2},\"resolutionNote\":null,\"resolvedBy\":null,\"messages\":[{\"id\":\"12121212-1212-1212-1212-121212121212\",\"authorSubject\":\"player-123\",\"authorUserName\":\"boardfan\",\"authorDisplayName\":\"Board Fan\",\"authorEmail\":\"boardfan@example.com\",\"authorRole\":\"player\",\"audience\":\"developer\",\"message\":\"The version string in the UI does not match the patch notes.\",\"createdAt\":\"2026-03-08T00:00:00.000Z\"}]}}"
+            }
+          ]
+        },
+        {
+          "name": "List title releases",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Title releases request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Title releases array returned\", function () { pm.expect(Array.isArray(json.releases)).to.eql(true); });",
+                  "pm.environment.set(\"managedReleaseId\", json.releases[0]?.id || \"\");",
+                  "pm.test(\"Managed release id captured\", function () { pm.expect(pm.environment.get(\"managedReleaseId\")).to.not.eql(\"\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/releases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{managedTitleId}}",
+                "releases"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{managedTitleId}}/releases",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{managedTitleId}}",
+                    "releases"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"releases\":[{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"status\":\"published\",\"metadataRevisionNumber\":3,\"isCurrent\":true,\"publishedAt\":\"2026-03-08T00:00:00.000Z\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}"
+            }
+          ]
+        },
+      ]
+    },
+    {
+      "name": "Player",
+      "item": [
+        {
+          "name": "Get linked Board profile",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Board profile request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Board profile user id returned\", function () { pm.expect(json.boardProfile.boardUserId).to.be.a(\"string\").and.to.not.eql(\"\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/identity/me/board-profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me",
+                "board-profile"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/identity/me/board-profile",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me",
+                    "board-profile"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"boardProfile\":{\"boardUserId\":\"board_emma_torres\",\"displayName\":\"Emma Torres\",\"avatarUrl\":\"https://cdn.board.fun/avatars/board_emma_torres.png\",\"linkedAt\":\"2026-03-08T00:00:00.000Z\",\"lastSyncedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "List current-user notifications",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Notifications request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Notifications array returned\", function () { pm.expect(Array.isArray(json.notifications)).to.eql(true); });",
+                  "if (json.notifications.length > 0) { pm.environment.set(\"currentUserNotificationId\", json.notifications[0].id); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/identity/me/notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me",
+                "notifications"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/identity/me/notifications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me",
+                    "notifications"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"notifications\":[{\"id\":\"f7777777-7777-7777-7777-777777777777\",\"category\":\"title_report\",\"title\":\"Moderator follow-up for your title\",\"body\":\"Alex Rivera sent an update about Compass Echo. Open the developer report thread for the latest moderator note.\",\"actionUrl\":\"/develop?domain=titles&workflow=titles-reports&titleId=managed-title-id&reportId=report-id\",\"isRead\":false,\"readAt\":null,\"createdAt\":\"2026-03-08T10:05:00.000Z\",\"updatedAt\":\"2026-03-08T10:05:00.000Z\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "Mark current-user notification read",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var notificationId = pm.environment.get(\"currentUserNotificationId\");",
+                  "if (!notificationId) {",
+                  "  notificationId = \"f7777777-7777-7777-7777-777777777777\";",
+                  "  pm.environment.set(\"currentUserNotificationId\", notificationId);",
+                  "}"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Notification read request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Notification marked as read\", function () { pm.expect(json.notification.isRead).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/identity/me/notifications/{{currentUserNotificationId}}/read",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "identity",
+                "me",
+                "notifications",
+                "{{currentUserNotificationId}}",
+                "read"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/identity/me/notifications/{{currentUserNotificationId}}/read",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me",
+                    "notifications",
+                    "{{currentUserNotificationId}}",
+                    "read"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"notification\":{\"id\":\"f7777777-7777-7777-7777-777777777777\",\"category\":\"title_report\",\"title\":\"Moderator follow-up for your title\",\"body\":\"Alex Rivera sent an update about Compass Echo. Open the developer report thread for the latest moderator note.\",\"actionUrl\":\"/develop?domain=titles&workflow=titles-reports&titleId=managed-title-id&reportId=report-id\",\"isRead\":true,\"readAt\":\"2026-03-08T10:06:00.000Z\",\"createdAt\":\"2026-03-08T10:05:00.000Z\",\"updatedAt\":\"2026-03-08T10:06:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "List player library",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Player library request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Library titles array returned\", function () { pm.expect(Array.isArray(json.titles)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/library",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "library"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/player/library",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "player",
+                    "library"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titles\":[{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://mock.storage.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "List player wishlist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Player wishlist request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Wishlist titles array returned\", function () { pm.expect(Array.isArray(json.titles)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/wishlist",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "wishlist"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/player/wishlist",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "player",
+                    "wishlist"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titles\":[{\"id\":\"22222222-2222-2222-2222-222222222222\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"compass-echo\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":1,\"displayName\":\"Compass Echo\",\"shortDescription\":\"A relaxed story-driven exploration game.\",\"genreDisplay\":\"Adventure\",\"minPlayers\":1,\"maxPlayers\":1,\"playerCountDisplay\":\"1 player\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E\",\"minAgeYears\":6,\"ageDisplay\":\"ESRB E\",\"cardImageUrl\":\"https://mock.storage.example/catalog/compass-echo-card.png\",\"acquisitionUrl\":\"https://store.example/compass-echo\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "List player title reports",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{developerAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Player reports request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Player reports array returned\", function () { pm.expect(Array.isArray(json.reports)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{developerAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "reports"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/player/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "player",
+                    "reports"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"reports\":[{\"id\":\"33333333-3333-3333-3333-333333333333\",\"titleId\":\"44444444-4444-4444-4444-444444444444\",\"studioSlug\":\"sunset-terminal\",\"titleSlug\":\"orbit-orchard\",\"titleDisplayName\":\"Orbit Orchard\",\"status\":\"needs_player_response\",\"reason\":\"The current metadata looks out of date for the release notes.\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T02:00:00.000Z\"}]}"
             }
           ]
         }
@@ -341,12 +1634,28 @@
           ],
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{moderatorAccessToken}}", "type": "text" }],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{moderatorAccessToken}}",
+                "type": "text"
+              }
+            ],
             "url": {
               "raw": "{{baseUrl}}/moderation/developers?search=emma",
-              "host": ["{{baseUrl}}"],
-              "path": ["moderation", "developers"],
-              "query": [{ "key": "search", "value": "emma" }]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "moderation",
+                "developers"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "emma"
+                }
+              ]
             }
           },
           "response": [
@@ -354,19 +1663,118 @@
               "name": "success",
               "originalRequest": {
                 "method": "GET",
-                "header": [{ "key": "Authorization", "value": "Bearer {{moderatorAccessToken}}", "type": "text" }],
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{moderatorAccessToken}}",
+                    "type": "text"
+                  }
+                ],
                 "url": {
                   "raw": "{{baseUrl}}/moderation/developers?search=emma",
-                  "host": ["{{baseUrl}}"],
-                  "path": ["moderation", "developers"],
-                  "query": [{ "key": "search", "value": "emma" }]
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "moderation",
+                    "developers"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "emma"
+                    }
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
               "body": "{\"developers\":[{\"developerSubject\":\"188045ee-6ce1-4322-90a4-9bbec6efeb40\",\"userName\":\"emma.torres\",\"displayName\":\"Emma Torres\",\"email\":\"emma.torres@boardtpl.local\",\"developerAccessEnabled\":true,\"verifiedDeveloper\":true,\"roles\":[\"player\",\"developer\",\"verified_developer\"]}]}"
+            }
+          ]
+        },
+        {
+          "name": "List moderation title reports",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var mode = (pm.environment.get(\"contractExecutionMode\") || \"live\").toLowerCase();",
+                  "var token = pm.variables.replaceIn(\"{{moderatorAccessToken}}\");",
+                  "var hasConfiguredToken = Boolean(token && token.indexOf(\"{{\") !== 0 && token.indexOf(\"replace-with-\") !== 0);",
+                  "if (mode !== \"mock\" && !hasConfiguredToken) {",
+                  "  pm.test(\"Moderation title reports request returns auth failure without configured token\", function () { pm.expect([401, 403]).to.include(pm.response.code); });",
+                  "  return;",
+                  "}",
+                  "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+                  "var json = pm.response.json();",
+                  "pm.test(\"Moderation reports array returned\", function () { pm.expect(Array.isArray(json.reports)).to.eql(true); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{moderatorAccessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/moderation/title-reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "moderation",
+                "title-reports"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{moderatorAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/moderation/title-reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "moderation",
+                    "title-reports"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"reports\":[{\"id\":\"33333333-3333-3333-3333-333333333333\",\"titleId\":\"44444444-4444-4444-4444-444444444444\",\"studioId\":\"55555555-5555-5555-5555-555555555555\",\"studioSlug\":\"sunset-terminal\",\"studioDisplayName\":\"Sunset Terminal\",\"titleSlug\":\"orbit-orchard\",\"titleDisplayName\":\"Orbit Orchard\",\"titleShortDescription\":\"Plan orbital harvest routes for a floating orchard.\",\"genreDisplay\":\"Strategy\",\"currentMetadataRevision\":2,\"reporterSubject\":\"66666666-6666-6666-6666-666666666666\",\"reporterUserName\":\"ava.garcia\",\"reporterDisplayName\":\"Ava Garcia\",\"reporterEmail\":\"ava.garcia@boardtpl.local\",\"status\":\"needs_player_response\",\"reason\":\"The current metadata looks out of date for the release notes.\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T02:00:00.000Z\",\"resolvedAt\":null,\"messageCount\":2}]}"
             }
           ]
         }
@@ -396,10 +1804,27 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "x-mock-response-code", "value": "503", "type": "text" },
-              { "key": "x-mock-response-name", "value": "supabase-unavailable", "type": "text" }
+              {
+                "key": "x-mock-response-code",
+                "value": "503",
+                "type": "text"
+              },
+              {
+                "key": "x-mock-response-name",
+                "value": "supabase-unavailable",
+                "type": "text"
+              }
             ],
-            "url": { "raw": "{{baseUrl}}/health/ready", "host": ["{{baseUrl}}"], "path": ["health", "ready"] }
+            "url": {
+              "raw": "{{baseUrl}}/health/ready",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health",
+                "ready"
+              ]
+            }
           },
           "response": [
             {
@@ -407,15 +1832,37 @@
               "originalRequest": {
                 "method": "GET",
                 "header": [
-                  { "key": "x-mock-response-code", "value": "503", "type": "text" },
-                  { "key": "x-mock-response-name", "value": "supabase-unavailable", "type": "text" }
+                  {
+                    "key": "x-mock-response-code",
+                    "value": "503",
+                    "type": "text"
+                  },
+                  {
+                    "key": "x-mock-response-name",
+                    "value": "supabase-unavailable",
+                    "type": "text"
+                  }
                 ],
-                "url": { "raw": "{{baseUrl}}/health/ready", "host": ["{{baseUrl}}"], "path": ["health", "ready"] }
+                "url": {
+                  "raw": "{{baseUrl}}/health/ready",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health",
+                    "ready"
+                  ]
+                }
               },
               "status": "Service Unavailable",
               "code": 503,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
               "body": "{\"type\":\"https://boardtpl.dev/problems/supabase_unavailable\",\"title\":\"Supabase is not ready.\",\"status\":503,\"detail\":\"Temporary startup or dependency failure.\",\"code\":\"supabase_unavailable\"}"
             }
           ]

@@ -17,6 +17,8 @@ tags:
     description: Public catalog and studio browsing routes.
   - name: Identity
     description: Current-user bootstrap and profile routes.
+  - name: Player
+    description: Player library, wishlist, and title report routes.
   - name: Developer
     description: Developer enrollment and managed studio routes.
   - name: Moderation
@@ -310,6 +312,367 @@ paths:
                 $ref: "#/components/schemas/DeveloperEnrollmentResponse"
         "401":
           description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /identity/me/board-profile:
+    get:
+      tags: [Identity]
+      summary: Get the current user's linked Board profile
+      operationId: getBoardProfile
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Linked Board profile returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BoardProfileResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Current user has no linked Board profile.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /identity/me/notifications:
+    get:
+      tags: [Identity]
+      summary: List current-user notifications
+      operationId: getCurrentUserNotifications
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Current-user notifications returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserNotificationListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /identity/me/notifications/{notificationId}/read:
+    post:
+      tags: [Identity]
+      summary: Mark a current-user notification as read
+      operationId: markCurrentUserNotificationRead
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/NotificationId"
+      responses:
+        "200":
+          description: Current-user notification was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserNotificationResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Notification was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /player/library:
+    get:
+      tags: [Player]
+      summary: List titles in the current player's library
+      operationId: getPlayerLibrary
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Player library titles returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerTitleListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /player/library/titles/{titleId}:
+    put:
+      tags: [Player]
+      summary: Add a title to the current player's library
+      operationId: addTitleToPlayerLibrary
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      responses:
+        "200":
+          description: Player library mutation applied successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerCollectionMutationResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    delete:
+      tags: [Player]
+      summary: Remove a title from the current player's library
+      operationId: removeTitleFromPlayerLibrary
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      responses:
+        "200":
+          description: Player library mutation applied successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerCollectionMutationResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /player/wishlist:
+    get:
+      tags: [Player]
+      summary: List titles in the current player's wishlist
+      operationId: getPlayerWishlist
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Player wishlist titles returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerTitleListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /player/wishlist/titles/{titleId}:
+    put:
+      tags: [Player]
+      summary: Add a title to the current player's wishlist
+      operationId: addTitleToPlayerWishlist
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      responses:
+        "200":
+          description: Player wishlist mutation applied successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerCollectionMutationResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    delete:
+      tags: [Player]
+      summary: Remove a title from the current player's wishlist
+      operationId: removeTitleFromPlayerWishlist
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      responses:
+        "200":
+          description: Player wishlist mutation applied successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerCollectionMutationResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /player/reports:
+    get:
+      tags: [Player]
+      summary: List title reports created by the current player
+      operationId: listPlayerTitleReports
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Player title reports returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerTitleReportListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    post:
+      tags: [Player]
+      summary: Create a title report for the current player
+      operationId: createPlayerTitleReport
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePlayerTitleReportRequest"
+      responses:
+        "201":
+          description: Player title report created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerTitleReportResponse"
+        "400":
+          description: Player title report request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /player/reports/{reportId}:
+    get:
+      tags: [Player]
+      summary: Get a title report owned by the current player
+      operationId: getPlayerTitleReport
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ReportId"
+      responses:
+        "200":
+          description: Player title report detail returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportDetailResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have access to this title report.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title report was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /player/reports/{reportId}/messages:
+    post:
+      tags: [Player]
+      summary: Add a player message to a title report thread
+      operationId: addPlayerTitleReportMessage
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ReportId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddTitleReportMessageRequest"
+      responses:
+        "200":
+          description: Player title report thread updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportDetailResponse"
+        "400":
+          description: Title report message request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have access to this title report.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title report was not found.
           content:
             application/json:
               schema:
@@ -679,6 +1042,803 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Problem"
+  /developer/studios/{studioId}/titles:
+    get:
+      tags: [Developer]
+      summary: List titles for a managed studio
+      operationId: listStudioTitles
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+      responses:
+        "200":
+          description: Managed studio titles returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeveloperTitleListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    post:
+      tags: [Developer]
+      summary: Create a title for a managed studio
+      operationId: createDeveloperTitle
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/StudioId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateDeveloperTitleRequest"
+      responses:
+        "201":
+          description: Title created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeveloperTitleResponse"
+        "400":
+          description: Title create request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have studio access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Studio was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "409":
+          description: Title slug is already in use for this studio.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}:
+    get:
+      tags: [Developer]
+      summary: Get a managed title
+      operationId: getDeveloperTitle
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      responses:
+        "200":
+          description: Managed title returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeveloperTitleResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    put:
+      tags: [Developer]
+      summary: Update managed title settings
+      operationId: updateDeveloperTitle
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateDeveloperTitleRequest"
+      responses:
+        "200":
+          description: Managed title updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeveloperTitleResponse"
+        "400":
+          description: Title update request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/metadata/current:
+    put:
+      tags: [Developer]
+      summary: Update the current metadata revision for a managed title
+      operationId: upsertTitleMetadata
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpsertTitleMetadataRequest"
+      responses:
+        "200":
+          description: Title metadata updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeveloperTitleResponse"
+        "400":
+          description: Metadata request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/metadata-versions:
+    get:
+      tags: [Developer]
+      summary: List metadata revisions for a managed title
+      operationId: listTitleMetadataVersions
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      responses:
+        "200":
+          description: Title metadata revisions returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleMetadataVersionListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/metadata-versions/{revisionNumber}/activate:
+    post:
+      tags: [Developer]
+      summary: Activate a metadata revision for a managed title
+      operationId: activateTitleMetadataVersion
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/RevisionNumber"
+      responses:
+        "200":
+          description: Title metadata revision activated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeveloperTitleResponse"
+        "400":
+          description: Metadata revision request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title or metadata revision was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/media:
+    get:
+      tags: [Developer]
+      summary: List media assets for a managed title
+      operationId: listTitleMediaAssets
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      responses:
+        "200":
+          description: Title media assets returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleMediaAssetListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/media/{mediaRole}:
+    put:
+      tags: [Developer]
+      summary: Create or update a managed title media asset by role
+      operationId: upsertTitleMediaAsset
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/MediaRole"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpsertTitleMediaAssetRequest"
+      responses:
+        "200":
+          description: Title media asset updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleMediaAssetResponse"
+        "400":
+          description: Title media request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    delete:
+      tags: [Developer]
+      summary: Remove a managed title media asset by role
+      operationId: deleteTitleMediaAsset
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/MediaRole"
+      responses:
+        "204":
+          description: Title media asset deleted successfully.
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title or media asset was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/media/{mediaRole}/upload:
+    post:
+      tags: [Developer]
+      summary: Upload a managed title media asset by role
+      operationId: uploadTitleMediaAsset
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/MediaRole"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [media]
+              properties:
+                media:
+                  type: string
+                  format: binary
+                altText:
+                  type: string
+      responses:
+        "200":
+          description: Title media uploaded successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleMediaAssetResponse"
+        "400":
+          description: Title media upload request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/reports:
+    get:
+      tags: [Developer]
+      summary: List report threads for a managed title
+      operationId: listDeveloperTitleReports
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      responses:
+        "200":
+          description: Title report summaries returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/reports/{reportId}:
+    get:
+      tags: [Developer]
+      summary: Get report thread detail for a managed title
+      operationId: getDeveloperTitleReport
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/ReportId"
+      responses:
+        "200":
+          description: Title report detail returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportDetailResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title or report was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/reports/{reportId}/messages:
+    post:
+      tags: [Developer]
+      summary: Add a developer message to a title report thread
+      operationId: addDeveloperTitleReportMessage
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/ReportId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddTitleReportMessageRequest"
+      responses:
+        "200":
+          description: Title report thread updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportDetailResponse"
+        "400":
+          description: Title report message request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title or report was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/releases:
+    get:
+      tags: [Developer]
+      summary: List releases for a managed title
+      operationId: listTitleReleases
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      responses:
+        "200":
+          description: Title releases returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReleaseListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    post:
+      tags: [Developer]
+      summary: Create a release for a managed title
+      operationId: createTitleRelease
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpsertTitleReleaseRequest"
+      responses:
+        "201":
+          description: Title release created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReleaseResponse"
+        "400":
+          description: Title release request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/releases/{releaseId}:
+    put:
+      tags: [Developer]
+      summary: Update a release for a managed title
+      operationId: updateTitleRelease
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/ReleaseId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpsertTitleReleaseRequest"
+      responses:
+        "200":
+          description: Title release updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReleaseResponse"
+        "400":
+          description: Title release request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title or release was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/releases/{releaseId}/publish:
+    post:
+      tags: [Developer]
+      summary: Publish a release for a managed title
+      operationId: publishTitleRelease
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/ReleaseId"
+      responses:
+        "200":
+          description: Title release published successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReleaseResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title or release was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/releases/{releaseId}/activate:
+    post:
+      tags: [Developer]
+      summary: Activate a published release for a managed title
+      operationId: activateTitleRelease
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/ReleaseId"
+      responses:
+        "200":
+          description: Title release activated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeveloperTitleResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title or release was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /developer/titles/{titleId}/releases/{releaseId}/withdraw:
+    post:
+      tags: [Developer]
+      summary: Withdraw a published release for a managed title
+      operationId: withdrawTitleRelease
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/TitleId"
+        - $ref: "#/components/parameters/ReleaseId"
+      responses:
+        "200":
+          description: Title release withdrawn successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReleaseResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have title access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title or release was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
   /moderation/developers:
     get:
       tags: [Moderation]
@@ -812,6 +1972,192 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Problem"
+  /moderation/title-reports:
+    get:
+      tags: [Moderation]
+      summary: List title reports for moderator review
+      operationId: listModerationTitleReports
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Moderation title reports returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportListResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /moderation/title-reports/{reportId}:
+    get:
+      tags: [Moderation]
+      summary: Get title report detail for moderator review
+      operationId: getModerationTitleReport
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ReportId"
+      responses:
+        "200":
+          description: Moderation title report detail returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportDetailResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title report was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /moderation/title-reports/{reportId}/messages:
+    post:
+      tags: [Moderation]
+      summary: Add a moderator message to a title report thread
+      operationId: addModerationTitleReportMessage
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ReportId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddModerationTitleReportMessageRequest"
+      responses:
+        "200":
+          description: Moderation title report thread updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportDetailResponse"
+        "400":
+          description: Title report message request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title report was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /moderation/title-reports/{reportId}/validate:
+    post:
+      tags: [Moderation]
+      summary: Mark a title report as validated
+      operationId: validateModerationTitleReport
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ReportId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModerateTitleReportDecisionRequest"
+      responses:
+        "200":
+          description: Title report validated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportDetailResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title report was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /moderation/title-reports/{reportId}/invalidate:
+    post:
+      tags: [Moderation]
+      summary: Mark a title report as invalidated
+      operationId: invalidateModerationTitleReport
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/ReportId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModerateTitleReportDecisionRequest"
+      responses:
+        "200":
+          description: Title report invalidated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TitleReportDetailResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "403":
+          description: Current user does not have moderation access.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Title report was not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
 components:
   securitySchemes:
     bearerAuth:
@@ -867,6 +2213,48 @@ components:
       required: true
       schema:
         type: string
+    TitleId:
+      name: titleId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    RevisionNumber:
+      name: revisionNumber
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+    MediaRole:
+      name: mediaRole
+      in: path
+      required: true
+      schema:
+        type: string
+        enum: [card, hero, logo]
+    ReleaseId:
+      name: releaseId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    ReportId:
+      name: reportId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    NotificationId:
+      name: notificationId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
   schemas:
     ApiMetadata:
       type: object
@@ -888,7 +2276,8 @@ components:
           type: string
     ReadinessResponse:
       type: object
-      required: [status, environment, stackStatus, supabaseUrlConfigured, mediaBucket]
+      required:
+        [status, environment, stackStatus, supabaseUrlConfigured, mediaBucket]
       properties:
         status:
           type: string
@@ -976,6 +2365,46 @@ components:
       properties:
         profile:
           $ref: "#/components/schemas/UserProfile"
+    UserNotification:
+      type: object
+      required: [id, category, title, body, isRead, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        category:
+          type: string
+        title:
+          type: string
+        body:
+          type: string
+        actionUrl:
+          type: [string, "null"]
+        isRead:
+          type: boolean
+        readAt:
+          type: [string, "null"]
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    UserNotificationListResponse:
+      type: object
+      required: [notifications]
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserNotification"
+    UserNotificationResponse:
+      type: object
+      required: [notification]
+      properties:
+        notification:
+          $ref: "#/components/schemas/UserNotification"
     UpdateUserProfileRequest:
       type: object
       properties:
@@ -983,7 +2412,14 @@ components:
           type: [string, "null"]
     DeveloperEnrollment:
       type: object
-      required: [status, actionRequiredBy, developerAccessEnabled, verifiedDeveloper, canSubmitRequest]
+      required:
+        [
+          status,
+          actionRequiredBy,
+          developerAccessEnabled,
+          verifiedDeveloper,
+          canSubmitRequest,
+        ]
       properties:
         status:
           type: string
@@ -1001,6 +2437,261 @@ components:
       properties:
         developerEnrollment:
           $ref: "#/components/schemas/DeveloperEnrollment"
+    BoardProfile:
+      type: object
+      required: [boardUserId, displayName, linkedAt, lastSyncedAt]
+      properties:
+        boardUserId:
+          type: string
+        displayName:
+          type: string
+        avatarUrl:
+          type: [string, "null"]
+          format: uri
+        linkedAt:
+          type: string
+          format: date-time
+        lastSyncedAt:
+          type: string
+          format: date-time
+    BoardProfileResponse:
+      type: object
+      required: [boardProfile]
+      properties:
+        boardProfile:
+          $ref: "#/components/schemas/BoardProfile"
+    PlayerTitleListResponse:
+      type: object
+      required: [titles]
+      properties:
+        titles:
+          type: array
+          items:
+            $ref: "#/components/schemas/CatalogTitleSummary"
+    PlayerCollectionMutationResponse:
+      type: object
+      required: [titleId, included, alreadyInRequestedState]
+      properties:
+        titleId:
+          type: string
+          format: uuid
+        included:
+          type: boolean
+        alreadyInRequestedState:
+          type: boolean
+    CreatePlayerTitleReportRequest:
+      type: object
+      required: [titleId, reason]
+      properties:
+        titleId:
+          type: string
+          format: uuid
+        reason:
+          type: string
+    PlayerTitleReportSummary:
+      type: object
+      required:
+        [
+          id,
+          titleId,
+          studioSlug,
+          titleSlug,
+          titleDisplayName,
+          status,
+          reason,
+          createdAt,
+          updatedAt,
+        ]
+      properties:
+        id:
+          type: string
+          format: uuid
+        titleId:
+          type: string
+          format: uuid
+        studioSlug:
+          type: string
+        titleSlug:
+          type: string
+        titleDisplayName:
+          type: string
+        status:
+          type: string
+        reason:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PlayerTitleReportListResponse:
+      type: object
+      required: [reports]
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlayerTitleReportSummary"
+    PlayerTitleReportResponse:
+      type: object
+      required: [report]
+      properties:
+        report:
+          $ref: "#/components/schemas/PlayerTitleReportSummary"
+    TitleReportActor:
+      type: object
+      required: [subject]
+      properties:
+        subject:
+          type: string
+        userName:
+          type: [string, "null"]
+        displayName:
+          type: [string, "null"]
+        email:
+          type: [string, "null"]
+    TitleReportMessage:
+      type: object
+      required: [id, authorSubject, authorRole, audience, message, createdAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        authorSubject:
+          type: string
+        authorUserName:
+          type: [string, "null"]
+        authorDisplayName:
+          type: [string, "null"]
+        authorEmail:
+          type: [string, "null"]
+        authorRole:
+          type: string
+        audience:
+          type: string
+        message:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    TitleReportSummary:
+      type: object
+      required:
+        - id
+        - titleId
+        - studioId
+        - studioSlug
+        - studioDisplayName
+        - titleSlug
+        - titleDisplayName
+        - titleShortDescription
+        - genreDisplay
+        - currentMetadataRevision
+        - reporterSubject
+        - status
+        - reason
+        - createdAt
+        - updatedAt
+        - messageCount
+      properties:
+        id:
+          type: string
+          format: uuid
+        titleId:
+          type: string
+          format: uuid
+        studioId:
+          type: string
+          format: uuid
+        studioSlug:
+          type: string
+        studioDisplayName:
+          type: string
+        titleSlug:
+          type: string
+        titleDisplayName:
+          type: string
+        titleShortDescription:
+          type: string
+        genreDisplay:
+          type: string
+        currentMetadataRevision:
+          type: integer
+        reporterSubject:
+          type: string
+        reporterUserName:
+          type: [string, "null"]
+        reporterDisplayName:
+          type: [string, "null"]
+        reporterEmail:
+          type: [string, "null"]
+        status:
+          type: string
+        reason:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        resolvedAt:
+          type: [string, "null"]
+          format: date-time
+        messageCount:
+          type: integer
+    TitleReportDetail:
+      type: object
+      required: [report, messages]
+      properties:
+        report:
+          $ref: "#/components/schemas/TitleReportSummary"
+        resolutionNote:
+          type: [string, "null"]
+        resolvedBy:
+          anyOf:
+            - $ref: "#/components/schemas/TitleReportActor"
+            - type: "null"
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/TitleReportMessage"
+    TitleReportListResponse:
+      type: object
+      required: [reports]
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: "#/components/schemas/TitleReportSummary"
+    TitleReportDetailResponse:
+      type: object
+      required: [report]
+      properties:
+        report:
+          $ref: "#/components/schemas/TitleReportDetail"
+    AddTitleReportMessageRequest:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+    AddModerationTitleReportMessageRequest:
+      type: object
+      required: [message, recipientRole]
+      properties:
+        message:
+          type: string
+        recipientRole:
+          type: string
+          enum: [player, developer]
+    ModerateTitleReportDecisionRequest:
+      type: object
+      required: [note]
+      properties:
+        note:
+          type: [string, "null"]
     StudioLink:
       type: object
       required: [id, label, url, createdAt, updatedAt]
@@ -1105,6 +2796,79 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DeveloperStudioSummary"
+    DeveloperTitleListResponse:
+      type: object
+      required: [titles]
+      properties:
+        titles:
+          type: array
+          items:
+            $ref: "#/components/schemas/CatalogTitleSummary"
+    UpsertTitleMetadataRequest:
+      type: object
+      required:
+        [
+          displayName,
+          shortDescription,
+          description,
+          genreDisplay,
+          minPlayers,
+          maxPlayers,
+          ageRatingAuthority,
+          ageRatingValue,
+          minAgeYears,
+        ]
+      properties:
+        displayName:
+          type: string
+        shortDescription:
+          type: string
+        description:
+          type: string
+        genreDisplay:
+          type: string
+        minPlayers:
+          type: integer
+        maxPlayers:
+          type: integer
+        ageRatingAuthority:
+          type: string
+        ageRatingValue:
+          type: string
+        minAgeYears:
+          type: integer
+    CreateDeveloperTitleRequest:
+      type: object
+      required: [slug, contentKind, lifecycleStatus, visibility, metadata]
+      properties:
+        slug:
+          type: string
+        contentKind:
+          type: string
+          enum: [game, app]
+        lifecycleStatus:
+          type: string
+          enum: [draft, testing, published, archived]
+        visibility:
+          type: string
+          enum: [private, unlisted, listed]
+        metadata:
+          $ref: "#/components/schemas/UpsertTitleMetadataRequest"
+    UpdateDeveloperTitleRequest:
+      type: object
+      required: [slug, contentKind, lifecycleStatus, visibility]
+      properties:
+        slug:
+          type: string
+        contentKind:
+          type: string
+          enum: [game, app]
+        lifecycleStatus:
+          type: string
+          enum: [draft, testing, published, archived]
+        visibility:
+          type: string
+          enum: [private, unlisted, listed]
     CatalogTitleSummary:
       type: object
       required:
@@ -1224,6 +2988,35 @@ components:
         updatedAt:
           type: string
           format: date-time
+    TitleMediaAssetListResponse:
+      type: object
+      required: [mediaAssets]
+      properties:
+        mediaAssets:
+          type: array
+          items:
+            $ref: "#/components/schemas/TitleMediaAsset"
+    TitleMediaAssetResponse:
+      type: object
+      required: [mediaAsset]
+      properties:
+        mediaAsset:
+          $ref: "#/components/schemas/TitleMediaAsset"
+    UpsertTitleMediaAssetRequest:
+      type: object
+      required: [sourceUrl]
+      properties:
+        sourceUrl:
+          type: string
+          format: uri
+        altText:
+          type: [string, "null"]
+        mimeType:
+          type: [string, "null"]
+        width:
+          type: [integer, "null"]
+        height:
+          type: [integer, "null"]
     CurrentTitleRelease:
       type: object
       required: [id, version, metadataRevisionNumber, publishedAt]
@@ -1237,20 +3030,231 @@ components:
         publishedAt:
           type: string
           format: date-time
+    DeveloperTitle:
+      type: object
+      required:
+        - id
+        - studioId
+        - studioSlug
+        - slug
+        - contentKind
+        - lifecycleStatus
+        - visibility
+        - currentMetadataRevision
+        - displayName
+        - shortDescription
+        - genreDisplay
+        - minPlayers
+        - maxPlayers
+        - playerCountDisplay
+        - ageRatingAuthority
+        - ageRatingValue
+        - minAgeYears
+        - ageDisplay
+        - mediaAssets
+        - currentReleaseId
+      properties:
+        id:
+          type: string
+          format: uuid
+        studioId:
+          type: string
+          format: uuid
+        studioSlug:
+          type: string
+        slug:
+          type: string
+        contentKind:
+          type: string
+          enum: [game, app]
+        lifecycleStatus:
+          type: string
+          enum: [draft, testing, published, archived]
+        visibility:
+          type: string
+          enum: [private, unlisted, listed]
+        currentMetadataRevision:
+          type: integer
+        displayName:
+          type: string
+        shortDescription:
+          type: string
+        description:
+          type: [string, "null"]
+        genreDisplay:
+          type: string
+        minPlayers:
+          type: integer
+        maxPlayers:
+          type: integer
+        playerCountDisplay:
+          type: string
+        ageRatingAuthority:
+          type: string
+        ageRatingValue:
+          type: string
+        minAgeYears:
+          type: integer
+        ageDisplay:
+          type: string
+        cardImageUrl:
+          type: [string, "null"]
+          format: uri
+        acquisitionUrl:
+          type: [string, "null"]
+          format: uri
+        mediaAssets:
+          type: array
+          items:
+            $ref: "#/components/schemas/TitleMediaAsset"
+        currentRelease:
+          anyOf:
+            - $ref: "#/components/schemas/CurrentTitleRelease"
+            - type: "null"
+        acquisition:
+          anyOf:
+            - $ref: "#/components/schemas/PublicTitleAcquisition"
+            - type: "null"
+        currentReleaseId:
+          type: [string, "null"]
+          format: uuid
+        createdAt:
+          type: [string, "null"]
+          format: date-time
+        updatedAt:
+          type: [string, "null"]
+          format: date-time
+    DeveloperTitleResponse:
+      type: object
+      required: [title]
+      properties:
+        title:
+          $ref: "#/components/schemas/DeveloperTitle"
+    TitleMetadataVersion:
+      type: object
+      required:
+        [
+          revisionNumber,
+          isCurrent,
+          isFrozen,
+          displayName,
+          shortDescription,
+          description,
+          genreDisplay,
+          minPlayers,
+          maxPlayers,
+          playerCountDisplay,
+          ageRatingAuthority,
+          ageRatingValue,
+          minAgeYears,
+          ageDisplay,
+          createdAt,
+          updatedAt,
+        ]
+      properties:
+        revisionNumber:
+          type: integer
+        isCurrent:
+          type: boolean
+        isFrozen:
+          type: boolean
+        displayName:
+          type: string
+        shortDescription:
+          type: string
+        description:
+          type: string
+        genreDisplay:
+          type: string
+        minPlayers:
+          type: integer
+        maxPlayers:
+          type: integer
+        playerCountDisplay:
+          type: string
+        ageRatingAuthority:
+          type: string
+        ageRatingValue:
+          type: string
+        minAgeYears:
+          type: integer
+        ageDisplay:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    TitleMetadataVersionListResponse:
+      type: object
+      required: [metadataVersions]
+      properties:
+        metadataVersions:
+          type: array
+          items:
+            $ref: "#/components/schemas/TitleMetadataVersion"
     PublicTitleAcquisition:
       type: object
-      required: [url, providerDisplayName]
+      required: [url]
       properties:
         url:
           type: string
           format: uri
-        label:
-          type: [string, "null"]
-        providerDisplayName:
+    UpsertTitleReleaseRequest:
+      type: object
+      required: [version, metadataRevisionNumber]
+      properties:
+        version:
           type: string
-        providerHomepageUrl:
+        metadataRevisionNumber:
+          type: integer
+        acquisitionUrl:
           type: [string, "null"]
           format: uri
+    TitleRelease:
+      type: object
+      required:
+        [id, version, status, metadataRevisionNumber, acquisitionUrl, isCurrent, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        version:
+          type: string
+        status:
+          type: string
+          enum: [draft, published, withdrawn]
+        metadataRevisionNumber:
+          type: integer
+        acquisitionUrl:
+          type: [string, "null"]
+          format: uri
+        isCurrent:
+          type: boolean
+        publishedAt:
+          type: [string, "null"]
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    TitleReleaseListResponse:
+      type: object
+      required: [releases]
+      properties:
+        releases:
+          type: array
+          items:
+            $ref: "#/components/schemas/TitleRelease"
+    TitleReleaseResponse:
+      type: object
+      required: [release]
+      properties:
+        release:
+          $ref: "#/components/schemas/TitleRelease"
     CatalogTitle:
       allOf:
         - $ref: "#/components/schemas/CatalogTitleSummary"

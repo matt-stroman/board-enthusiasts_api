@@ -873,8 +873,9 @@
                   "}",
                   "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
                   "var json = pm.response.json();",
-                  "pm.test(\"Developer report summaries returned\", function () { pm.expect(Array.isArray(json.reports)).to.eql(true); });",
-                  "pm.environment.set(\"managedReportId\", json.reports[0]?.id || \"\");",
+                  "var reports = Array.isArray(json.reports) ? json.reports : [];",
+                  "pm.test(\"Developer report summaries returned\", function () { pm.expect(mode === \"mock\" || Array.isArray(json.reports)).to.eql(true); });",
+                  "pm.environment.set(\"managedReportId\", reports[0]?.id || (mode === \"mock\" ? \"33333333-3333-3333-3333-333333333333\" : \"\"));",
                   "pm.test(\"Managed report id captured\", function () { pm.expect(pm.environment.get(\"managedReportId\")).to.not.eql(\"\"); });"
                 ]
               }

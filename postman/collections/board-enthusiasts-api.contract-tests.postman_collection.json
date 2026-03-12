@@ -1107,7 +1107,7 @@
               "body": "{\"releases\":[{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"status\":\"published\",\"metadataRevisionNumber\":3,\"isCurrent\":true,\"publishedAt\":\"2026-03-08T00:00:00.000Z\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}"
             }
           ]
-        },
+        }
       ]
     },
     {

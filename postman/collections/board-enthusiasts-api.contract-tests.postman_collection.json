@@ -183,7 +183,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\"status\":\"ready\",\"environment\":\"mock\",\"stackStatus\":\"configured\",\"supabaseUrlConfigured\":true,\"mediaBucket\":\"catalog-media\"}"
+              "body": "{\"status\":\"ready\",\"environment\":\"mock\",\"stackStatus\":\"configured\",\"supabaseUrlConfigured\":true,\"mediaBucket\":\"card-images\"}"
             },
             {
               "name": "supabase-unavailable",

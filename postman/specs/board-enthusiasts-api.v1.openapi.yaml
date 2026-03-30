@@ -69,6 +69,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Problem"
+  /genres:
+    get:
+      tags: [Catalog]
+      security: []
+      summary: List supported catalog genres
+      operationId: listGenres
+      responses:
+        "200":
+          description: Catalog genres returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenreListResponse"
+  /age-rating-authorities:
+    get:
+      tags: [Catalog]
+      security: []
+      summary: List supported age rating authorities
+      operationId: listAgeRatingAuthorities
+      responses:
+        "200":
+          description: Age rating authorities returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgeRatingAuthorityListResponse"
   /catalog:
     get:
       tags: [Catalog]
@@ -82,7 +108,11 @@ paths:
           in: query
           required: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
         - name: contentKind
           in: query
           required: false
@@ -93,13 +123,34 @@ paths:
           in: query
           required: false
           schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+        - name: search
+          in: query
+          required: false
+          schema:
             type: string
+        - name: minPlayers
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: maxPlayers
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
         - name: sort
           in: query
           required: false
           schema:
             type: string
-            enum: [title, genre]
+            enum: [title-asc, title-desc, studio-asc, studio-desc, genre-asc, players-asc, players-desc, age-asc, age-desc]
       responses:
         "200":
           description: Public catalog titles returned successfully.
@@ -206,6 +257,31 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Problem"
+  /identity/user-name-availability:
+    get:
+      tags: [Identity]
+      security: []
+      summary: Check whether a public username is available
+      operationId: getUserNameAvailability
+      parameters:
+        - name: userName
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Username availability returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserNameAvailabilityResponse"
+        "400":
+          description: Username availability request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
   /identity/me:
     get:
       tags: [Identity]
@@ -330,6 +406,58 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BoardProfileResponse"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: Current user has no linked Board profile.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    put:
+      tags: [Identity]
+      summary: Create or update the current user's linked Board profile
+      operationId: upsertBoardProfile
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpsertBoardProfileRequest"
+      responses:
+        "200":
+          description: Linked Board profile updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BoardProfileResponse"
+        "400":
+          description: Board profile request was invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ValidationProblem"
+        "401":
+          description: Bearer token was missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+    delete:
+      tags: [Identity]
+      summary: Delete the current user's linked Board profile
+      operationId: deleteBoardProfile
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          description: Linked Board profile deleted successfully.
         "401":
           description: Bearer token was missing or invalid.
           content:
@@ -1785,45 +1913,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Problem"
-  /developer/titles/{titleId}/releases/{releaseId}/publish:
-    post:
-      tags: [Developer]
-      summary: Publish a release for a managed title
-      operationId: publishTitleRelease
-      security:
-        - bearerAuth: []
-      parameters:
-        - $ref: "#/components/parameters/TitleId"
-        - $ref: "#/components/parameters/ReleaseId"
-      responses:
-        "200":
-          description: Title release published successfully.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TitleReleaseResponse"
-        "401":
-          description: Bearer token was missing or invalid.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Problem"
-        "403":
-          description: Current user does not have title access.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Problem"
-        "404":
-          description: Title or release was not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Problem"
   /developer/titles/{titleId}/releases/{releaseId}/activate:
     post:
       tags: [Developer]
-      summary: Activate a published release for a managed title
+      summary: Activate a release for a managed title
       operationId: activateTitleRelease
       security:
         - bearerAuth: []
@@ -1837,41 +1930,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/DeveloperTitleResponse"
-        "401":
-          description: Bearer token was missing or invalid.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Problem"
-        "403":
-          description: Current user does not have title access.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Problem"
-        "404":
-          description: Title or release was not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Problem"
-  /developer/titles/{titleId}/releases/{releaseId}/withdraw:
-    post:
-      tags: [Developer]
-      summary: Withdraw a published release for a managed title
-      operationId: withdrawTitleRelease
-      security:
-        - bearerAuth: []
-      parameters:
-        - $ref: "#/components/parameters/TitleId"
-        - $ref: "#/components/parameters/ReleaseId"
-      responses:
-        "200":
-          description: Title release withdrawn successfully.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TitleReleaseResponse"
         "401":
           description: Bearer token was missing or invalid.
           content:
@@ -2392,7 +2450,7 @@ components:
         displayName:
           type: [string, "null"]
         userName:
-          type: string
+          type: [string, "null"]
         firstName:
           type: [string, "null"]
         lastName:
@@ -2461,6 +2519,31 @@ components:
       properties:
         displayName:
           type: [string, "null"]
+        firstName:
+          type: [string, "null"]
+        lastName:
+          type: [string, "null"]
+        avatarUrl:
+          type: [string, "null"]
+          format: uri
+        avatarDataUrl:
+          type: [string, "null"]
+    UserNameAvailability:
+      type: object
+      required: [requestedUserName, normalizedUserName, available]
+      properties:
+        requestedUserName:
+          type: string
+        normalizedUserName:
+          type: string
+        available:
+          type: boolean
+    UserNameAvailabilityResponse:
+      type: object
+      required: [userNameAvailability]
+      properties:
+        userNameAvailability:
+          $ref: "#/components/schemas/UserNameAvailability"
     DeveloperEnrollment:
       type: object
       required:
@@ -2511,6 +2594,20 @@ components:
       properties:
         boardProfile:
           $ref: "#/components/schemas/BoardProfile"
+    UpsertBoardProfileRequest:
+      type: object
+      required: [boardUserId]
+      properties:
+        boardUserId:
+          type: string
+        displayName:
+          type: [string, "null"]
+        avatarUrl:
+          type: [string, "null"]
+          format: uri
+        lastSyncedAt:
+          type: [string, "null"]
+          format: date-time
     PlayerTitleListResponse:
       type: object
       required: [titles]
@@ -2860,6 +2957,38 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/CatalogTitleSummary"
+    GenreDefinition:
+      type: object
+      required: [slug, displayName]
+      properties:
+        slug:
+          type: string
+        displayName:
+          type: string
+    GenreListResponse:
+      type: object
+      required: [genres]
+      properties:
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/GenreDefinition"
+    AgeRatingAuthorityDefinition:
+      type: object
+      required: [code, displayName]
+      properties:
+        code:
+          type: string
+        displayName:
+          type: string
+    AgeRatingAuthorityListResponse:
+      type: object
+      required: [ageRatingAuthorities]
+      properties:
+        ageRatingAuthorities:
+          type: array
+          items:
+            $ref: "#/components/schemas/AgeRatingAuthorityDefinition"
     UpsertTitleMetadataRequest:
       type: object
       required:
@@ -2867,7 +2996,7 @@ components:
           displayName,
           shortDescription,
           description,
-          genreDisplay,
+          genreSlugs,
           minPlayers,
           maxPlayers,
           ageRatingAuthority,
@@ -2881,8 +3010,10 @@ components:
           type: string
         description:
           type: string
-        genreDisplay:
-          type: string
+        genreSlugs:
+          type: array
+          items:
+            type: string
         minPlayers:
           type: integer
         maxPlayers:
@@ -3075,14 +3206,12 @@ components:
           type: [integer, "null"]
     CurrentTitleRelease:
       type: object
-      required: [id, version, metadataRevisionNumber, publishedAt]
+      required: [id, version, publishedAt]
       properties:
         id:
           type: string
         version:
           type: string
-        metadataRevisionNumber:
-          type: integer
         publishedAt:
           type: string
           format: date-time
@@ -3259,19 +3388,20 @@ components:
           format: uri
     UpsertTitleReleaseRequest:
       type: object
-      required: [version, metadataRevisionNumber]
+      required: [version, status]
       properties:
         version:
           type: string
-        metadataRevisionNumber:
-          type: integer
+        status:
+          type: string
+          enum: [testing, production]
         acquisitionUrl:
           type: [string, "null"]
           format: uri
     TitleRelease:
       type: object
       required:
-        [id, version, status, metadataRevisionNumber, acquisitionUrl, isCurrent, createdAt, updatedAt]
+        [id, version, status, acquisitionUrl, isCurrent, createdAt, updatedAt]
       properties:
         id:
           type: string
@@ -3280,9 +3410,7 @@ components:
           type: string
         status:
           type: string
-          enum: [draft, published, withdrawn]
-        metadataRevisionNumber:
-          type: integer
+          enum: [testing, production]
         acquisitionUrl:
           type: [string, "null"]
           format: uri

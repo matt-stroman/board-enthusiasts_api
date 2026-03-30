@@ -9,13 +9,13 @@ These tracked API artifacts now describe the maintained Cloudflare Workers + Sup
 Maintained areas:
 
 - API metadata and health probes
-- public catalog browse and public studio/title detail
-- current-user bootstrap and profile
-- developer self-enrollment
-- developer studio CRUD, studio link CRUD, and studio media upload
-- moderation developer search and verified-developer review
+- public browse helpers, catalog browse, and public studio/title detail
+- current-user bootstrap, profile, notifications, Board profile, and developer enrollment
+- player library, wishlist, and title-report flows
+- developer studio CRUD, studio link CRUD, studio media upload, title CRUD, metadata, media, releases, and report threads
+- moderation developer verification and title-report review flows
 
-Historical planning notes may remain under [`planning/`](./planning/), but the maintained executable contract lives only under [`postman/`](./postman/).
+Historical planning drafts were removed during MVP cleanup, so the maintained executable contract lives under [`postman/`](./postman/) and the route-wide smoke coverage lives in the root `tests/contract-smoke` harness.
 
 ## Source Of Truth
 
@@ -43,6 +43,12 @@ That flow is intended to:
 - start the local Workers API
 - fetch seeded developer and moderator bearer tokens
 - run the Postman contract collection against `http://127.0.0.1:8787`
+
+Recommended route-wide maintained-surface smoke:
+
+```bash
+python ./scripts/dev.py contract-smoke --start-workers
+```
 
 If you need the raw API-only helper instead of the root CLI:
 

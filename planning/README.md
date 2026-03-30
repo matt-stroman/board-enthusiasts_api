@@ -1,14 +1,7 @@
 # API Planning
 
-This directory contains API planning artifacts and historical context that support
-implementation discussions but are not the current contract source of truth.
+This directory no longer carries active API planning drafts.
 
 Use [`api/postman/specs/`](../postman/specs/) and [`api/README.md`](../README.md) for the maintained API contract and workflow documentation.
 
-Current implemented catalog/title behavior is also summarized in [`backend/docs/title-catalog-schema.md`](../../backend/docs/title-catalog-schema.md), while exact external shapes remain defined by the OpenAPI contract.
-
-Current planning artifacts:
-
-- [`catalog-browse-contract-draft.md`](catalog-browse-contract-draft.md)
-- [`initial-data-schema-plan.md`](initial-data-schema-plan.md)
-- [`player-library-and-wishlist-contract-draft.md`](player-library-and-wishlist-contract-draft.md)
+Obsolete API planning drafts were removed during MVP release cleanup so the maintained OpenAPI, Postman collection, and smoke harnesses remain the clear source of truth. Use Git history if those earlier drafts ever need to be revisited.

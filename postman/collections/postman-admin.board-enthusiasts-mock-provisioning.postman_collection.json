@@ -21,7 +21,7 @@
                   "pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
                   "var payload = pm.response.json();",
                   "var collections = (payload && payload.collections) || [];",
-                  "var contractTestsName = pm.environment.get(\"contractTestsCollectionName\") || \"Board Enthusiasts API (Contract Tests)\";",
+                  "var contractTestsName = pm.environment.get(\"contractTestsCollectionName\") || \"Board Enthusiasts API\";",
                   "var configuredMockSourceName = pm.environment.get(\"mockSourceCollectionName\");",
                   "var targetName = configuredMockSourceName || contractTestsName;",
                   "if (!configuredMockSourceName) { pm.environment.set(\"mockSourceCollectionName\", targetName); }",

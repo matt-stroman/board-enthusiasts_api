@@ -1,0 +1,1750 @@
+{
+  "info": {
+    "name": "Board Enthusiasts API",
+    "description": "Public Board Enthusiasts API documentation for public catalog access plus supported authenticated player and developer workflows.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.staging.boardenthusiasts.com",
+      "type": "string"
+    },
+    {
+      "key": "bearerToken",
+      "value": "replace-with-user-access-token",
+      "type": "string"
+    },
+    {
+      "key": "titleId",
+      "value": "11111111-1111-1111-1111-111111111111",
+      "type": "string"
+    },
+    {
+      "key": "studioId",
+      "value": "aaaa1111-1111-1111-1111-111111111111",
+      "type": "string"
+    },
+    {
+      "key": "releaseId",
+      "value": "66666666-6666-6666-6666-666666666666",
+      "type": "string"
+    },
+    {
+      "key": "revisionNumber",
+      "value": "3",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Catalog",
+      "description": "Public browse routes for games, apps, studios, and supporting catalog metadata.",
+      "item": [
+        {
+          "name": "List supported catalog genres",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/genres",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "genres"
+              ]
+            },
+            "description": "Returns the supported genre definitions used for public catalog filtering."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/genres",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "genres"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"genres\":[{\"slug\":\"cooperative-puzzle\",\"displayName\":\"Cooperative Puzzle\"},{\"slug\":\"adventure\",\"displayName\":\"Adventure\"},{\"slug\":\"strategy\",\"displayName\":\"Strategy\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "List supported age rating authorities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/age-rating-authorities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "age-rating-authorities"
+              ]
+            },
+            "description": "Returns the supported age-rating systems used by the public catalog."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/age-rating-authorities",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "age-rating-authorities"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"ageRatingAuthorities\":[{\"code\":\"ESRB\",\"displayName\":\"Entertainment Software Rating Board\"},{\"code\":\"PEGI\",\"displayName\":\"Pan European Game Information\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "List public catalog titles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/catalog?pageNumber=1&pageSize=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "catalog"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Lists publicly visible games and apps in the Board Enthusiasts catalog."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog?pageNumber=1&pageSize=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "20"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titles\":[{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\"}],\"paging\":{\"pageNumber\":1,\"pageSize\":20,\"totalCount\":1,\"totalPages\":1}}"
+            }
+          ]
+        },
+        {
+          "name": "Get public catalog title detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/catalog/blue-harbor-games/lantern-drift",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "catalog",
+                "blue-harbor-games",
+                "lantern-drift"
+              ]
+            },
+            "description": "Returns the public details for a single catalog title."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/catalog/blue-harbor-games/lantern-drift",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "catalog",
+                    "blue-harbor-games",
+                    "lantern-drift"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"title\":{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"mediaAssets\":[{\"id\":\"8a2f9c4e-74bc-4ab8-9050-0fb550c7b8e1\",\"mediaRole\":\"card\",\"sourceUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"altText\":\"Lantern Drift key art\",\"mimeType\":\"image/png\",\"width\":1280,\"height\":720,\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"currentRelease\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"publishedAt\":\"2026-03-08T00:00:00.000Z\"},\"acquisition\":{\"url\":\"https://store.example/lantern-drift\"},\"currentReleaseId\":\"66666666-6666-6666-6666-666666666666\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "List public studios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/studios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "studios"
+              ]
+            },
+            "description": "Lists studios with public profiles in the Board Enthusiasts catalog."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/studios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "studios"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"studios\":[{\"id\":\"aaaa1111-1111-1111-1111-111111111111\",\"slug\":\"blue-harbor-games\",\"displayName\":\"Blue Harbor Games\",\"description\":\"Independent Board studio building thoughtful co-op and family-friendly releases.\",\"avatarUrl\":\"https://assets.example/studios/blue-harbor-games-avatar.png\",\"logoUrl\":\"https://assets.example/studios/blue-harbor-games-logo.png\",\"bannerUrl\":\"https://assets.example/studios/blue-harbor-games-banner.png\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\",\"links\":[{\"id\":\"bbbb2222-2222-2222-2222-222222222222\",\"label\":\"Store\",\"url\":\"https://store.example/blue-harbor-games\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}]}"
+            }
+          ]
+        },
+        {
+          "name": "Get public studio detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/studios/blue-harbor-games",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "studios",
+                "blue-harbor-games"
+              ]
+            },
+            "description": "Returns the public profile for a single studio."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/studios/blue-harbor-games",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "studios",
+                    "blue-harbor-games"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"studio\":{\"id\":\"aaaa1111-1111-1111-1111-111111111111\",\"slug\":\"blue-harbor-games\",\"displayName\":\"Blue Harbor Games\",\"description\":\"Independent Board studio building thoughtful co-op and family-friendly releases.\",\"avatarUrl\":\"https://assets.example/studios/blue-harbor-games-avatar.png\",\"logoUrl\":\"https://assets.example/studios/blue-harbor-games-logo.png\",\"bannerUrl\":\"https://assets.example/studios/blue-harbor-games-banner.png\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\",\"links\":[{\"id\":\"bbbb2222-2222-2222-2222-222222222222\",\"label\":\"Store\",\"url\":\"https://store.example/blue-harbor-games\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Player",
+      "description": "Authenticated player routes for reading and managing library and wishlist state.",
+      "item": [
+        {
+          "name": "List player library",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/library",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "library"
+              ]
+            },
+            "description": "Lists the authenticated player's current library titles."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/player/library",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "player",
+                    "library"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titles\":[{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "Add a title to the player library",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/library/titles/{{titleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "library",
+                "titles",
+                "{{titleId}}"
+              ]
+            },
+            "description": "Adds a title to the authenticated player's library."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/player/library/titles/{{titleId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "player",
+                    "library",
+                    "titles",
+                    "{{titleId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titleId\":\"{{titleId}}\",\"included\":true,\"alreadyInRequestedState\":false}"
+            }
+          ]
+        },
+        {
+          "name": "Remove a title from the player library",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/library/titles/{{titleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "library",
+                "titles",
+                "{{titleId}}"
+              ]
+            },
+            "description": "Removes a title from the authenticated player's library."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/player/library/titles/{{titleId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "player",
+                    "library",
+                    "titles",
+                    "{{titleId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titleId\":\"{{titleId}}\",\"included\":false,\"alreadyInRequestedState\":false}"
+            }
+          ]
+        },
+        {
+          "name": "List player wishlist",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/wishlist",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "wishlist"
+              ]
+            },
+            "description": "Lists the authenticated player's wishlist titles."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/player/wishlist",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "player",
+                    "wishlist"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titles\":[{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "Add a title to the player wishlist",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/wishlist/titles/{{titleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "wishlist",
+                "titles",
+                "{{titleId}}"
+              ]
+            },
+            "description": "Adds a title to the authenticated player's wishlist."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/player/wishlist/titles/{{titleId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "player",
+                    "wishlist",
+                    "titles",
+                    "{{titleId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titleId\":\"{{titleId}}\",\"included\":true,\"alreadyInRequestedState\":false}"
+            }
+          ]
+        },
+        {
+          "name": "Remove a title from the player wishlist",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/player/wishlist/titles/{{titleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "player",
+                "wishlist",
+                "titles",
+                "{{titleId}}"
+              ]
+            },
+            "description": "Removes a title from the authenticated player's wishlist."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/player/wishlist/titles/{{titleId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "player",
+                    "wishlist",
+                    "titles",
+                    "{{titleId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titleId\":\"{{titleId}}\",\"included\":false,\"alreadyInRequestedState\":false}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Developer",
+      "description": "Authenticated developer routes for managing studios, titles, metadata, and releases.",
+      "item": [
+        {
+          "name": "List managed studios",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/studios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "studios"
+              ]
+            },
+            "description": "Lists the studios managed by the authenticated developer."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/studios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "studios"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"studios\":[{\"id\":\"aaaa1111-1111-1111-1111-111111111111\",\"slug\":\"blue-harbor-games\",\"displayName\":\"Blue Harbor Games\",\"description\":\"Independent Board studio building thoughtful co-op and family-friendly releases.\",\"avatarUrl\":\"https://assets.example/studios/blue-harbor-games-avatar.png\",\"logoUrl\":\"https://assets.example/studios/blue-harbor-games-logo.png\",\"bannerUrl\":\"https://assets.example/studios/blue-harbor-games-banner.png\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\",\"links\":[{\"id\":\"bbbb2222-2222-2222-2222-222222222222\",\"label\":\"Store\",\"url\":\"https://store.example/blue-harbor-games\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"role\":\"owner\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "Create a studio for the current developer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/studios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "studios"
+              ]
+            },
+            "description": "Creates a studio owned by the authenticated developer.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slug\": \"blue-harbor-games\",\n  \"displayName\": \"Blue Harbor Games\",\n  \"description\": \"Independent Board studio building thoughtful co-op and family-friendly releases.\",\n  \"avatarUrl\": \"https://assets.example/studios/blue-harbor-games-avatar.png\",\n  \"logoUrl\": \"https://assets.example/studios/blue-harbor-games-logo.png\",\n  \"bannerUrl\": \"https://assets.example/studios/blue-harbor-games-banner.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/studios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "studios"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"blue-harbor-games\",\n  \"displayName\": \"Blue Harbor Games\",\n  \"description\": \"Independent Board studio building thoughtful co-op and family-friendly releases.\",\n  \"avatarUrl\": \"https://assets.example/studios/blue-harbor-games-avatar.png\",\n  \"logoUrl\": \"https://assets.example/studios/blue-harbor-games-logo.png\",\n  \"bannerUrl\": \"https://assets.example/studios/blue-harbor-games-banner.png\"\n}"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"studio\":{\"id\":\"aaaa1111-1111-1111-1111-111111111111\",\"slug\":\"blue-harbor-games\",\"displayName\":\"Blue Harbor Games\",\"description\":\"Independent Board studio building thoughtful co-op and family-friendly releases.\",\"avatarUrl\":\"https://assets.example/studios/blue-harbor-games-avatar.png\",\"logoUrl\":\"https://assets.example/studios/blue-harbor-games-logo.png\",\"bannerUrl\":\"https://assets.example/studios/blue-harbor-games-banner.png\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\",\"links\":[{\"id\":\"bbbb2222-2222-2222-2222-222222222222\",\"label\":\"Store\",\"url\":\"https://store.example/blue-harbor-games\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}}"
+            }
+          ]
+        },
+        {
+          "name": "Update a managed studio",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/studios/{{studioId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "studios",
+                "{{studioId}}"
+              ]
+            },
+            "description": "Updates a managed studio.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slug\": \"blue-harbor-games\",\n  \"displayName\": \"Blue Harbor Games\",\n  \"description\": \"Independent Board studio building thoughtful co-op and family-friendly releases.\",\n  \"avatarUrl\": \"https://assets.example/studios/blue-harbor-games-avatar.png\",\n  \"logoUrl\": \"https://assets.example/studios/blue-harbor-games-logo.png\",\n  \"bannerUrl\": \"https://assets.example/studios/blue-harbor-games-banner.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/studios/{{studioId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "studios",
+                    "{{studioId}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"blue-harbor-games\",\n  \"displayName\": \"Blue Harbor Games\",\n  \"description\": \"Independent Board studio building thoughtful co-op and family-friendly releases.\",\n  \"avatarUrl\": \"https://assets.example/studios/blue-harbor-games-avatar.png\",\n  \"logoUrl\": \"https://assets.example/studios/blue-harbor-games-logo.png\",\n  \"bannerUrl\": \"https://assets.example/studios/blue-harbor-games-banner.png\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"studio\":{\"id\":\"aaaa1111-1111-1111-1111-111111111111\",\"slug\":\"blue-harbor-games\",\"displayName\":\"Blue Harbor Games\",\"description\":\"Independent Board studio building thoughtful co-op and family-friendly releases.\",\"avatarUrl\":\"https://assets.example/studios/blue-harbor-games-avatar.png\",\"logoUrl\":\"https://assets.example/studios/blue-harbor-games-logo.png\",\"bannerUrl\":\"https://assets.example/studios/blue-harbor-games-banner.png\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\",\"links\":[{\"id\":\"bbbb2222-2222-2222-2222-222222222222\",\"label\":\"Store\",\"url\":\"https://store.example/blue-harbor-games\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}}"
+            }
+          ]
+        },
+        {
+          "name": "Delete a managed studio",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/studios/{{studioId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "studios",
+                "{{studioId}}"
+              ]
+            },
+            "description": "Deletes a managed studio."
+          },
+          "response": []
+        },
+        {
+          "name": "List titles for a managed studio",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/studios/{{studioId}}/titles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "studios",
+                "{{studioId}}",
+                "titles"
+              ]
+            },
+            "description": "Lists titles for a managed studio."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/studios/{{studioId}}/titles",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "studios",
+                    "{{studioId}}",
+                    "titles"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"titles\":[{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "Create a title for a managed studio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/studios/{{studioId}}/titles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "studios",
+                "{{studioId}}",
+                "titles"
+              ]
+            },
+            "description": "Creates a title for a managed studio.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slug\": \"lantern-drift\",\n  \"contentKind\": \"game\",\n  \"lifecycleStatus\": \"published\",\n  \"visibility\": \"listed\",\n  \"metadata\": {\n    \"displayName\": \"Lantern Drift\",\n    \"shortDescription\": \"A lantern-lit co-op puzzle game.\",\n    \"description\": \"Work together to route light and solve shifting puzzle rooms.\",\n    \"genreSlugs\": [\n      \"cooperative-puzzle\"\n    ],\n    \"minPlayers\": 1,\n    \"maxPlayers\": 4,\n    \"ageRatingAuthority\": \"ESRB\",\n    \"ageRatingValue\": \"E10+\",\n    \"minAgeYears\": 10\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/studios/{{studioId}}/titles",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "studios",
+                    "{{studioId}}",
+                    "titles"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"lantern-drift\",\n  \"contentKind\": \"game\",\n  \"lifecycleStatus\": \"published\",\n  \"visibility\": \"listed\",\n  \"metadata\": {\n    \"displayName\": \"Lantern Drift\",\n    \"shortDescription\": \"A lantern-lit co-op puzzle game.\",\n    \"description\": \"Work together to route light and solve shifting puzzle rooms.\",\n    \"genreSlugs\": [\n      \"cooperative-puzzle\"\n    ],\n    \"minPlayers\": 1,\n    \"maxPlayers\": 4,\n    \"ageRatingAuthority\": \"ESRB\",\n    \"ageRatingValue\": \"E10+\",\n    \"minAgeYears\": 10\n  }\n}"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"title\":{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"mediaAssets\":[{\"id\":\"8a2f9c4e-74bc-4ab8-9050-0fb550c7b8e1\",\"mediaRole\":\"card\",\"sourceUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"altText\":\"Lantern Drift key art\",\"mimeType\":\"image/png\",\"width\":1280,\"height\":720,\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"currentRelease\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"publishedAt\":\"2026-03-08T00:00:00.000Z\"},\"acquisition\":{\"url\":\"https://store.example/lantern-drift\"},\"currentReleaseId\":\"66666666-6666-6666-6666-666666666666\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "Get a managed title",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{titleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{titleId}}"
+              ]
+            },
+            "description": "Gets the full managed title payload for a developer-owned title."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{titleId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{titleId}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"title\":{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"mediaAssets\":[{\"id\":\"8a2f9c4e-74bc-4ab8-9050-0fb550c7b8e1\",\"mediaRole\":\"card\",\"sourceUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"altText\":\"Lantern Drift key art\",\"mimeType\":\"image/png\",\"width\":1280,\"height\":720,\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"currentRelease\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"publishedAt\":\"2026-03-08T00:00:00.000Z\"},\"acquisition\":{\"url\":\"https://store.example/lantern-drift\"},\"currentReleaseId\":\"66666666-6666-6666-6666-666666666666\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "Update managed title settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{titleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{titleId}}"
+              ]
+            },
+            "description": "Updates the top-level managed title settings.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slug\": \"lantern-drift\",\n  \"contentKind\": \"game\",\n  \"lifecycleStatus\": \"published\",\n  \"visibility\": \"listed\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{titleId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{titleId}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"slug\": \"lantern-drift\",\n  \"contentKind\": \"game\",\n  \"lifecycleStatus\": \"published\",\n  \"visibility\": \"listed\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"title\":{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"mediaAssets\":[{\"id\":\"8a2f9c4e-74bc-4ab8-9050-0fb550c7b8e1\",\"mediaRole\":\"card\",\"sourceUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"altText\":\"Lantern Drift key art\",\"mimeType\":\"image/png\",\"width\":1280,\"height\":720,\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"currentRelease\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"publishedAt\":\"2026-03-08T00:00:00.000Z\"},\"acquisition\":{\"url\":\"https://store.example/lantern-drift\"},\"currentReleaseId\":\"66666666-6666-6666-6666-666666666666\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "Update the current metadata revision for a managed title",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{titleId}}/metadata/current",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{titleId}}",
+                "metadata",
+                "current"
+              ]
+            },
+            "description": "Creates or updates the current metadata revision for a managed title.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"displayName\": \"Lantern Drift\",\n  \"shortDescription\": \"A lantern-lit co-op puzzle game.\",\n  \"description\": \"Work together to route light and solve shifting puzzle rooms.\",\n  \"genreSlugs\": [\n    \"cooperative-puzzle\"\n  ],\n  \"minPlayers\": 1,\n  \"maxPlayers\": 4,\n  \"ageRatingAuthority\": \"ESRB\",\n  \"ageRatingValue\": \"E10+\",\n  \"minAgeYears\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{titleId}}/metadata/current",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{titleId}}",
+                    "metadata",
+                    "current"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"displayName\": \"Lantern Drift\",\n  \"shortDescription\": \"A lantern-lit co-op puzzle game.\",\n  \"description\": \"Work together to route light and solve shifting puzzle rooms.\",\n  \"genreSlugs\": [\n    \"cooperative-puzzle\"\n  ],\n  \"minPlayers\": 1,\n  \"maxPlayers\": 4,\n  \"ageRatingAuthority\": \"ESRB\",\n  \"ageRatingValue\": \"E10+\",\n  \"minAgeYears\": 10\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"title\":{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"mediaAssets\":[{\"id\":\"8a2f9c4e-74bc-4ab8-9050-0fb550c7b8e1\",\"mediaRole\":\"card\",\"sourceUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"altText\":\"Lantern Drift key art\",\"mimeType\":\"image/png\",\"width\":1280,\"height\":720,\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"currentRelease\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"publishedAt\":\"2026-03-08T00:00:00.000Z\"},\"acquisition\":{\"url\":\"https://store.example/lantern-drift\"},\"currentReleaseId\":\"66666666-6666-6666-6666-666666666666\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "List metadata revisions for a managed title",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{titleId}}/metadata-versions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{titleId}}",
+                "metadata-versions"
+              ]
+            },
+            "description": "Lists metadata revisions for a managed title."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{titleId}}/metadata-versions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{titleId}}",
+                    "metadata-versions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"metadataVersions\":[{\"revisionNumber\":3,\"isCurrent\":true,\"isFrozen\":true,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "Activate a metadata revision for a managed title",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{titleId}}/metadata-versions/{{revisionNumber}}/activate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{titleId}}",
+                "metadata-versions",
+                "{{revisionNumber}}",
+                "activate"
+              ]
+            },
+            "description": "Activates a metadata revision for a managed title."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{titleId}}/metadata-versions/{{revisionNumber}}/activate",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{titleId}}",
+                    "metadata-versions",
+                    "{{revisionNumber}}",
+                    "activate"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"title\":{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"mediaAssets\":[{\"id\":\"8a2f9c4e-74bc-4ab8-9050-0fb550c7b8e1\",\"mediaRole\":\"card\",\"sourceUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"altText\":\"Lantern Drift key art\",\"mimeType\":\"image/png\",\"width\":1280,\"height\":720,\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"currentRelease\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"publishedAt\":\"2026-03-08T00:00:00.000Z\"},\"acquisition\":{\"url\":\"https://store.example/lantern-drift\"},\"currentReleaseId\":\"66666666-6666-6666-6666-666666666666\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "List releases for a managed title",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{titleId}}/releases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{titleId}}",
+                "releases"
+              ]
+            },
+            "description": "Lists releases for a managed title."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{titleId}}/releases",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{titleId}}",
+                    "releases"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"releases\":[{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"status\":\"production\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"isCurrent\":true,\"publishedAt\":\"2026-03-08T00:00:00.000Z\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}]}"
+            }
+          ]
+        },
+        {
+          "name": "Create a release for a managed title",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{titleId}}/releases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{titleId}}",
+                "releases"
+              ]
+            },
+            "description": "Creates a release for a managed title.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"1.2.0\",\n  \"status\": \"production\",\n  \"acquisitionUrl\": \"https://store.example/lantern-drift\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{titleId}}/releases",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{titleId}}",
+                    "releases"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"1.2.0\",\n  \"status\": \"production\",\n  \"acquisitionUrl\": \"https://store.example/lantern-drift\"\n}"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"release\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"status\":\"production\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"isCurrent\":true,\"publishedAt\":\"2026-03-08T00:00:00.000Z\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "Update a release for a managed title",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{titleId}}/releases/{{releaseId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{titleId}}",
+                "releases",
+                "{{releaseId}}"
+              ]
+            },
+            "description": "Updates a release for a managed title.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"1.2.0\",\n  \"status\": \"production\",\n  \"acquisitionUrl\": \"https://store.example/lantern-drift\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{titleId}}/releases/{{releaseId}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{titleId}}",
+                    "releases",
+                    "{{releaseId}}"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"1.2.0\",\n  \"status\": \"production\",\n  \"acquisitionUrl\": \"https://store.example/lantern-drift\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"release\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"status\":\"production\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"isCurrent\":true,\"publishedAt\":\"2026-03-08T00:00:00.000Z\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        },
+        {
+          "name": "Activate a release for a managed title",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{bearerToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/developer/titles/{{titleId}}/releases/{{releaseId}}/activate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "developer",
+                "titles",
+                "{{titleId}}",
+                "releases",
+                "{{releaseId}}",
+                "activate"
+              ]
+            },
+            "description": "Activates a release for a managed title."
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{bearerToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/developer/titles/{{titleId}}/releases/{{releaseId}}/activate",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "developer",
+                    "titles",
+                    "{{titleId}}",
+                    "releases",
+                    "{{releaseId}}",
+                    "activate"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"title\":{\"id\":\"11111111-1111-1111-1111-111111111111\",\"studioId\":\"aaaa1111-1111-1111-1111-111111111111\",\"studioSlug\":\"blue-harbor-games\",\"slug\":\"lantern-drift\",\"contentKind\":\"game\",\"lifecycleStatus\":\"published\",\"visibility\":\"listed\",\"isReported\":false,\"currentMetadataRevision\":3,\"displayName\":\"Lantern Drift\",\"shortDescription\":\"A lantern-lit co-op puzzle game.\",\"genreDisplay\":\"Cooperative Puzzle\",\"minPlayers\":1,\"maxPlayers\":4,\"playerCountDisplay\":\"1-4 players\",\"ageRatingAuthority\":\"ESRB\",\"ageRatingValue\":\"E10+\",\"minAgeYears\":10,\"ageDisplay\":\"ESRB E10+\",\"cardImageUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"acquisitionUrl\":\"https://store.example/lantern-drift\",\"description\":\"Work together to route light and solve shifting puzzle rooms.\",\"mediaAssets\":[{\"id\":\"8a2f9c4e-74bc-4ab8-9050-0fb550c7b8e1\",\"mediaRole\":\"card\",\"sourceUrl\":\"https://assets.example/catalog/lantern-drift-card.png\",\"altText\":\"Lantern Drift key art\",\"mimeType\":\"image/png\",\"width\":1280,\"height\":720,\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}],\"currentRelease\":{\"id\":\"66666666-6666-6666-6666-666666666666\",\"version\":\"1.2.0\",\"publishedAt\":\"2026-03-08T00:00:00.000Z\"},\"acquisition\":{\"url\":\"https://store.example/lantern-drift\"},\"currentReleaseId\":\"66666666-6666-6666-6666-666666666666\",\"createdAt\":\"2026-03-08T00:00:00.000Z\",\"updatedAt\":\"2026-03-08T00:00:00.000Z\"}}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -21,6 +21,7 @@ Historical planning drafts were removed during MVP cleanup, so the maintained ex
 
 - OpenAPI spec: [`postman/specs/board-enthusiasts-api.v1.openapi.yaml`](./postman/specs/board-enthusiasts-api.v1.openapi.yaml)
 - Contract collection: [`postman/collections/board-enthusiasts-api.contract-tests.postman_collection.json`](./postman/collections/board-enthusiasts-api.contract-tests.postman_collection.json)
+- Public docs collection: [`postman/collections/board-enthusiasts-api.public-docs.postman_collection.json`](./postman/collections/board-enthusiasts-api.public-docs.postman_collection.json)
 - Mock admin collection: [`postman/collections/postman-admin.board-enthusiasts-mock-provisioning.postman_collection.json`](./postman/collections/postman-admin.board-enthusiasts-mock-provisioning.postman_collection.json)
 - Local environment: [`postman/environments/board-enthusiasts_local.postman_environment.json`](./postman/environments/board-enthusiasts_local.postman_environment.json)
 - Mock environment: [`postman/environments/board-enthusiasts_mock.postman_environment.json`](./postman/environments/board-enthusiasts_mock.postman_environment.json)
@@ -68,6 +69,25 @@ The committed local and mock environments intentionally keep only the maintained
 - readiness expectation variables
 
 The committed environment templates keep only the variables needed by the maintained contract surface.
+
+## Public Documentation Publishing
+
+Use the dedicated public docs collection when publishing BE's public API documentation:
+
+- [`postman/collections/board-enthusiasts-api.public-docs.postman_collection.json`](./postman/collections/board-enthusiasts-api.public-docs.postman_collection.json)
+
+That curated collection is the intended public-facing surface and currently includes:
+
+- public catalog, title, studio, genre, and age-rating browse routes
+- authenticated player library and wishlist read/write routes
+- authenticated developer studio, title, metadata, and release management routes
+
+Do not publish the maintained contract-test collection directly. It intentionally contains:
+
+- broader internal and contract-test-only authenticated workflow routes
+- moderator-only routes
+- mock/test-only helpers
+- contract-test-specific request structure that is not intended as the public consumer-facing documentation surface
 
 ## Mock Workflow
 

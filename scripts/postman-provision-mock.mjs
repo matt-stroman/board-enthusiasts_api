@@ -236,7 +236,7 @@ async function main() {
   const preferredName =
     getEnvValue(adminEnvironment, "mockSourceCollectionName") ||
     getEnvValue(adminEnvironment, "contractTestsCollectionName") ||
-    "Board Enthusiasts API (Contract Tests)";
+    "Board Enthusiasts API";
   const runtimeEnvironmentName =
     getEnvValue(adminEnvironment, "mockRuntimeEnvironmentName") ||
     "Board Enthusiasts - Mock";

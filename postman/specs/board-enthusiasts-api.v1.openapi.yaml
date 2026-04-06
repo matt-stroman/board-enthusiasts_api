@@ -2999,8 +2999,6 @@ components:
           genreSlugs,
           minPlayers,
           maxPlayers,
-          ageRatingAuthority,
-          ageRatingValue,
           minAgeYears,
         ]
       properties:
@@ -3019,14 +3017,14 @@ components:
         maxPlayers:
           type: integer
         ageRatingAuthority:
-          type: string
+          type: [string, "null"]
         ageRatingValue:
-          type: string
+          type: [string, "null"]
         minAgeYears:
           type: integer
     CreateDeveloperTitleRequest:
       type: object
-      required: [slug, contentKind, lifecycleStatus, visibility, metadata]
+      required: [contentKind, metadata]
       properties:
         slug:
           type: string
@@ -3035,15 +3033,15 @@ components:
           enum: [game, app]
         lifecycleStatus:
           type: string
-          enum: [draft, testing, published, archived]
+          enum: [draft, active, archived]
         visibility:
           type: string
-          enum: [private, unlisted, listed]
+          enum: [unlisted, listed]
         metadata:
           $ref: "#/components/schemas/UpsertTitleMetadataRequest"
     UpdateDeveloperTitleRequest:
       type: object
-      required: [slug, contentKind, lifecycleStatus, visibility]
+      required: [contentKind, visibility]
       properties:
         slug:
           type: string
@@ -3052,10 +3050,10 @@ components:
           enum: [game, app]
         lifecycleStatus:
           type: string
-          enum: [draft, testing, published, archived]
+          enum: [draft, active, archived]
         visibility:
           type: string
-          enum: [private, unlisted, listed]
+          enum: [unlisted, listed]
     CatalogTitleSummary:
       type: object
       required:
@@ -3074,8 +3072,6 @@ components:
         - minPlayers
         - maxPlayers
         - playerCountDisplay
-        - ageRatingAuthority
-        - ageRatingValue
         - minAgeYears
         - ageDisplay
       properties:
@@ -3110,13 +3106,13 @@ components:
         playerCountDisplay:
           type: string
         ageRatingAuthority:
-          type: string
+          type: [string, "null"]
         ageRatingValue:
-          type: string
+          type: [string, "null"]
         minAgeYears:
           type: integer
         ageDisplay:
-          type: string
+          type: [string, "null"]
         cardImageUrl:
           type: [string, "null"]
         acquisitionUrl:
@@ -3189,6 +3185,32 @@ components:
       properties:
         mediaAsset:
           $ref: "#/components/schemas/TitleMediaAsset"
+    TitleShowcaseMedia:
+      type: object
+      required: [id, kind, videoUrl, altText, displayOrder, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum: [image, external_video]
+        imageUrl:
+          type: [string, "null"]
+          format: uri
+        videoUrl:
+          type: [string, "null"]
+          format: uri
+        altText:
+          type: [string, "null"]
+        displayOrder:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     UpsertTitleMediaAssetRequest:
       type: object
       required: [sourceUrl]
@@ -3232,11 +3254,10 @@ components:
         - minPlayers
         - maxPlayers
         - playerCountDisplay
-        - ageRatingAuthority
-        - ageRatingValue
         - minAgeYears
         - ageDisplay
         - mediaAssets
+        - showcaseMedia
         - currentReleaseId
       properties:
         id:
@@ -3254,10 +3275,10 @@ components:
           enum: [game, app]
         lifecycleStatus:
           type: string
-          enum: [draft, testing, published, archived]
+          enum: [draft, active, archived]
         visibility:
           type: string
-          enum: [private, unlisted, listed]
+          enum: [unlisted, listed]
         currentMetadataRevision:
           type: integer
         displayName:
@@ -3275,13 +3296,13 @@ components:
         playerCountDisplay:
           type: string
         ageRatingAuthority:
-          type: string
+          type: [string, "null"]
         ageRatingValue:
-          type: string
+          type: [string, "null"]
         minAgeYears:
           type: integer
         ageDisplay:
-          type: string
+          type: [string, "null"]
         cardImageUrl:
           type: [string, "null"]
           format: uri
@@ -3292,6 +3313,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/TitleMediaAsset"
+        showcaseMedia:
+          type: array
+          items:
+            $ref: "#/components/schemas/TitleShowcaseMedia"
         currentRelease:
           anyOf:
             - $ref: "#/components/schemas/CurrentTitleRelease"
@@ -3329,8 +3354,6 @@ components:
           minPlayers,
           maxPlayers,
           playerCountDisplay,
-          ageRatingAuthority,
-          ageRatingValue,
           minAgeYears,
           ageDisplay,
           createdAt,
@@ -3358,13 +3381,13 @@ components:
         playerCountDisplay:
           type: string
         ageRatingAuthority:
-          type: string
+          type: [string, "null"]
         ageRatingValue:
-          type: string
+          type: [string, "null"]
         minAgeYears:
           type: integer
         ageDisplay:
-          type: string
+          type: [string, "null"]
         createdAt:
           type: string
           format: date-time
@@ -3398,10 +3421,13 @@ components:
         acquisitionUrl:
           type: [string, "null"]
           format: uri
+        expiresAt:
+          type: [string, "null"]
+          format: date-time
     TitleRelease:
       type: object
       required:
-        [id, version, status, acquisitionUrl, isCurrent, createdAt, updatedAt]
+        [id, version, status, acquisitionUrl, expiresAt, isCurrent, createdAt, updatedAt]
       properties:
         id:
           type: string
@@ -3414,6 +3440,9 @@ components:
         acquisitionUrl:
           type: [string, "null"]
           format: uri
+        expiresAt:
+          type: [string, "null"]
+          format: date-time
         isCurrent:
           type: boolean
         publishedAt:
@@ -3443,7 +3472,7 @@ components:
       allOf:
         - $ref: "#/components/schemas/CatalogTitleSummary"
         - type: object
-          required: [description, mediaAssets, createdAt, updatedAt]
+          required: [description, mediaAssets, showcaseMedia, createdAt, updatedAt]
           properties:
             description:
               type: string
@@ -3451,6 +3480,10 @@ components:
               type: array
               items:
                 $ref: "#/components/schemas/TitleMediaAsset"
+            showcaseMedia:
+              type: array
+              items:
+                $ref: "#/components/schemas/TitleShowcaseMedia"
             currentRelease:
               $ref: "#/components/schemas/CurrentTitleRelease"
             acquisition:

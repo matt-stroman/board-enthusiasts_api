@@ -1306,7 +1306,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\"notifications\":[{\"id\":\"f7777777-7777-7777-7777-777777777777\",\"category\":\"title_report\",\"title\":\"Moderator follow-up for your title\",\"body\":\"Alex Rivera sent an update about Compass Echo. Open the developer report thread for the latest moderator note.\",\"actionUrl\":\"/develop?domain=titles&workflow=titles-reports&titleId=managed-title-id&reportId=report-id\",\"isRead\":false,\"readAt\":null,\"createdAt\":\"2026-03-08T10:05:00.000Z\",\"updatedAt\":\"2026-03-08T10:05:00.000Z\"}]}",
+              "body": "{\"notifications\":[{\"id\":\"f7777777-7777-7777-7777-777777777777\",\"category\":\"title_report\",\"title\":\"Moderator follow-up for your title\",\"body\":\"Alex Rivera sent an update about Compass Echo. Open the developer report thread for the latest moderator note.\",\"actionUrl\":\"/developer?domain=titles&workflow=titles-reports&titleId=managed-title-id&reportId=report-id\",\"isRead\":false,\"readAt\":null,\"createdAt\":\"2026-03-08T10:05:00.000Z\",\"updatedAt\":\"2026-03-08T10:05:00.000Z\"}]}",
               "id": "4f126933-576d-4f63-8ff5-b65cafcc0a9e"
             }
           ],
@@ -1405,7 +1405,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\"notification\":{\"id\":\"f7777777-7777-7777-7777-777777777777\",\"category\":\"title_report\",\"title\":\"Moderator follow-up for your title\",\"body\":\"Alex Rivera sent an update about Compass Echo. Open the developer report thread for the latest moderator note.\",\"actionUrl\":\"/develop?domain=titles&workflow=titles-reports&titleId=managed-title-id&reportId=report-id\",\"isRead\":true,\"readAt\":\"2026-03-08T10:06:00.000Z\",\"createdAt\":\"2026-03-08T10:05:00.000Z\",\"updatedAt\":\"2026-03-08T10:06:00.000Z\"}}",
+              "body": "{\"notification\":{\"id\":\"f7777777-7777-7777-7777-777777777777\",\"category\":\"title_report\",\"title\":\"Moderator follow-up for your title\",\"body\":\"Alex Rivera sent an update about Compass Echo. Open the developer report thread for the latest moderator note.\",\"actionUrl\":\"/developer?domain=titles&workflow=titles-reports&titleId=managed-title-id&reportId=report-id\",\"isRead\":true,\"readAt\":\"2026-03-08T10:06:00.000Z\",\"createdAt\":\"2026-03-08T10:05:00.000Z\",\"updatedAt\":\"2026-03-08T10:06:00.000Z\"}}",
               "id": "6fe168a6-4906-45ff-b667-1921de7767e8"
             }
           ],

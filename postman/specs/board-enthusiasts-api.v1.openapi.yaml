@@ -401,7 +401,7 @@ paths:
         - bearerAuth: []
       responses:
         "200":
-          description: Linked Board profile returned successfully.
+          description: Linked Board profile lookup completed successfully.
           content:
             application/json:
               schema:
@@ -2595,7 +2595,9 @@ components:
       required: [boardProfile]
       properties:
         boardProfile:
-          $ref: "#/components/schemas/BoardProfile"
+          oneOf:
+            - $ref: "#/components/schemas/BoardProfile"
+            - type: "null"
     UpsertBoardProfileRequest:
       type: object
       required: [boardUserId]

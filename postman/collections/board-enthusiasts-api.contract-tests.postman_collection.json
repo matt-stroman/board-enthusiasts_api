@@ -1295,7 +1295,10 @@
                   "}",
                   "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
                   "var json = pm.response.json();",
-                  "pm.test(\"Board profile user id returned\", function () { pm.expect(json.boardProfile.boardUserId).to.be.a(\"string\").and.to.not.eql(\"\"); });"
+                  "pm.test(\"Board profile payload is nullable\", function () { pm.expect(json).to.have.property(\"boardProfile\"); pm.expect(json.boardProfile === null || typeof json.boardProfile === \"object\").to.eql(true); });",
+                  "if (json.boardProfile !== null) {",
+                  "  pm.test(\"Board profile user id returned\", function () { pm.expect(json.boardProfile.boardUserId).to.be.a(\"string\").and.to.not.eql(\"\"); });",
+                  "}"
                 ]
               }
             }
@@ -1356,6 +1359,41 @@
               ],
               "body": "{\"boardProfile\":{\"boardUserId\":\"board_emma_torres\",\"displayName\":\"Emma Torres\",\"avatarUrl\":\"https://cdn.board.fun/avatars/board_emma_torres.png\",\"linkedAt\":\"2026-03-08T00:00:00.000Z\",\"lastSyncedAt\":\"2026-03-08T00:00:00.000Z\"}}",
               "id": "03091597-a3ef-49b6-abd1-d36daabffdf2"
+            },
+            {
+              "name": "not-linked",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{developerAccessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/identity/me/board-profile",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "identity",
+                    "me",
+                    "board-profile"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\"boardProfile\":null}",
+              "id": "2cf69e6a-a449-4efb-bafd-a4504f1bf75d"
             }
           ],
           "id": "d7348204-97f3-4835-b364-741d5f7f7cbc"
